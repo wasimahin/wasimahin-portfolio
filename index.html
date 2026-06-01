@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wasi Mahin — Data Analyst & Finance Leader</title>
+  <meta name="description" content="Wasi Mahin — Data Analyst & Finance Leader. Python RPA, Power BI, SQL, Tableau. 2 tools live in production at ASI CSULB. MIS & Accountancy @ CSULB, GPA 3.87." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── RESET & VARS ─────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #0a0a0a;
+      --bg-card:      #111111;
+      --bg-subtle:    #181818;
+      --fg:           #f0ede8;
+      --muted:        #7a7a7a;
+      --accent:       #c8a96e;
+      --accent-dim:   rgba(200,169,110,0.1);
+      --accent-edge:  rgba(200,169,110,0.2);
+      --border:       #1e1e1e;
+      --border-soft:  #161616;
+      --tag-bg:       #141414;
+      --bar:          65px;
+      --sidebar:      210px;
+      --green:        #4caf50;
+    }
+
+    html { scroll-behavior: auto; } /* Lenis takes over */
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ── LOADER ───────────────────────────────────────────────────────────────── */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loader-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .loader-mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      opacity: 0;
+    }
+
+    .loader-line {
+      width: 40px;
+      height: 1px;
+      background: var(--border);
+      overflow: hidden;
+    }
+
+    .loader-fill {
+      width: 0%;
+      height: 100%;
+      background: var(--accent);
+    }
+
+    /* ── PROGRESS ─────────────────────────────────────────────────────────────── */
+    #progress {
+      position: fixed;
+      top: var(--bar);
+      left: 0;
+      height: 1px;
+      width: 0%;
+      background: var(--accent);
+      z-index: 200;
+    }
+
+    /* ── CURSOR ───────────────────────────────────────────────────────────────── */
+    #cur   { position: fixed; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
+    #cur-r { position: fixed; width: 30px; height: 30px; border-radius: 50%; border: 1px solid rgba(200,169,110,0.35); pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .18s, height .18s, border-color .18s; }
+
+    /* ── TOPBAR ───────────────────────────────────────────────────────────────── */
+    #topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--bar);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+    }
+
+    .monogram {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+    }
+
+    .tb-right { display: flex; align-items: center; gap: 24px; }
+
+    .tb-links { display: flex; gap: 20px; }
+
+    .tb-links a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color .2s;
+    }
+    .tb-links a:hover { color: var(--accent); }
+
+    .open-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-edge);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(76,175,80,.45); }
+      50%      { box-shadow: 0 0 0 5px rgba(76,175,80,0); }
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span { display: block; width: 20px; height: 1px; background: var(--muted); transition: all .3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* ── MOBILE NAV ───────────────────────────────────────────────────────────── */
+    #mnav {
+      display: none;
+      position: fixed;
+      top: var(--bar); left: 0; right: 0;
+      background: rgba(10,10,10,0.96);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      z-index: 90;
+      padding: 16px 20px 20px;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    #mnav.open { display: flex; }
+
+    #mnav a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .1em;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 14px;
+      transition: color .2s;
+    }
+    #mnav a:last-child { border-bottom: none; }
+    #mnav a:hover, #mnav a.active { color: var(--accent); }
+
+    /* ── LAYOUT ───────────────────────────────────────────────────────────────── */
+    #layout {
+      display: flex;
+      padding-top: var(--bar);
+    }
+
+    /* ── SIDEBAR ──────────────────────────────────────────────────────────────── */
+    #sidebar {
+      position: fixed;
+      top: var(--bar);
+      left: 0;
+      width: var(--sidebar);
+      height: calc(100vh - var(--bar));
+      padding: 0 0 0 40px;
+      display: flex;
+      align-items: center;
+      z-index: 50;
+      opacity: 0;
+    }
+
+    #sidebar nav ul { display: flex; flex-direction: column; gap: 2px; }
+
+    #sidebar nav a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .1em;
+      color: var(--muted);
+      padding: 5px 0;
+      transition: color .25s;
+      position: relative;
+    }
+
+    #sidebar nav a::before {
+      content: '';
+      position: absolute;
+      left: -12px;
+      top: 50%;
+      transform: translateY(-50%) scaleY(0);
+      width: 2px;
+      height: 12px;
+      background: var(--accent);
+      transition: transform .22s ease;
+      transform-origin: center;
+    }
+
+    #sidebar nav a.active { color: var(--accent); }
+    #sidebar nav a.active::before { transform: translateY(-50%) scaleY(1); }
+    #sidebar nav a:hover { color: var(--fg); }
+
+    .n { font-size: 9px; opacity: 0.4; min-width: 16px; }
+    #sidebar nav a.active .n { opacity: .8; color: var(--accent); }
+
+    /* ── MAIN ─────────────────────────────────────────────────────────────────── */
+    #main {
+      margin-left: var(--sidebar);
+      flex: 1;
+      min-width: 0;
+      padding: 0 60px 0 60px;
+    }
+
+    /* ── HERO ─────────────────────────────────────────────────────────────────── */
+    #hero {
+      min-height: calc(100vh - var(--bar));
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 64px;
+      align-items: center;
+      padding: 80px 0 100px;
+      position: relative;
+    }
+
+    /* Subtle dot grid */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(200,169,110,0.09) 1px, transparent 1px);
+      background-size: 30px 30px;
+      mask-image: radial-gradient(ellipse 60% 90% at 80% 40%, rgba(0,0,0,0.6), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    #hero > * { position: relative; z-index: 1; }
+
+    .hero-live {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .14em;
+      color: var(--green);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      opacity: 0; /* GSAP sets */
+    }
+
+    .hero-live-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 1.8s infinite;
+    }
+
+    .hero-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .14em;
+      margin-bottom: 22px;
+      opacity: 0;
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(76px, 10.5vw, 128px);
+      font-weight: 900;
+      line-height: 0.88;
+      letter-spacing: -0.025em;
+      color: var(--fg);
+      margin-bottom: 32px;
+    }
+
+    .hero-name > span { display: block; }
+
+    .char { display: inline-block; } /* GSAP animates, no CSS animation */
+
+    .hero-tw {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .06em;
+      margin-bottom: 6px;
+      min-height: 20px;
+      display: flex;
+      align-items: center;
+      opacity: 0;
+    }
+
+    .tw-cur {
+      display: inline-block;
+      width: 1px;
+      height: 14px;
+      background: var(--accent);
+      margin-left: 2px;
+      animation: blink .75s step-start infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+    .hero-loc {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .1em;
+      margin-bottom: 36px;
+      opacity: 0.5;
+    }
+
+    .hero-quote {
+      max-width: 480px;
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.85;
+      border-left: 2px solid var(--accent);
+      padding-left: 20px;
+      margin-bottom: 48px;
+      font-style: italic;
+      opacity: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      opacity: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 13px 22px;
+      border-radius: 2px;
+      cursor: none;
+      transition: transform .2s ease, opacity .2s, border-color .2s, color .2s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-gold { background: var(--accent); color: #0a0a0a; }
+    .btn-gold:hover { opacity: .88; }
+
+    .btn-outline { background: transparent; color: var(--fg); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-tz { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .1em; opacity: .45; }
+
+    /* ── HERO PHOTO ───────────────────────────────────────────────────────────── */
+    .hero-photo-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      opacity: 0;
+    }
+
+    /* Decorative orbit rings */
+    .hero-photo-wrap::before,
+    .hero-photo-wrap::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--accent-edge);
+      pointer-events: none;
+    }
+    .hero-photo-wrap::before { inset: -12px; opacity: 0.7; }
+    .hero-photo-wrap::after  { inset: -24px; opacity: 0.3; }
+
+    .hero-photo {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #141414 0%, #1c1c1c 100%);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    /* Inner glow */
+    .hero-photo::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at 30% 25%, rgba(200,169,110,0.07), transparent 60%);
+    }
+
+    .hero-photo .initials {
+      font-family: 'Playfair Display', serif;
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--accent);
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── WHAT I BUILD ─────────────────────────────────────────────────────────── */
+    #what-i-build {
+      padding: 0 0 80px;
+      overflow: hidden;
+    }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .pillar {
+      background: var(--bg-card);
+      padding: 36px 28px;
+      transition: background .25s;
+      opacity: 0; /* GSAP */
+    }
+
+    .pillar:hover { background: var(--bg-subtle); }
+
+    .pillar-icon { font-size: 22px; margin-bottom: 16px; display: block; }
+
+    .pillar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .pillar-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.78;
+      margin-bottom: 20px;
+    }
+
+    .pillar-proof {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: .08em;
+      border-top: 1px solid var(--border);
+      padding-top: 16px;
+      line-height: 1.75;
+    }
+
+    /* ── SECTIONS ─────────────────────────────────────────────────────────────── */
+    .section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .22em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 52px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      overflow: hidden; /* clip-path reveal */
+    }
+
+    .section-label > span { display: block; } /* inner wrap for clip-path */
+
+    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* ── ABOUT ────────────────────────────────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-text p { font-size: 15px; color: var(--muted); line-height: 1.9; }
+    .about-text p + p { margin-top: 18px; }
+    .about-text strong { color: var(--fg); font-weight: 500; }
+
+    .stats-col { display: flex; flex-direction: column; gap: 1px; }
+
+    .stat-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 24px 22px;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: .08em;
+      line-height: 1.65;
+    }
+
+    /* ── TIMELINE ─────────────────────────────────────────────────────────────── */
+    .timeline { position: relative; padding-left: 28px; }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 6px; top: 14px; bottom: 14px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), var(--border) 50%, transparent);
+    }
+
+    .tl-entry { position: relative; margin-bottom: 3px; }
+
+    .tl-entry::before {
+      content: '';
+      position: absolute;
+      left: -24px; top: 22px;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      z-index: 1;
+      transition: border-color .25s, background .25s;
+    }
+
+    .tl-entry.now::before { border-color: var(--accent); background: var(--accent); }
+
+    .tl-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 28px 28px 24px;
+      transition: border-color .25s;
+      position: relative;
+    }
+
+    .tl-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--border);
+      transition: background .25s;
+    }
+
+    .tl-entry.now  .tl-card::before { background: var(--accent); }
+    .tl-card:hover { border-color: var(--accent-edge); }
+    .tl-card:hover::before { background: var(--accent); }
+
+    .tl-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .1em; margin-bottom: 8px; }
+    .tl-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 700; color: var(--fg); margin-bottom: 16px; }
+
+    .tl-bullets { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+
+    .tl-bullets li {
+      font-size: 14px;
+      color: var(--muted);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.7;
+    }
+
+    .tl-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 11px; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tag {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 4px 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: .04em;
+      transition: color .2s, border-color .2s;
+    }
+    .tl-card:hover .tag { border-color: rgba(200,169,110,0.14); }
+
+    /* ── PROJECTS (HORIZONTAL SCROLL) ─────────────────────────────────────────── */
+    #projects {
+      /* overflow kept on parent, track overflows */
+    }
+
+    .proj-viewport {
+      overflow: hidden;
+      width: 100%;
+      cursor: grab;
+    }
+    .proj-viewport:active { cursor: grabbing; }
+
+    .proj-track {
+      display: flex;
+      gap: 16px;
+      width: max-content;
+      padding-bottom: 4px; /* for box-shadow */
+    }
+
+    /* Case study cards — fixed width for horizontal scroll */
+    .case-study {
+      width: 520px;
+      flex-shrink: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 36px 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .case-study::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--border);
+      transition: background .3s;
+    }
+
+    .case-study:hover { border-color: var(--accent-edge); }
+    .case-study:hover::before { background: var(--accent); }
+
+    .cs-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: .2em;
+      opacity: .55;
+      margin-bottom: 8px;
+    }
+
+    .cs-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--fg);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .cs-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .cs-col-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      opacity: .5;
+      margin-bottom: 8px;
+    }
+
+    .cs-col-text { font-size: 13px; color: var(--muted); line-height: 1.8; }
+
+    .cs-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 20px 0;
+    }
+
+    .cs-impact {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 20px;
+      background: rgba(200,169,110,0.04);
+      border: 1px solid rgba(200,169,110,0.15);
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .cs-big-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .cs-big-desc {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: .06em;
+      line-height: 1.65;
+    }
+
+    .cs-live {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--green);
+      letter-spacing: .08em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .cs-live::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 1.8s infinite; }
+
+    .cs-award {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-edge);
+      margin-bottom: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: .05em;
+    }
+
+    .cs-link {
+      margin-top: auto;
+      align-self: flex-start;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: border-color .2s, color .2s;
+    }
+    .cs-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* Horizontal scroll hint */
+    .proj-hint {
+      margin-top: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: .12em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: .5;
+    }
+
+    .proj-hint::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    /* ── SKILLS ───────────────────────────────────────────────────────────────── */
+    .skills-wrap { display: flex; flex-direction: column; gap: 36px; }
+    .sg-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: .2em; text-transform: uppercase; opacity: .45; margin-bottom: 12px; }
+    .sg-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .pill {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: var(--muted);
+      transition: color .2s, border-color .2s, background .2s;
+    }
+    .pill:hover { color: var(--accent); border-color: rgba(200,169,110,0.3); background: rgba(200,169,110,0.04); }
+
+    /* ── EDUCATION ────────────────────────────────────────────────────────────── */
+    .edu-cards { display: flex; flex-direction: column; gap: 3px; }
+
+    .edu-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 32px;
+      position: relative;
+    }
+
+    .edu-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); }
+
+    .edu-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .1em; margin-bottom: 8px; }
+    .edu-degree { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--fg); margin-bottom: 6px; }
+    .edu-gpa { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); margin-bottom: 20px; letter-spacing: .08em; }
+    .edu-course-lbl { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: .2em; text-transform: uppercase; opacity: .45; margin-bottom: 8px; }
+    .edu-courses, .edu-activities { font-size: 13px; color: var(--muted); line-height: 1.85; }
+    .edu-activities { margin-top: 14px; font-style: italic; }
+
+    /* ── CERTS ────────────────────────────────────────────────────────────────── */
+    .cert-list { display: flex; flex-direction: column; }
+
+    .cert-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 24px;
+    }
+    .cert-row:first-child { border-top: 1px solid var(--border); }
+
+    .cert-name { font-size: 15px; color: var(--fg); }
+    .cert-issuer { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .08em; text-align: right; white-space: nowrap; }
+
+    /* ── AWARDS ───────────────────────────────────────────────────────────────── */
+    .awards-list { display: flex; flex-direction: column; gap: 2px; }
+
+    .award-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 20px 28px;
+      transition: border-color .25s;
+    }
+    .award-row:hover { border-color: var(--accent-edge); }
+
+    .award-l { display: flex; align-items: center; gap: 14px; }
+    .award-icon { font-size: 18px; min-width: 24px; }
+    .award-title { font-size: 15px; color: var(--fg); }
+    .award-r { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .08em; text-align: right; white-space: nowrap; }
+
+    /* ── RECS ─────────────────────────────────────────────────────────────────── */
+    .rec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+
+    .rec-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 2px solid var(--accent);
+      padding: 28px 24px;
+    }
+
+    .rec-av { width: 36px; height: 36px; border-radius: 50%; background: var(--bg-subtle); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); margin-bottom: 14px; }
+    .rec-name { font-size: 14px; font-weight: 600; color: var(--fg); margin-bottom: 2px; }
+    .rec-role { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .06em; margin-bottom: 14px; }
+    .rec-quote { font-size: 13px; color: var(--muted); line-height: 1.78; font-style: italic; }
+
+    /* ── CONTACT ──────────────────────────────────────────────────────────────── */
+    .contact-list { display: flex; flex-direction: column; gap: 2px; }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 20px 28px;
+      transition: border-color .25s;
+      cursor: none;
+    }
+    .contact-row:hover { border-color: var(--accent-edge); }
+
+    .c-lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .15em; text-transform: uppercase; min-width: 90px; }
+    .c-val { font-size: 15px; color: var(--fg); flex: 1; transition: color .2s; }
+    .contact-row:hover .c-val { color: var(--accent); }
+    .c-arr { color: var(--muted); font-size: 16px; transition: transform .2s, color .2s; }
+    .contact-row:hover .c-arr { transform: translateX(4px); color: var(--accent); }
+
+    .copy-ok { margin-left: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--green); opacity: 0; transition: opacity .2s; pointer-events: none; }
+    .copy-ok.show { opacity: 1; }
+
+    .contact-status {
+      margin-top: 2px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .status-txt { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: .08em; }
+
+    /* ── FOOTER ───────────────────────────────────────────────────────────────── */
+    #footer {
+      margin-left: var(--sidebar);
+      padding: 100px 60px 72px;
+      border-top: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .footer-head {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(64px, 9vw, 116px);
+      font-weight: 900;
+      line-height: 0.88;
+      color: var(--fg);
+      margin-bottom: 22px;
+    }
+
+    .footer-sub { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: .14em; margin-bottom: 72px; }
+
+    .footer-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .1em; }
+    .footer-acts { display: flex; gap: 10px; }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────────────────────── */
+    @media (max-width: 1080px) {
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .stats-col { flex-direction: row; }
+      .stat-block { flex: 1; }
+    }
+
+    @media (max-width: 860px) {
+      .rec-grid { grid-template-columns: 1fr; }
+      .pillars { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --sidebar: 0px; }
+      body { cursor: auto; }
+      #cur, #cur-r { display: none; }
+      #topbar { padding: 0 20px; }
+      .tb-links, .open-pill { display: none; }
+      .hamburger { display: flex; }
+      #sidebar { display: none; }
+      #main { margin-left: 0; padding: 0 20px; max-width: 100%; }
+      #footer { margin-left: 0; padding: 80px 20px 60px; }
+
+      #hero {
+        grid-template-columns: 1fr;
+        padding: 60px 0 80px;
+        gap: 40px;
+      }
+
+      .hero-photo-wrap { order: -1; }
+      .hero-photo { width: 140px; height: 140px; }
+      .hero-photo .initials { font-size: 34px; }
+      .hero-photo-wrap::before { inset: -8px; }
+      .hero-photo-wrap::after  { display: none; }
+
+      .hero-name { font-size: clamp(56px, 15vw, 80px); }
+
+      .stats-col { flex-direction: column; }
+
+      .case-study { width: 300px; }
+
+      .cert-row { flex-direction: column; gap: 4px; }
+      .cert-issuer { text-align: left; }
+      .award-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .award-r { text-align: left; }
+      .footer-bar { flex-direction: column; gap: 16px; }
+    }
+
+    /* ── TECH TICKER ─────────────────────────────────────────────────────────── */
+    .ticker-section {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-left: var(--sidebar);
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+      mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    }
+    .ticker-track {
+      display: inline-flex;
+      animation: ticker 32s linear infinite;
+    }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .ticker-item {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .2em;
+      color: var(--muted);
+      text-transform: uppercase;
+      padding: 13px 26px;
+      border-right: 1px solid var(--border);
+      white-space: nowrap;
+      opacity: .45;
+      transition: color .3s, opacity .3s;
+      cursor: default;
+    }
+    .ticker-item:hover { color: var(--accent); opacity: 1; }
+    .ticker-item.hi { color: var(--accent); opacity: .75; }
+
+    /* ── IMPACT STRIP ─────────────────────────────────────────────────────────── */
+    .impact-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 60px;
+    }
+    .impact-item {
+      background: var(--bg-card);
+      padding: 30px 26px 28px;
+      position: relative;
+      transition: background .25s;
+    }
+    .impact-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--border);
+      transition: background .25s;
+    }
+    .impact-item:nth-child(1)::before { background: var(--accent); }
+    .impact-item:hover { background: var(--bg-subtle); }
+    .impact-item:hover::before { background: var(--accent); }
+    .impact-idx {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .24em;
+      color: var(--muted);
+      opacity: .35;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .impact-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 50px;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .impact-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+    .impact-ctx {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      color: var(--muted);
+      letter-spacing: .03em;
+      line-height: 1.75;
+      opacity: .7;
+    }
+    @media (max-width: 960px) { .impact-strip { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .impact-strip { grid-template-columns: 1fr; } }
+
+    /* ── SKILL BARS ───────────────────────────────────────────────────────────── */
+    .skill-bars { display: flex; flex-direction: column; gap: 13px; margin-bottom: 36px; }
+    .sbar-row { display: flex; align-items: center; gap: 14px; }
+    .sbar-name { font-size: 12.5px; color: var(--muted); min-width: 190px; flex-shrink: 0; }
+    .sbar-track { flex: 1; height: 1px; background: var(--border); position: relative; overflow: visible; }
+    .sbar-fill {
+      position: absolute;
+      left: 0; top: -1px; height: 3px;
+      width: 0%;
+      background: linear-gradient(to right, var(--accent), rgba(200,169,110,.3));
+      transition: width 1.1s cubic-bezier(.16,1,.3,1);
+    }
+    .sbar-pct { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); opacity: .6; min-width: 34px; text-align: right; }
+
+    /* ── REC CTA ──────────────────────────────────────────────────────────────── */
+    .rec-cta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    @media (max-width: 768px) { .rec-cta { grid-template-columns: 1fr; } }
+    .rec-cta-main {
+      background: var(--bg-card);
+      padding: 48px 40px;
+      border-left: 2px solid var(--accent);
+    }
+    .rec-cta-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .22em;
+      color: var(--accent);
+      text-transform: uppercase;
+      opacity: .7;
+      margin-bottom: 18px;
+    }
+    .rec-cta-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--fg);
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+    .rec-cta-body { font-size: 14px; color: var(--muted); line-height: 1.85; margin-bottom: 28px; }
+    .rec-cta-side { background: var(--bg-card); padding: 48px 40px; display: flex; flex-direction: column; justify-content: center; }
+    .rec-fact { padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .rec-fact:last-child { border-bottom: none; }
+    .rec-fact-num { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 4px; }
+    .rec-fact-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .08em; }
+
+    /* ── PRINT ────────────────────────────────────────────────────────────────── */
+    @media print {
+      #loader, #cur, #cur-r, #sidebar, #topbar, #mnav, #progress, .proj-hint, .btn { display: none !important; }
+      body { background: #fff; color: #111; cursor: auto; }
+      #main { margin: 0; padding: 24px; max-width: 100%; }
+      #footer { margin: 0; padding: 24px; }
+      .section { opacity: 1 !important; }
+      .pill { opacity: 1 !important; }
+      :root { --bg-card: #f6f6f6; --fg: #111; --muted: #555; --border: #ddd; --accent: #8b6914; --bg: #fff; --tag-bg: #eee; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── LOADER ──────────────────────────────────────────────────────────────── -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <span class="loader-mark">WM</span>
+      <div class="loader-line"><div class="loader-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- ── SCROLL PROGRESS ─────────────────────────────────────────────────────── -->
+  <div id="progress" aria-hidden="true"></div>
+
+  <!-- ── CURSOR ──────────────────────────────────────────────────────────────── -->
+  <div id="cur" aria-hidden="true"></div>
+  <div id="cur-r" aria-hidden="true"></div>
+
+  <!-- ── TOPBAR ──────────────────────────────────────────────────────────────── -->
+  <header id="topbar" role="banner">
+    <a href="#hero" class="monogram" aria-label="Wasi Mahin — home">WM</a>
+    <div class="tb-right">
+      <nav class="tb-links" aria-label="Social links">
+        <a href="https://www.linkedin.com/in/wasi-mahin/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/wasimahin" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:wasimahin@gmail.com">Email</a>
+      </nav>
+      <div class="open-pill" role="status">
+        <span class="live-dot" aria-hidden="true"></span>
+        Open to Work
+      </div>
+      <button class="hamburger" id="hbtn" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── MOBILE NAV ──────────────────────────────────────────────────────────── -->
+  <nav id="mnav" aria-label="Mobile navigation">
+    <a href="#about"><span class="n">01</span>about</a>
+    <a href="#experience"><span class="n">02</span>experience</a>
+    <a href="#projects"><span class="n">03</span>projects</a>
+    <a href="#skills"><span class="n">04</span>skills</a>
+    <a href="#education"><span class="n">05</span>education</a>
+    <a href="#certifications"><span class="n">06</span>certifications</a>
+    <a href="#awards"><span class="n">07</span>awards</a>
+    <a href="#recommendations"><span class="n">08</span>recs</a>
+    <a href="#contact"><span class="n">09</span>contact</a>
+  </nav>
+
+  <div id="layout">
+
+    <!-- ── SIDEBAR ─────────────────────────────────────────────────────────────── -->
+    <aside id="sidebar" aria-label="Section navigation">
+      <nav>
+        <ul>
+          <li><a href="#about"           class="nl"><span class="n">01</span>about</a></li>
+          <li><a href="#experience"      class="nl"><span class="n">02</span>experience</a></li>
+          <li><a href="#projects"        class="nl"><span class="n">03</span>projects</a></li>
+          <li><a href="#skills"          class="nl"><span class="n">04</span>skills</a></li>
+          <li><a href="#education"       class="nl"><span class="n">05</span>education</a></li>
+          <li><a href="#certifications"  class="nl"><span class="n">06</span>certs</a></li>
+          <li><a href="#awards"          class="nl"><span class="n">07</span>awards</a></li>
+          <li><a href="#recommendations" class="nl"><span class="n">08</span>recs</a></li>
+          <li><a href="#contact"         class="nl"><span class="n">09</span>contact</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- ── MAIN ────────────────────────────────────────────────────────────────── -->
+    <main id="main" role="main">
+
+      <!-- HERO -->
+      <section id="hero" aria-label="Introduction">
+        <div class="hero-content">
+          <div class="hero-live" aria-label="2 tools live in production">
+            <span class="hero-live-dot" aria-hidden="true"></span>
+            2 tools currently live in production @ ASI CSULB
+          </div>
+
+          <p class="hero-meta">CSULB &nbsp;·&nbsp; MIS &amp; ACCOUNTANCY &nbsp;·&nbsp; GPA 3.87 &nbsp;·&nbsp; 2 TOOLS IN PRODUCTION</p>
+
+          <h1 class="hero-name" aria-label="Wasi Mahin">
+            <span id="hl1"></span>
+            <span id="hl2"></span>
+          </h1>
+
+          <p class="hero-tw" aria-label="Role">
+            <span id="tw"></span><span class="tw-cur" aria-hidden="true"></span>
+          </p>
+          <p class="hero-loc">Long Beach, California</p>
+
+          <blockquote class="hero-quote">
+            I build financial software that replaces manual workflows. Two of my tools are live
+            in a real office — not demos, not side projects — actual production automation,
+            used every working day by real staff.
+          </blockquote>
+
+          <div class="hero-actions">
+            <a href="WasiMahin_Resume.pdf" download="WasiMahin_Resume.pdf" class="btn btn-gold">↓&nbsp; Download CV</a>
+            <a href="#contact" class="btn btn-outline">Contact Me</a>
+            <span class="hero-tz">UTC–8</span>
+          </div>
+        </div>
+
+        <!-- PHOTO — proper grid element, no absolute positioning -->
+        <div class="hero-photo-wrap" aria-hidden="true">
+          <div class="hero-photo">
+            <img src="photo.jpg" alt="Wasi Mahin"
+                 style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:50%;position:absolute;inset:0;" />
+          </div>
+        </div>
+      </section>
+
+      <!-- WHAT I BUILD -->
+      <section id="what-i-build" aria-labelledby="wib-h">
+        <div class="pillars">
+          <div class="pillar">
+            <span class="pillar-icon" aria-hidden="true">⚙️</span>
+            <h2 class="pillar-title">Python Automation</h2>
+            <p class="pillar-desc">RPA tools that parse documents, navigate desktop software, and eliminate repetitive manual entry — without any API access needed.</p>
+            <div class="pillar-proof">2 tools live in production<br>Up to 96% processing time saved</div>
+          </div>
+          <div class="pillar">
+            <span class="pillar-icon" aria-hidden="true">📊</span>
+            <h2 class="pillar-title">BI & Dashboards</h2>
+            <p class="pillar-desc">Executive-ready Power BI and Tableau dashboards with DAX models, ETL pipelines, and data stories built for decisions — not just reports.</p>
+            <div class="pillar-proof">Microsoft stakeholder dashboards<br>Microsoft Fabric ETL pipelines</div>
+          </div>
+          <div class="pillar">
+            <span class="pillar-icon" aria-hidden="true">🧾</span>
+            <h2 class="pillar-title">Financial Analytics</h2>
+            <p class="pillar-desc">SQL-driven reporting, budget development, and reconciliation work across 500+ organizations — with real accounting domain knowledge.</p>
+            <div class="pillar-proof">500+ campus orgs supported<br>3.87 GPA · MIS & Accountancy</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 01. ABOUT -->
+      <section id="about" class="section" aria-labelledby="about-h">
+        <div class="section-label" id="about-h"><span>01. about</span></div>
+        <div class="about-text">
+          <p><strong>MIS &amp; Accountancy dual-major at Cal State Long Beach</strong> (GPA: 3.87, President's Honor List every semester) with 1.5+ years of production experience engineering Python automation tools, Power BI and Tableau dashboards, ETL pipelines, and SQL-driven financial analytics.</p>
+          <p>I built two live automation systems achieving up to <strong>96% and 95% processing time reductions</strong> — and redesigned office workflows delivering a 50% efficiency gain adopted team-wide. I don't prototype. I bridge technical fluency with financial domain expertise to deliver measurable, business-ready results.</p>
+          <p>Actively seeking <strong>Summer / Fall 2026 internships</strong> in Data Analytics, Business Intelligence, or Financial Technology.</p>
+        </div>
+
+        <!-- Impact metrics with context -->
+        <div class="impact-strip">
+          <div class="impact-item">
+            <p class="impact-idx">Metric 01</p>
+            <span class="impact-num" data-count="96" data-prefix="~" data-suffix="%">~96%</span>
+            <p class="impact-label">Processing time eliminated</p>
+            <p class="impact-ctx">Snehin RPA reads vendor PDFs and drives Business Central UI automatically — zero API, zero credentials required</p>
+          </div>
+          <div class="impact-item">
+            <p class="impact-idx">Metric 02</p>
+            <span class="impact-num" data-count="2">2</span>
+            <p class="impact-label">Tools in production</p>
+            <p class="impact-ctx">Live at the ASI CSULB business office — used by real staff on every working day, not demos</p>
+          </div>
+          <div class="impact-item">
+            <p class="impact-idx">Metric 03</p>
+            <span class="impact-num" data-count="500" data-suffix="+">500+</span>
+            <p class="impact-label">Campus organizations served</p>
+            <p class="impact-ctx">AP processing, financial documentation, and reconciliations managed across CSULB's entire campus org network</p>
+          </div>
+          <div class="impact-item">
+            <p class="impact-idx">Metric 04</p>
+            <span class="impact-num" data-count="3.87" data-decimal="2">3.87</span>
+            <p class="impact-label">GPA — Dual Major</p>
+            <p class="impact-ctx">MIS &amp; Accountancy · President's Honor List · every semester since enrollment, Fall 2023 → present</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 02. EXPERIENCE -->
+      <section id="experience" class="section" aria-labelledby="exp-h">
+        <div class="section-label" id="exp-h"><span>02. experience</span></div>
+        <div class="timeline">
+
+          <div class="tl-entry now">
+            <article class="tl-card">
+              <p class="tl-meta">ASI CSULB &nbsp;·&nbsp; Long Beach &nbsp;·&nbsp; Feb 2026 – Present</p>
+              <h3 class="tl-title">Lead Business Office Representative</h3>
+              <ul class="tl-bullets">
+                <li>Engineered two production Python automation tools (zero API): <strong>Snehin Check Request Helper</strong> cutting invoice processing ~96%, and <strong>BC Journal Entry Bot</strong> reducing journal entry time up to 95% — both live in Business Central</li>
+                <li>Oversee financial documentation for 500+ registered campus organizations — AP, purchase orders, bank reconciliations, document auditing, and compliance verification</li>
+                <li>Automated financial extraction, validation, and reporting pipelines using Microsoft Copilot and prompt engineering, reducing processing time 70–80% across ASI and USU operations</li>
+                <li>Deliver SQL-driven budget analysis, assist in ASI/USU budget creation, and maintain 100% data accuracy across all financial statement analysis and audit cycles</li>
+                <li>Redesigned end-to-end office workflows → 50% operational efficiency gain; standardized protocols adopted team-wide</li>
+              </ul>
+              <div class="tags">
+                <span class="tag">Python</span><span class="tag">Power BI</span><span class="tag">SQL</span>
+                <span class="tag">Microsoft Dynamics 365</span><span class="tag">RPA</span>
+                <span class="tag">ETL</span><span class="tag">Microsoft Copilot</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="tl-entry now">
+            <article class="tl-card">
+              <p class="tl-meta">AIS CSULB &nbsp;·&nbsp; Long Beach &nbsp;·&nbsp; May 2026 – Present</p>
+              <h3 class="tl-title">Vice President of Finance</h3>
+              <ul class="tl-bullets">
+                <li>Oversee $5,000+ operating budget and external grant funding for 100+ member organization</li>
+                <li>Analyze financial data to drive strategic resource allocation across events and programs</li>
+                <li>Lead improvements to financial tracking, reporting, and transparency processes</li>
+              </ul>
+              <div class="tags">
+                <span class="tag">Financial Analysis</span><span class="tag">Budget Management</span>
+                <span class="tag">Leadership</span><span class="tag">Reporting</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="tl-entry">
+            <article class="tl-card">
+              <p class="tl-meta">AIS CSULB &nbsp;·&nbsp; Hybrid &nbsp;·&nbsp; Sep 2025 – Nov 2025</p>
+              <h3 class="tl-title">Business Analyst Intern — Project Microsoft</h3>
+              <ul class="tl-bullets">
+                <li>Built executive-ready Power BI dashboards using DAX and custom data models for Microsoft stakeholders</li>
+                <li>Built ETL pipelines in Microsoft Fabric; conducted correlation analysis shaping project strategy</li>
+                <li>Co-authored and delivered business pitches to Microsoft representatives</li>
+              </ul>
+              <div class="tags">
+                <span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Microsoft Fabric</span>
+                <span class="tag">ETL</span><span class="tag">SWOT Analysis</span><span class="tag">Business Pitching</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="tl-entry">
+            <article class="tl-card">
+              <p class="tl-meta">ASI CSULB &nbsp;·&nbsp; Long Beach &nbsp;·&nbsp; Oct 2024 – Feb 2026</p>
+              <h3 class="tl-title">Business Office Representative</h3>
+              <ul class="tl-bullets">
+                <li>Reduced check processing time by 80% via upgraded financial system implementation</li>
+                <li>Co-developed 2025–2026 ASI and USU operating budgets; reconciled financials for 20+ orgs</li>
+                <li>Automated data pipelines using Microsoft Copilot, cutting processing time by 70%</li>
+              </ul>
+              <div class="tags">
+                <span class="tag">Financial Systems</span><span class="tag">Budget Development</span>
+                <span class="tag">Data Automation</span><span class="tag">Reconciliation</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="tl-entry">
+            <article class="tl-card">
+              <p class="tl-meta">Mizan Enterprise &nbsp;·&nbsp; Dhaka, Bangladesh &nbsp;·&nbsp; Feb 2023 – Jul 2023</p>
+              <h3 class="tl-title">Junior Accountant (Internship)</h3>
+              <ul class="tl-bullets">
+                <li>Managed and reconciled daily expenses using Excel, maintaining 100% ledger accuracy</li>
+                <li>Created analytical reports identifying financial discrepancies → 15% improvement in reporting accuracy</li>
+              </ul>
+              <div class="tags">
+                <span class="tag">Excel</span><span class="tag">IFRS</span>
+                <span class="tag">Journal Entries</span><span class="tag">Financial Reporting</span>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 03. PROJECTS -->
+      <section id="projects" class="section" aria-labelledby="proj-h">
+        <div class="section-label" id="proj-h"><span>03. projects</span></div>
+
+        <div class="proj-viewport" id="projViewport">
+          <div class="proj-track" id="projTrack">
+
+            <!-- PROJ 01 -->
+            <article class="case-study">
+              <p class="cs-num">PROJ 01</p>
+              <h3 class="cs-title">Snehin Check Request Helper</h3>
+              <div>
+                <p class="cs-col-label">The Problem</p>
+                <p class="cs-col-text">Manual PDF-to-ERP data entry consumed significant staff hours per batch. No API existed. No ERP credentials available. The only path was a human typing into Business Central, field by field.</p>
+              </div>
+              <div class="cs-divider"></div>
+              <div>
+                <p class="cs-col-label">The Approach</p>
+                <p class="cs-col-text">Zero-API desktop RPA: parses vendor invoice PDFs with pdfplumber, extracts structured data, then drives the Business Central UI directly via pyautogui — no credentials, no integration, just results.</p>
+              </div>
+              <div class="cs-divider"></div>
+              <div class="cs-impact">
+                <div>
+                  <div class="cs-big-num" data-count="96" data-prefix="~" data-suffix="%">~96%</div>
+                  <div class="cs-big-desc">reduction in<br>processing time</div>
+                </div>
+                <div class="cs-live">Live in Production @ ASI CSULB</div>
+              </div>
+              <div class="tags" style="margin-bottom:20px;">
+                <span class="tag">Python</span><span class="tag">pdfplumber</span><span class="tag">PyMuPDF</span>
+                <span class="tag">pyautogui</span><span class="tag">CustomTkinter</span>
+              </div>
+              <a href="https://github.com/wasimahin/snehin-check-request-helper" target="_blank" rel="noopener" class="cs-link">GitHub ↗</a>
+            </article>
+
+            <!-- PROJ 02 -->
+            <article class="case-study">
+              <p class="cs-num">PROJ 02</p>
+              <h3 class="cs-title">BC Journal Entry Bot</h3>
+              <div>
+                <p class="cs-col-label">The Problem</p>
+                <p class="cs-col-text">Journal entry processing required manually reading DocuSign PDFs and CashNet Excel files, then re-entering every debit/credit line into Business Central — slow, error-prone, done repeatedly.</p>
+              </div>
+              <div class="cs-divider"></div>
+              <div>
+                <p class="cs-col-label">The Approach</p>
+                <p class="cs-col-text">Automated end-to-end: reads PDF and Excel sources, structures debit/credit lines, then enters complete journal entries into Business Central via hotkey automation — no manual re-keying.</p>
+              </div>
+              <div class="cs-divider"></div>
+              <div class="cs-impact">
+                <div>
+                  <div class="cs-big-num" data-count="95" data-prefix="↑" data-suffix="%">↑95%</div>
+                  <div class="cs-big-desc">reduction in<br>processing time</div>
+                </div>
+                <div class="cs-live">Live in Production @ ASI CSULB</div>
+              </div>
+              <div class="tags" style="margin-bottom:20px;">
+                <span class="tag">Python</span><span class="tag">pdfplumber</span>
+                <span class="tag">openpyxl</span><span class="tag">pyautogui</span><span class="tag">CustomTkinter</span>
+              </div>
+              <a href="https://github.com/wasimahin/bc-journal-entry-bot" target="_blank" rel="noopener" class="cs-link">GitHub ↗</a>
+            </article>
+
+            <!-- PROJ 03 -->
+            <article class="case-study">
+              <p class="cs-num">PROJ 03</p>
+              <h3 class="cs-title">One Piece Bounty Analytics Dashboard</h3>
+              <div>
+                <p class="cs-col-label">The Goal</p>
+                <p class="cs-col-text">Build a real-world BI problem from scratch: combine disparate datasets, design a data model, and create an interactive dashboard that tells a narrative story rather than just displaying numbers.</p>
+              </div>
+              <div class="cs-divider"></div>
+              <div>
+                <p class="cs-col-label">The Result</p>
+                <p class="cs-col-text">Treats bounty as a proxy for value and risk — analyzing distribution across crews, arcs, and regions. Unified Kaggle datasets into a single model; Chart.js visualizations let users explore patterns interactively.</p>
+              </div>
+              <div class="cs-divider"></div>
+              <div class="cs-impact" style="background:rgba(200,169,110,0.02);">
+                <div>
+                  <div class="cs-big-num" style="font-size:32px;">📊</div>
+                  <div class="cs-big-desc">Live interactive<br>dashboard</div>
+                </div>
+              </div>
+              <div class="tags" style="margin-bottom:20px;">
+                <span class="tag">HTML</span><span class="tag">Chart.js</span>
+                <span class="tag">JavaScript</span><span class="tag">Kaggle</span><span class="tag">Data Storytelling</span>
+              </div>
+              <a href="https://github.com/wasimahin/onepiece-bounty-sept-2021" target="_blank" rel="noopener" class="cs-link">GitHub ↗</a>
+            </article>
+
+            <!-- PROJ 04 -->
+            <article class="case-study">
+              <p class="cs-num">PROJ 04</p>
+              <h3 class="cs-title">AIS Datathon 2026 — "Is the American Dream Still Attainable?"</h3>
+              <div>
+                <p class="cs-col-label">The Question</p>
+                <p class="cs-col-text">Is economic mobility still achievable for the average household? The team chose to go beyond surface-level income data and interrogate purchasing power, regional inequality, and structural cost-of-living shifts.</p>
+              </div>
+              <div class="cs-divider"></div>
+              <div>
+                <p class="cs-col-label">The Analysis</p>
+                <p class="cs-col-text">End-to-end economic research: income growth vs. household purchasing power, cost-of-living adjustments, regional wealth inequality — visualized in Tableau with a clear narrative arc.</p>
+              </div>
+              <div class="cs-divider"></div>
+              <div class="cs-award">
+                <span style="font-size:20px;">🏆</span>
+                3rd Place — AIS Annual Datathon 2026 · AIS CSULB
+              </div>
+              <div class="tags" style="margin-bottom:20px;">
+                <span class="tag">Data Analysis</span><span class="tag">Tableau</span>
+                <span class="tag">Economic Research</span><span class="tag">Visualization</span>
+              </div>
+              <span class="cs-link" style="opacity:.45;cursor:default;">Competition</span>
+            </article>
+
+          </div>
+        </div>
+        <p class="proj-hint" aria-hidden="true">scroll to explore projects</p>
+      </section>
+
+      <!-- 04. SKILLS -->
+      <section id="skills" class="section" aria-labelledby="skills-h">
+        <div class="section-label" id="skills-h"><span>04. skills</span></div>
+
+        <!-- Proficiency bars for key skills -->
+        <div class="skill-bars" id="skillBars">
+          <div class="sbar-row"><span class="sbar-name">Python (RPA / Automation)</span><div class="sbar-track"><div class="sbar-fill" data-pct="90"></div></div><span class="sbar-pct">90%</span></div>
+          <div class="sbar-row"><span class="sbar-name">Power BI &amp; DAX</span><div class="sbar-track"><div class="sbar-fill" data-pct="88"></div></div><span class="sbar-pct">88%</span></div>
+          <div class="sbar-row"><span class="sbar-name">Financial Analysis &amp; Accounting</span><div class="sbar-track"><div class="sbar-fill" data-pct="86"></div></div><span class="sbar-pct">86%</span></div>
+          <div class="sbar-row"><span class="sbar-name">SQL (Joins, CTEs, Aggregations)</span><div class="sbar-track"><div class="sbar-fill" data-pct="82"></div></div><span class="sbar-pct">82%</span></div>
+          <div class="sbar-row"><span class="sbar-name">Tableau</span><div class="sbar-track"><div class="sbar-fill" data-pct="80"></div></div><span class="sbar-pct">80%</span></div>
+          <div class="sbar-row"><span class="sbar-name">Excel (Power Query · Pivot Tables)</span><div class="sbar-track"><div class="sbar-fill" data-pct="85"></div></div><span class="sbar-pct">85%</span></div>
+          <div class="sbar-row"><span class="sbar-name">ETL / Microsoft Fabric</span><div class="sbar-track"><div class="sbar-fill" data-pct="74"></div></div><span class="sbar-pct">74%</span></div>
+        </div>
+
+        <div class="skills-wrap">
+          <div>
+            <p class="sg-label">Languages &amp; Querying</p>
+            <div class="sg-pills">
+              <span class="pill">Python</span><span class="pill">SQL</span><span class="pill">DAX</span>
+              <span class="pill">Excel (Pivot Tables · Power Query · VLOOKUP)</span><span class="pill">pdfplumber</span>
+              <span class="pill">PyMuPDF</span><span class="pill">pyautogui</span><span class="pill">openpyxl</span><span class="pill">CustomTkinter</span>
+            </div>
+          </div>
+          <div>
+            <p class="sg-label">BI &amp; Visualization</p>
+            <div class="sg-pills">
+              <span class="pill">Power BI</span><span class="pill">Tableau</span><span class="pill">DAX &amp; Data Modeling</span>
+              <span class="pill">KPI Dashboard Design</span><span class="pill">Data Storytelling</span><span class="pill">Custom Visuals</span>
+            </div>
+          </div>
+          <div>
+            <p class="sg-label">Data Engineering</p>
+            <div class="sg-pills">
+              <span class="pill">ETL Pipelines</span><span class="pill">Microsoft Fabric</span>
+              <span class="pill">Data Extraction &amp; Transformation</span><span class="pill">Validation Pipelines</span>
+              <span class="pill">Workflow Automation</span><span class="pill">Microsoft Copilot &amp; Prompt Engineering</span>
+            </div>
+          </div>
+          <div>
+            <p class="sg-label">Finance &amp; Strategy</p>
+            <div class="sg-pills">
+              <span class="pill">Financial Statement Analysis</span><span class="pill">Budget Planning &amp; Forecasting</span>
+              <span class="pill">Accounts Payable</span><span class="pill">Bank Reconciliation</span>
+              <span class="pill">Variance Analysis</span><span class="pill">SWOT &amp; Cost-Benefit Analysis</span><span class="pill">IFRS</span>
+            </div>
+          </div>
+          <div>
+            <p class="sg-label">Platforms</p>
+            <div class="sg-pills">
+              <span class="pill">Microsoft Dynamics 365 Business Central</span>
+              <span class="pill">GitHub</span><span class="pill">HTML / Chart.js</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05. EDUCATION -->
+      <section id="education" class="section" aria-labelledby="edu-h">
+        <div class="section-label" id="edu-h"><span>05. education</span></div>
+        <div class="edu-cards">
+          <article class="edu-card">
+            <p class="edu-meta">California State University, Long Beach &nbsp;·&nbsp; Aug 2023 – May 2027</p>
+            <h3 class="edu-degree">B.S. — Management Information Systems &amp; Accountancy</h3>
+            <p class="edu-gpa">GPA: 3.87 &nbsp;·&nbsp; President's Honor List (every semester)</p>
+            <p class="edu-course-lbl">Relevant Coursework</p>
+            <p class="edu-courses">Business Data Analysis &amp; Programming · Management Information Systems · Business Application Programming · Systems Analysis &amp; Design · Database Management · Business Statistics · Intermediate Accounting I &amp; II · Federal Tax Law · Cost Accounting · Business Finance</p>
+            <p class="edu-activities">Member — Association for Information Systems (AIS) &nbsp;·&nbsp; ASI Business Office Representative</p>
+          </article>
+          <article class="edu-card" style="--accent: var(--border);">
+            <p class="edu-meta">Academia School Dhaka &nbsp;·&nbsp; 2013 – 2023</p>
+            <h3 class="edu-degree">Secondary &amp; Higher Secondary Education</h3>
+            <p class="edu-gpa" style="color:var(--muted);">Grade: 4.5 / 5.0</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 06. CERTIFICATIONS -->
+      <section id="certifications" class="section" aria-labelledby="cert-h">
+        <div class="section-label" id="cert-h"><span>06. certifications</span></div>
+        <div class="cert-list" role="list">
+          <div class="cert-row" role="listitem">
+            <span class="cert-name">Career Essentials in Data Analysis</span>
+            <span class="cert-issuer">Microsoft &amp; LinkedIn Learning &nbsp;·&nbsp; 2025</span>
+          </div>
+          <div class="cert-row" role="listitem">
+            <span class="cert-name">Data Manipulation in SQL</span>
+            <span class="cert-issuer">DataCamp &nbsp;·&nbsp; 2025</span>
+          </div>
+          <div class="cert-row" role="listitem">
+            <span class="cert-name">Creating &amp; Analyzing Dashboards in Tableau</span>
+            <span class="cert-issuer">DataCamp &nbsp;·&nbsp; 2025</span>
+          </div>
+          <div class="cert-row" role="listitem">
+            <span class="cert-name">Introduction to Tableau</span>
+            <span class="cert-issuer">DataCamp &nbsp;·&nbsp; 2025</span>
+          </div>
+          <div class="cert-row" role="listitem">
+            <span class="cert-name">Tableau Fundamentals (23 hrs)</span>
+            <span class="cert-issuer">DataCamp &nbsp;·&nbsp; 2025</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07. AWARDS -->
+      <section id="awards" class="section" aria-labelledby="awards-h">
+        <div class="section-label" id="awards-h"><span>07. awards &amp; achievements</span></div>
+        <div class="awards-list" role="list">
+          <div class="award-row" role="listitem">
+            <div class="award-l"><span class="award-icon" aria-hidden="true">🏆</span><span class="award-title">3rd Place — AIS Annual Datathon 2026</span></div>
+            <span class="award-r">AIS CSULB &nbsp;·&nbsp; 2026</span>
+          </div>
+          <div class="award-row" role="listitem">
+            <div class="award-l"><span class="award-icon" aria-hidden="true">🗳️</span><span class="award-title">Elected VP of Finance</span></div>
+            <span class="award-r">AIS CSULB &nbsp;·&nbsp; 2026</span>
+          </div>
+          <div class="award-row" role="listitem">
+            <div class="award-l"><span class="award-icon" aria-hidden="true">🎓</span><span class="award-title">President's Honor List</span></div>
+            <span class="award-r">CSULB &nbsp;·&nbsp; Every Semester 2023–Present</span>
+          </div>
+          <div class="award-row" role="listitem">
+            <div class="award-l"><span class="award-icon" aria-hidden="true">⚙️</span><span class="award-title">Production Automation — Live in Office</span></div>
+            <span class="award-r">ASI CSULB &nbsp;·&nbsp; 2025–Present</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 08. RECOMMENDATIONS -->
+      <section id="recommendations" class="section" aria-labelledby="rec-h">
+        <div class="section-label" id="rec-h"><span>08. recommendations</span></div>
+        <div class="rec-cta">
+          <div class="rec-cta-main">
+            <p class="rec-cta-badge">LinkedIn Recommendation · July 2025</p>
+            <h3 class="rec-cta-headline">Stewart Ohanesian</h3>
+            <p style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.06em;margin-bottom:20px;">Senior Accountant · ASI, Cal State Long Beach · Direct Manager</p>
+            <p class="rec-cta-body" style="font-style:italic;border-left:2px solid var(--accent);padding-left:18px;">
+              "Wasi is a very dedicated and detail-oriented employee with Associated Students. He is great at problem solving efficiently — not only for his own situations but for everyone in our office. He is a great team player and customer friendly. He is a great part of our team at the Business Office. It has been a pleasure having him with us for going on a year."
+            </p>
+            <a href="https://www.linkedin.com/in/wasi-mahin/" target="_blank" rel="noopener" class="btn btn-outline" style="font-size:10px;margin-top:8px;">View on LinkedIn ↗</a>
+          </div>
+          <div class="rec-cta-side">
+            <p class="rec-cta-badge" style="margin-bottom:24px;">By the numbers</p>
+            <div class="rec-fact">
+              <div class="rec-fact-num">1.5+</div>
+              <div class="rec-fact-label">Years of production experience at ASI CSULB</div>
+            </div>
+            <div class="rec-fact">
+              <div class="rec-fact-num">3</div>
+              <div class="rec-fact-label">Roles held across ASI and AIS — progressive responsibility</div>
+            </div>
+            <div class="rec-fact">
+              <div class="rec-fact-num">2</div>
+              <div class="rec-fact-label">Live tools trusted by management to run daily operations</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 09. CONTACT -->
+      <section id="contact" class="section" aria-labelledby="contact-h">
+        <div class="section-label" id="contact-h"><span>09. contact</span></div>
+        <div class="contact-list">
+          <a href="mailto:wasimahin@gmail.com" class="contact-row" id="email-row" aria-label="Email — click to copy">
+            <span class="c-lbl">Email</span>
+            <span class="c-val">wasimahin@gmail.com</span>
+            <span class="copy-ok" id="cpok">Copied!</span>
+            <span class="c-arr" aria-hidden="true">→</span>
+          </a>
+          <a href="https://www.linkedin.com/in/wasi-mahin/" target="_blank" rel="noopener" class="contact-row" aria-label="LinkedIn profile">
+            <span class="c-lbl">LinkedIn</span>
+            <span class="c-val">linkedin.com/in/wasi-mahin</span>
+            <span class="c-arr" aria-hidden="true">→</span>
+          </a>
+          <a href="https://github.com/wasimahin" target="_blank" rel="noopener" class="contact-row" aria-label="GitHub profile">
+            <span class="c-lbl">GitHub</span>
+            <span class="c-val">github.com/wasimahin</span>
+            <span class="c-arr" aria-hidden="true">→</span>
+          </a>
+          <div class="contact-row" style="cursor:default;">
+            <span class="c-lbl">Location</span>
+            <span class="c-val">Long Beach, CA (UTC–8)</span>
+          </div>
+        </div>
+        <div class="contact-status" role="status">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span class="status-txt">Open to internships — Summer / Fall 2026</span>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ── TECH TICKER ────────────────────────────────────────────────────────── -->
+  <div class="ticker-section" aria-hidden="true">
+    <div class="ticker-track" id="tickerTrack">
+      <span class="ticker-item hi">Python</span>
+      <span class="ticker-item">Power BI</span>
+      <span class="ticker-item">SQL</span>
+      <span class="ticker-item hi">Microsoft Fabric</span>
+      <span class="ticker-item">Tableau</span>
+      <span class="ticker-item">DAX</span>
+      <span class="ticker-item hi">pdfplumber</span>
+      <span class="ticker-item">pyautogui</span>
+      <span class="ticker-item">ETL Pipelines</span>
+      <span class="ticker-item hi">Business Central</span>
+      <span class="ticker-item">Microsoft Dynamics 365</span>
+      <span class="ticker-item">CustomTkinter</span>
+      <span class="ticker-item hi">Chart.js</span>
+      <span class="ticker-item">openpyxl</span>
+      <span class="ticker-item">Financial Modeling</span>
+      <span class="ticker-item hi">RPA Automation</span>
+      <span class="ticker-item">GitHub</span>
+      <span class="ticker-item">Data Storytelling</span>
+      <!-- duplicate for seamless loop -->
+      <span class="ticker-item hi">Python</span>
+      <span class="ticker-item">Power BI</span>
+      <span class="ticker-item">SQL</span>
+      <span class="ticker-item hi">Microsoft Fabric</span>
+      <span class="ticker-item">Tableau</span>
+      <span class="ticker-item">DAX</span>
+      <span class="ticker-item hi">pdfplumber</span>
+      <span class="ticker-item">pyautogui</span>
+      <span class="ticker-item">ETL Pipelines</span>
+      <span class="ticker-item hi">Business Central</span>
+      <span class="ticker-item">Microsoft Dynamics 365</span>
+      <span class="ticker-item">CustomTkinter</span>
+      <span class="ticker-item hi">Chart.js</span>
+      <span class="ticker-item">openpyxl</span>
+      <span class="ticker-item">Financial Modeling</span>
+      <span class="ticker-item hi">RPA Automation</span>
+      <span class="ticker-item">GitHub</span>
+      <span class="ticker-item">Data Storytelling</span>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ───────────────────────────────────────────────────────────────── -->
+  <footer id="footer" role="contentinfo">
+    <p class="footer-head">Thanks<br>for being<br>here</p>
+    <p class="footer-sub">Let's make something great together.</p>
+    <div class="footer-bar">
+      <span class="footer-copy">Wasi Mahin &nbsp;·&nbsp; Open to Work &nbsp;·&nbsp; © 2026</span>
+      <div class="footer-acts">
+        <a href="WasiMahin_Resume.pdf" download="WasiMahin_Resume.pdf" class="btn btn-gold" style="font-size:10px;padding:11px 20px;">↓ Download CV</a>
+        <a href="#contact" class="btn btn-outline" style="font-size:10px;padding:10px 20px;">Contact Me</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── LIBRARIES ──────────────────────────────────────────────────────────── -->
+  <script src="gsap.min.js"></script>
+  <script src="ScrollTrigger.min.js"></script>
+  <script src="lenis.min.js"></script>
+
+  <script>
+  (() => {
+    /* ── GSAP + Lenis setup ─────────────────────────────────────────────────── */
+    gsap.registerPlugin(ScrollTrigger);
+
+    const lenis = new Lenis({
+      duration: 1.25,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      smoothTouch: false,
+    });
+
+    lenis.on('scroll', ScrollTrigger.update);
+
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    /* ── Cursor ─────────────────────────────────────────────────────────────── */
+    const dot  = document.getElementById('cur');
+    const ring = document.getElementById('cur-r');
+    let mx = -200, my = -200, rx = -200, ry = -200;
+
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+    (function curLoop() {
+      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+      rx += (mx - rx) * 0.13; ry += (my - ry) * 0.13;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(curLoop);
+    })();
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { ring.style.width = '44px'; ring.style.height = '44px'; ring.style.borderColor = 'rgba(200,169,110,.6)'; });
+      el.addEventListener('mouseleave', () => { ring.style.width = '30px'; ring.style.height = '30px'; ring.style.borderColor = 'rgba(200,169,110,.35)'; });
+    });
+
+    /* ── Build hero name ────────────────────────────────────────────────────── */
+    function buildLine(el, text) {
+      text.split('').forEach(ch => {
+        const s = document.createElement('span');
+        s.className = 'char';
+        s.textContent = ch === ' ' ? ' ' : ch;
+        el.appendChild(s);
+      });
+    }
+    buildLine(document.getElementById('hl1'), 'Wasi');
+    buildLine(document.getElementById('hl2'), 'Mahin');
+
+    /* ── Typewriter ─────────────────────────────────────────────────────────── */
+    const roles = ['Data Analyst & Finance Leader','Python RPA & Automation Engineer','Power BI · SQL · Tableau Specialist','Financial Systems Builder'];
+    const twEl  = document.getElementById('tw');
+    let ri = 0, ci = 0, del = false;
+
+    function tw() {
+      const role = roles[ri];
+      if (!del) {
+        twEl.textContent = role.slice(0, ci + 1);
+        ci++;
+        if (ci === role.length) { del = true; setTimeout(tw, 2400); return; }
+        setTimeout(tw, 52);
+      } else {
+        twEl.textContent = role.slice(0, ci - 1);
+        ci--;
+        if (ci === 0) { del = false; ri = (ri + 1) % roles.length; setTimeout(tw, 340); return; }
+        setTimeout(tw, 26);
+      }
+    }
+
+    /* ── Hamburger ──────────────────────────────────────────────────────────── */
+    const hbtn = document.getElementById('hbtn');
+    const mnav = document.getElementById('mnav');
+
+    hbtn.addEventListener('click', () => {
+      const open = mnav.classList.toggle('open');
+      hbtn.classList.toggle('open', open);
+      hbtn.setAttribute('aria-expanded', open);
+    });
+
+    mnav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mnav.classList.remove('open');
+        hbtn.classList.remove('open');
+        hbtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    /* ── Scroll spy ─────────────────────────────────────────────────────────── */
+    const allNavLinks = document.querySelectorAll('.nl, #mnav a');
+    const sectionObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        allNavLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+      });
+    }, { rootMargin: '-20% 0px -60% 0px' });
+    document.querySelectorAll('.section').forEach(s => sectionObs.observe(s));
+
+    /* ── Count-up ───────────────────────────────────────────────────────────── */
+    function countUp(el) {
+      const target   = parseFloat(el.dataset.count);
+      const prefix   = el.dataset.prefix  || '';
+      const suffix   = el.dataset.suffix  || '';
+      const decimals = parseInt(el.dataset.decimal || 0);
+      const dur = 1500;
+      const t0  = performance.now();
+      (function tick(now) {
+        const p = Math.min((now - t0) / dur, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = prefix + (target * ease).toFixed(decimals) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    }
+
+    new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('[data-count]').forEach(el => {
+          if (!el._counted) { el._counted = true; countUp(el); }
+        });
+      });
+    }, { threshold: 0.2 }).observe(document.querySelector('.impact-strip'));
+
+    /* ── Skill bar reveal ───────────────────────────────────────────────────── */
+    new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('.sbar-fill').forEach((fill, i) => {
+          setTimeout(() => { fill.style.width = fill.dataset.pct + '%'; }, i * 120);
+        });
+      });
+    }, { threshold: 0.3 }).observe(document.getElementById('skillBars'));
+
+    /* ── Copy email ─────────────────────────────────────────────────────────── */
+    const emailRow = document.getElementById('email-row');
+    const cpok     = document.getElementById('cpok');
+
+    emailRow && emailRow.addEventListener('click', e => {
+      e.preventDefault();
+      navigator.clipboard.writeText('wasimahin@gmail.com')
+        .then(() => { cpok.classList.add('show'); setTimeout(() => cpok.classList.remove('show'), 1800); })
+        .catch(() => { window.location.href = 'mailto:wasimahin@gmail.com'; });
+    });
+
+    /* ── Scroll progress (via Lenis) ────────────────────────────────────────── */
+    const prog = document.getElementById('progress');
+    lenis.on('scroll', ({ progress }) => { prog.style.width = (progress * 100) + '%'; });
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       GSAP ANIMATIONS
+    ═══════════════════════════════════════════════════════════════════════ */
+
+    /* Override CSS opacity:0 so GSAP from() reads 1 as the destination (not 0→0) */
+    gsap.set(
+      '.hero-live, .hero-meta, .hero-tw, .hero-quote, .hero-actions, .hero-photo-wrap, .pillar',
+      { opacity: 1 }
+    );
+
+    /* ── LOADER ─────────────────────────────────────────────────────────────── */
+    const loader = document.getElementById('loader');
+    const loaderMark = document.querySelector('.loader-mark');
+    const loaderFill = document.querySelector('.loader-fill');
+
+    const loaderTl = gsap.timeline({
+      onComplete: () => {
+        // Sweep loader up like a curtain
+        gsap.to(loader, {
+          yPercent: -100,
+          duration: 0.9,
+          ease: 'expo.inOut',
+          onComplete: () => { loader.remove(); startEntrance(); },
+        });
+      }
+    });
+
+    loaderTl
+      .to(loaderMark, { opacity: 1, duration: 0.5, ease: 'power2.out' })
+      .to(loaderFill, { width: '100%', duration: 0.6, ease: 'power2.inOut' }, '-=0.1');
+
+    /* ── HERO ENTRANCE ──────────────────────────────────────────────────────── */
+    function startEntrance() {
+      // Show chrome
+      gsap.to(['#topbar', '#sidebar'], { opacity: 1, duration: 0.6, ease: 'power2.out' });
+
+      // Stagger hero elements in
+      const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      heroTl
+        .from('.hero-live',    { opacity: 0, y: 12, duration: 0.6 }, 0)
+        .from('.hero-meta',    { opacity: 0, y: 12, duration: 0.6 }, 0.1)
+        .from('.char',         { opacity: 0, y: 40, duration: 0.7, stagger: 0.035 }, 0.2)
+        .from('.hero-tw',      { opacity: 0, duration: 0.5 }, 0.65)
+        .from('.hero-loc',     { opacity: 0, duration: 0.5 }, 0.7)
+        .from('.hero-quote',   { opacity: 0, x: -16, duration: 0.7 }, 0.75)
+        .from('.hero-actions', { opacity: 0, y: 10, duration: 0.6 }, 0.85)
+        .from('.hero-photo-wrap', { opacity: 0, scale: 0.92, duration: 0.9, ease: 'power2.out' }, 0.3);
+
+      // Start typewriter after chars are in
+      setTimeout(tw, 1100);
+    }
+
+    /* ── HERO SCROLL PARALLAX ───────────────────────────────────────────────── */
+    gsap.to('.hero-photo-wrap', {
+      y: -60,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.5,
+      }
+    });
+
+    gsap.to('.hero-name', {
+      y: -30,
+      opacity: 0.6,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'center top',
+        end: 'bottom top',
+        scrub: 1,
+      }
+    });
+
+    /* ── SECTION LABEL REVEALS (clip-path) ──────────────────────────────────── */
+    document.querySelectorAll('.section-label > span').forEach(span => {
+      gsap.fromTo(span,
+        { clipPath: 'inset(0 100% 0 0)' },
+        {
+          clipPath: 'inset(0 0% 0 0)',
+          duration: 0.85,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: span,
+            start: 'top 88%',
+          }
+        }
+      );
+    });
+
+    /* ── WHAT I BUILD pillars ───────────────────────────────────────────────── */
+    gsap.from('.pillar', {
+      opacity: 0,
+      y: 40,
+      stagger: 0.15,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '#what-i-build',
+        start: 'top 78%',
+      }
+    });
+
+    /* ── ABOUT ──────────────────────────────────────────────────────────────── */
+    gsap.from('#about .about-text', {
+      opacity: 0,
+      y: 32,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '#about', start: 'top 78%' }
+    });
+
+    gsap.from('.impact-item', {
+      opacity: 0,
+      y: 28,
+      stagger: 0.12,
+      duration: 0.75,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.impact-strip', start: 'top 82%' }
+    });
+
+    /* ── EXPERIENCE timeline ────────────────────────────────────────────────── */
+    gsap.from('.tl-entry', {
+      opacity: 0,
+      x: -24,
+      stagger: 0.14,
+      duration: 0.75,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '#experience',
+        start: 'top 75%',
+      }
+    });
+
+    /* ── PROJECTS horizontal scroll ─────────────────────────────────────────── */
+    const projTrack    = document.getElementById('projTrack');
+    const projViewport = document.getElementById('projViewport');
+
+    function initHorizontal() {
+      const cards = projTrack.querySelectorAll('.case-study');
+      const gap   = 16;
+      const totalW = Array.from(cards).reduce((sum, c) => sum + c.offsetWidth + gap, 0) - gap;
+      const viewW  = projViewport.offsetWidth;
+      const dist   = Math.max(0, totalW - viewW);
+
+      if (dist <= 0) return; // not enough cards to scroll; show vertically
+
+      ScrollTrigger.create({
+        trigger: '#projects',
+        pin: true,
+        start: 'top top+=' + (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--bar')) || 65),
+        end: '+=' + dist,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        animation: gsap.to(projTrack, { x: -dist, ease: 'none' }),
+      });
+    }
+
+    // Count-up for project metrics on scroll
+    new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('[data-count]').forEach(el => {
+          if (!el._counted) { el._counted = true; countUp(el); }
+        });
+      });
+    }, { threshold: 0.1 }).observe(document.getElementById('projects'));
+
+    /* ── SKILLS pills ───────────────────────────────────────────────────────── */
+    gsap.from('.pill', {
+      opacity: 0,
+      y: 10,
+      scale: 0.96,
+      stagger: 0.03,
+      duration: 0.55,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '#skills',
+        start: 'top 78%',
+      }
+    });
+
+    /* ── Cert rows stagger ──────────────────────────────────────────────────── */
+    gsap.from('.cert-row', {
+      opacity: 0, x: -16, stagger: 0.08, duration: 0.6, ease: 'power3.out',
+      scrollTrigger: { trigger: '#certifications', start: 'top 80%' }
+    });
+
+    /* ── Award rows stagger ─────────────────────────────────────────────────── */
+    gsap.from('.award-row', {
+      opacity: 0, x: -16, stagger: 0.1, duration: 0.65, ease: 'power3.out',
+      scrollTrigger: { trigger: '#awards', start: 'top 80%' }
+    });
+
+    /* ── Generic section fade-up for remaining sections ─────────────────────── */
+    ['#education','#recommendations','#contact'].forEach(id => {
+      gsap.from(id + ' > *:not(.section-label)', {
+        opacity: 0,
+        y: 28,
+        duration: 0.75,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: id, start: 'top 78%' },
+      });
+    });
+
+    /* ── FOOTER parallax text ───────────────────────────────────────────────── */
+    gsap.from('.footer-head', {
+      y: 40,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '#footer', start: 'top 85%' }
+    });
+
+    /* ── Init on resize ─────────────────────────────────────────────────────── */
+    window.addEventListener('load', () => {
+      initHorizontal();
+      ScrollTrigger.refresh();
+    });
+
+    window.addEventListener('resize', () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+      // Re-run scroll triggers (simplified — page refresh handles it cleanly)
+      ScrollTrigger.refresh();
+    });
+
+  })();
+  </script>
+</body>
+</html>
