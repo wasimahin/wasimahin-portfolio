@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -332,13 +332,16 @@
       font-weight: 900;
       line-height: 0.88;
       letter-spacing: -0.025em;
-      color: var(--fg);
       margin-bottom: 32px;
     }
 
-    .hero-name > span { display: block; }
-
-    .char { display: inline-block; } /* GSAP animates, no CSS animation */
+    .hero-name > span {
+      display: block;
+      background: linear-gradient(110deg, var(--fg) 40%, rgba(200,169,110,0.7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
     .hero-tw {
       font-family: 'JetBrains Mono', monospace;
@@ -405,9 +408,10 @@
       padding: 13px 22px;
       border-radius: 2px;
       cursor: none;
-      transition: transform .2s ease, opacity .2s, border-color .2s, color .2s;
+      transition: transform 150ms ease, opacity 150ms, border-color 150ms, color 150ms, background 150ms;
     }
-    .btn:hover { transform: translateY(-2px); }
+    .btn:hover  { transform: translateY(-2px); }
+    .btn:active { transform: scale(0.97) translateY(0); }
 
     .btn-gold { background: var(--accent); color: #0a0a0a; }
     .btn-gold:hover { opacity: .88; }
@@ -435,8 +439,20 @@
       border: 1px solid var(--accent-edge);
       pointer-events: none;
     }
-    .hero-photo-wrap::before { inset: -12px; opacity: 0.7; }
-    .hero-photo-wrap::after  { inset: -24px; opacity: 0.3; }
+    .hero-photo-wrap::before {
+      inset: -14px;
+      opacity: 0.6;
+      animation: ring-breathe 5s ease-in-out infinite;
+    }
+    .hero-photo-wrap::after {
+      inset: -28px;
+      opacity: 0.25;
+      animation: ring-breathe 5s ease-in-out infinite 1.2s;
+    }
+    @keyframes ring-breathe {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50%       { opacity: 0.7; transform: scale(1.012); }
+    }
 
     .hero-photo {
       width: 240px;
@@ -494,7 +510,7 @@
 
     .pillar:hover { background: var(--bg-subtle); }
 
-    .pillar-icon { font-size: 22px; margin-bottom: 16px; display: block; }
+    .pillar-icon { font-size: 26px; margin-bottom: 20px; display: block; line-height: 1; }
 
     .pillar-title {
       font-family: 'Playfair Display', serif;
@@ -530,20 +546,22 @@
 
     .section-label {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: .22em;
-      color: var(--accent);
+      font-size: 9px;
+      letter-spacing: .32em;
+      color: var(--muted);
       text-transform: uppercase;
-      margin-bottom: 52px;
+      margin-bottom: 64px;
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 20px;
       overflow: hidden; /* clip-path reveal */
+      opacity: .5;
     }
 
     .section-label > span { display: block; } /* inner wrap for clip-path */
 
-    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .section-label::before { content: ''; width: 20px; height: 1px; background: var(--accent); flex-shrink: 0; opacity: 2; }
+    .section-label::after  { content: ''; flex: 1; height: 1px; background: var(--border); }
 
     /* ── ABOUT ────────────────────────────────────────────────────────────────── */
     .about-grid {
@@ -1187,6 +1205,39 @@
     .rec-fact-num { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 4px; }
     .rec-fact-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .08em; }
 
+    /* ── ATMOSPHERIC DEPTH ───────────────────────────────────────────────────── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 90% 60% at 50% -10%, rgba(200,169,110,0.03) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 90% 80%, rgba(200,169,110,0.02) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* ── PREFERS-REDUCED-MOTION ───────────────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .ticker-track { animation: none; }
+    }
+
+    /* ── HOVER LINK TRANSITIONS ───────────────────────────────────────────────── */
+    #sidebar nav a,
+    .tb-links a,
+    .tl-card,
+    .contact-row,
+    .award-row,
+    .pill,
+    .tag {
+      transition-duration: 150ms;
+    }
+
     /* ── LARGE SCREEN SCALING ────────────────────────────────────────────────── */
     @media (min-width: 1440px) {
       :root { --sidebar: 230px; --bar: 68px; }
@@ -1325,8 +1376,8 @@
           <p class="hero-meta">CSULB &nbsp;·&nbsp; MIS &amp; ACCOUNTANCY &nbsp;·&nbsp; GPA 3.87 &nbsp;·&nbsp; 2 TOOLS IN PRODUCTION</p>
 
           <h1 class="hero-name" aria-label="Wasi Mahin">
-            <span id="hl1"></span>
-            <span id="hl2"></span>
+            <span id="hl1">Wasi</span>
+            <span id="hl2">Mahin</span>
           </h1>
 
           <p class="hero-tw" aria-label="Role">
@@ -1336,7 +1387,7 @@
 
           <blockquote class="hero-quote">
             I build financial software that replaces manual workflows. Two of my tools are live
-            in a real office — not demos, not side projects — actual production automation,
+            in a real office: not demos, not side projects, but actual production automation
             used every working day by real staff.
           </blockquote>
 
@@ -1363,7 +1414,7 @@
           <div class="pillar">
             <span class="pillar-icon" aria-hidden="true">⚙️</span>
             <h2 class="pillar-title">Python Automation</h2>
-            <p class="pillar-desc">RPA tools that parse documents, navigate desktop software, and eliminate repetitive manual entry — without any API access needed.</p>
+            <p class="pillar-desc">RPA tools that parse documents, navigate desktop software, and eliminate repetitive manual entry. No API access required.</p>
             <div class="pillar-proof">2 tools live in production<br>Up to 96% processing time saved</div>
           </div>
           <div class="pillar">
@@ -1383,7 +1434,7 @@
 
       <!-- 01. ABOUT -->
       <section id="about" class="section" aria-labelledby="about-h">
-        <div class="section-label" id="about-h"><span>01. about</span></div>
+        <div class="section-label" id="about-h"><span>about</span></div>
         <div class="about-text">
           <p><strong>MIS &amp; Accountancy dual-major at Cal State Long Beach</strong> (GPA: 3.87, President's Honor List every semester) with 1.5+ years of production experience engineering Python automation tools, Power BI and Tableau dashboards, ETL pipelines, and SQL-driven financial analytics.</p>
           <p>I built two live automation systems achieving up to <strong>96% and 95% processing time reductions</strong> — and redesigned office workflows delivering a 50% efficiency gain adopted team-wide. I don't prototype. I bridge technical fluency with financial domain expertise to deliver measurable, business-ready results.</p>
@@ -1421,7 +1472,7 @@
 
       <!-- 02. EXPERIENCE -->
       <section id="experience" class="section" aria-labelledby="exp-h">
-        <div class="section-label" id="exp-h"><span>02. experience</span></div>
+        <div class="section-label" id="exp-h"><span>experience</span></div>
         <div class="timeline">
 
           <div class="tl-entry now">
@@ -1511,7 +1562,7 @@
 
       <!-- 03. PROJECTS -->
       <section id="projects" class="section" aria-labelledby="proj-h">
-        <div class="section-label" id="proj-h"><span>03. projects</span></div>
+        <div class="section-label" id="proj-h"><span>projects</span></div>
 
         <div class="proj-viewport" id="projViewport">
           <div class="proj-track" id="projTrack">
@@ -1631,7 +1682,7 @@
 
       <!-- 04. SKILLS -->
       <section id="skills" class="section" aria-labelledby="skills-h">
-        <div class="section-label" id="skills-h"><span>04. skills</span></div>
+        <div class="section-label" id="skills-h"><span>skills</span></div>
 
         <!-- Proficiency bars for key skills -->
         <div class="skill-bars" id="skillBars">
@@ -1688,7 +1739,7 @@
 
       <!-- 05. EDUCATION -->
       <section id="education" class="section" aria-labelledby="edu-h">
-        <div class="section-label" id="edu-h"><span>05. education</span></div>
+        <div class="section-label" id="edu-h"><span>education</span></div>
         <div class="edu-cards">
           <article class="edu-card">
             <p class="edu-meta">California State University, Long Beach &nbsp;·&nbsp; Aug 2023 – May 2027</p>
@@ -1708,7 +1759,7 @@
 
       <!-- 06. CERTIFICATIONS -->
       <section id="certifications" class="section" aria-labelledby="cert-h">
-        <div class="section-label" id="cert-h"><span>06. certifications</span></div>
+        <div class="section-label" id="cert-h"><span>certifications</span></div>
         <div class="cert-list" role="list">
           <div class="cert-row" role="listitem">
             <span class="cert-name">Career Essentials in Data Analysis</span>
@@ -1735,7 +1786,7 @@
 
       <!-- 07. AWARDS -->
       <section id="awards" class="section" aria-labelledby="awards-h">
-        <div class="section-label" id="awards-h"><span>07. awards &amp; achievements</span></div>
+        <div class="section-label" id="awards-h"><span>awards &amp; achievements</span></div>
         <div class="awards-list" role="list">
           <div class="award-row" role="listitem">
             <div class="award-l"><span class="award-icon" aria-hidden="true">🏆</span><span class="award-title">3rd Place — AIS Annual Datathon 2026</span></div>
@@ -1758,7 +1809,7 @@
 
       <!-- 08. RECOMMENDATIONS -->
       <section id="recommendations" class="section" aria-labelledby="rec-h">
-        <div class="section-label" id="rec-h"><span>08. recommendations</span></div>
+        <div class="section-label" id="rec-h"><span>recommendations</span></div>
         <div class="rec-cta">
           <div class="rec-cta-main">
             <p class="rec-cta-badge">LinkedIn Recommendation · July 2025</p>
@@ -1789,7 +1840,7 @@
 
       <!-- 09. CONTACT -->
       <section id="contact" class="section" aria-labelledby="contact-h">
-        <div class="section-label" id="contact-h"><span>09. contact</span></div>
+        <div class="section-label" id="contact-h"><span>contact</span></div>
         <div class="contact-list">
           <a href="mailto:wasimahin@gmail.com" class="contact-row" id="email-row" aria-label="Email — click to copy">
             <span class="c-lbl">Email</span>
@@ -1919,16 +1970,7 @@
     });
 
     /* ── Build hero name ────────────────────────────────────────────────────── */
-    function buildLine(el, text) {
-      text.split('').forEach(ch => {
-        const s = document.createElement('span');
-        s.className = 'char';
-        s.textContent = ch === ' ' ? ' ' : ch;
-        el.appendChild(s);
-      });
-    }
-    buildLine(document.getElementById('hl1'), 'Wasi');
-    buildLine(document.getElementById('hl2'), 'Mahin');
+    /* hero name text lives directly in HTML spans - no char split needed */
 
     /* ── Typewriter ─────────────────────────────────────────────────────────── */
     const roles = ['Data Analyst & Finance Leader','Python RPA & Automation Engineer','Power BI · SQL · Tableau Specialist','Financial Systems Builder'];
@@ -2008,7 +2050,7 @@
       entries.forEach(e => {
         if (!e.isIntersecting) return;
         e.target.querySelectorAll('.sbar-fill').forEach((fill, i) => {
-          setTimeout(() => { fill.style.width = fill.dataset.pct + '%'; }, i * 120);
+          setTimeout(() => { fill.style.width = fill.dataset.pct + '%'; }, i * 55);
         });
       });
     }, { threshold: 0.05 }).observe(document.getElementById('skillBars'));
@@ -2038,6 +2080,12 @@
       { opacity: 1 }
     );
 
+    /* ── Respect prefers-reduced-motion ────────────────────────────────────── */
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) {
+      gsap.globalTimeline.timeScale(20); // blast through all animations instantly
+    }
+
     /* ── LOADER ─────────────────────────────────────────────────────────────── */
     const loader = document.getElementById('loader');
     const loaderMark = document.querySelector('.loader-mark');
@@ -2048,7 +2096,7 @@
         // Sweep loader up like a curtain
         gsap.to(loader, {
           yPercent: -100,
-          duration: 0.9,
+          duration: prefersReduced ? 0.01 : 0.7,
           ease: 'expo.inOut',
           onComplete: () => { loader.remove(); startEntrance(); },
         });
@@ -2056,29 +2104,29 @@
     });
 
     loaderTl
-      .to(loaderMark, { opacity: 1, duration: 0.5, ease: 'power2.out' })
-      .to(loaderFill, { width: '100%', duration: 0.6, ease: 'power2.inOut' }, '-=0.1');
+      .to(loaderMark, { opacity: 1, duration: 0.4, ease: 'power2.out' })
+      .to(loaderFill, { width: '100%', duration: 0.5, ease: 'power2.inOut' }, '-=0.08');
 
-    /* ── HERO ENTRANCE ──────────────────────────────────────────────────────── */
+    /* ── HERO ENTRANCE — Emil rule compliance: ease-out, 150-550ms, 8-24px y ── */
     function startEntrance() {
-      // Show chrome
-      gsap.to(['#topbar', '#sidebar'], { opacity: 1, duration: 0.6, ease: 'power2.out' });
+      // Show chrome immediately
+      gsap.to(['#topbar', '#sidebar'], { opacity: 1, duration: 0.4, ease: 'power2.out' });
 
-      // Stagger hero elements in
       const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
       heroTl
-        .from('.hero-live',    { opacity: 0, y: 12, duration: 0.6 }, 0)
-        .from('.hero-meta',    { opacity: 0, y: 12, duration: 0.6 }, 0.1)
-        .from('.char',         { opacity: 0, y: 40, duration: 0.7, stagger: 0.035 }, 0.2)
-        .from('.hero-tw',      { opacity: 0, duration: 0.5 }, 0.65)
-        .from('.hero-loc',     { opacity: 0, duration: 0.5 }, 0.7)
-        .from('.hero-quote',   { opacity: 0, x: -16, duration: 0.7 }, 0.75)
-        .from('.hero-actions', { opacity: 0, y: 10, duration: 0.6 }, 0.85)
-        .from('.hero-photo-wrap', { opacity: 0, scale: 0.92, duration: 0.9, ease: 'power2.out' }, 0.3);
+        .from('.hero-live',       { opacity: 0, y: 8,  duration: 0.4 }, 0)
+        .from('.hero-meta',       { opacity: 0, y: 8,  duration: 0.4 }, 0.06)
+        .from('#hl1',             { opacity: 0, y: 24, duration: 0.5 }, 0.14)
+        .from('#hl2',             { opacity: 0, y: 24, duration: 0.5 }, 0.20)
+        .from('.hero-tw',         { opacity: 0,        duration: 0.35 }, 0.44)
+        .from('.hero-loc',        { opacity: 0,        duration: 0.3  }, 0.48)
+        .from('.hero-quote',      { opacity: 0, x: -12, duration: 0.45 }, 0.52)
+        .from('.hero-actions',    { opacity: 0, y: 8,  duration: 0.4  }, 0.58)
+        .from('.hero-photo-wrap', { opacity: 0, scale: 0.96, duration: 0.55, ease: 'power2.out' }, 0.2);
 
-      // Start typewriter after chars are in
-      setTimeout(tw, 1100);
+      // Start typewriter when name is fully in
+      setTimeout(tw, 800);
     }
 
     /* ── HERO SCROLL PARALLAX ───────────────────────────────────────────────── */
@@ -2107,13 +2155,13 @@
       }
     });
 
-    /* ── SECTION LABEL REVEALS (clip-path) ──────────────────────────────────── */
+    /* ── SECTION LABEL REVEALS (clip-path) — Emil: 300-500ms standard ─────── */
     document.querySelectorAll('.section-label > span').forEach(span => {
       gsap.fromTo(span,
         { clipPath: 'inset(0 100% 0 0)' },
         {
           clipPath: 'inset(0 0% 0 0)',
-          duration: 0.85,
+          duration: 0.5,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: span,
@@ -2125,12 +2173,12 @@
       );
     });
 
-    /* ── WHAT I BUILD pillars ───────────────────────────────────────────────── */
+    /* ── WHAT I BUILD pillars — Emil: y 16px, stagger 50ms, 450ms ─────────── */
     gsap.from('.pillar', {
       opacity: 0,
-      y: 40,
-      stagger: 0.15,
-      duration: 0.8,
+      y: 16,
+      stagger: 0.05,
+      duration: 0.45,
       ease: 'power3.out',
       scrollTrigger: {
         trigger: '#what-i-build',
@@ -2140,30 +2188,30 @@
       }
     });
 
-    /* ── ABOUT ──────────────────────────────────────────────────────────────── */
+    /* ── ABOUT — Emil: y 14px, 450ms ────────────────────────────────────────── */
     gsap.from('#about .about-text', {
       opacity: 0,
-      y: 32,
-      duration: 0.8,
+      y: 14,
+      duration: 0.45,
       ease: 'power3.out',
       scrollTrigger: { trigger: '#about', start: 'top 88%', once: true, invalidateOnRefresh: true }
     });
 
     gsap.from('.impact-item', {
       opacity: 0,
-      y: 28,
-      stagger: 0.12,
-      duration: 0.75,
+      y: 12,
+      stagger: 0.04,
+      duration: 0.45,
       ease: 'power3.out',
       scrollTrigger: { trigger: '.impact-strip', start: 'top 90%', once: true, invalidateOnRefresh: true }
     });
 
-    /* ── EXPERIENCE timeline ────────────────────────────────────────────────── */
-    document.querySelectorAll('.tl-entry').forEach((entry, i) => {
+    /* ── EXPERIENCE timeline — Emil: x 10px, 400ms, ease-out ──────────────── */
+    document.querySelectorAll('.tl-entry').forEach((entry) => {
       gsap.from(entry, {
         opacity: 0,
-        x: -24,
-        duration: 0.75,
+        x: -10,
+        duration: 0.4,
         ease: 'power3.out',
         scrollTrigger: {
           trigger: entry,
@@ -2171,7 +2219,6 @@
           once: true,
           invalidateOnRefresh: true,
         },
-        delay: i * 0.05,
       });
     });
 
@@ -2209,13 +2256,12 @@
       });
     }, { threshold: 0.05 }).observe(document.getElementById('projects'));
 
-    /* ── SKILLS pills ───────────────────────────────────────────────────────── */
+    /* ── SKILLS pills — Emil: y 8px, stagger 30ms, 350ms ──────────────────── */
     gsap.from('.pill', {
       opacity: 0,
-      y: 10,
-      scale: 0.96,
+      y: 8,
       stagger: 0.03,
-      duration: 0.55,
+      duration: 0.35,
       ease: 'power2.out',
       scrollTrigger: {
         trigger: '#skills',
@@ -2225,34 +2271,34 @@
       }
     });
 
-    /* ── Cert rows stagger ──────────────────────────────────────────────────── */
+    /* ── Cert rows — Emil: x 8px, stagger 40ms, 380ms ─────────────────────── */
     gsap.from('.cert-row', {
-      opacity: 0, x: -16, stagger: 0.08, duration: 0.6, ease: 'power3.out',
+      opacity: 0, x: -8, stagger: 0.04, duration: 0.38, ease: 'power3.out',
       scrollTrigger: { trigger: '#certifications', start: 'top 88%', once: true, invalidateOnRefresh: true }
     });
 
-    /* ── Award rows stagger ─────────────────────────────────────────────────── */
+    /* ── Award rows — Emil: x 8px, stagger 40ms, 380ms ─────────────────────── */
     gsap.from('.award-row', {
-      opacity: 0, x: -16, stagger: 0.1, duration: 0.65, ease: 'power3.out',
+      opacity: 0, x: -8, stagger: 0.04, duration: 0.38, ease: 'power3.out',
       scrollTrigger: { trigger: '#awards', start: 'top 88%', once: true, invalidateOnRefresh: true }
     });
 
-    /* ── Generic section fade-up for remaining sections ─────────────────────── */
+    /* ── Generic section fade-up — Emil: y 12px, 420ms ─────────────────────── */
     ['#education','#recommendations','#contact'].forEach(id => {
       gsap.from(id + ' > *:not(.section-label)', {
         opacity: 0,
-        y: 28,
-        duration: 0.75,
+        y: 12,
+        duration: 0.42,
         ease: 'power3.out',
         scrollTrigger: { trigger: id, start: 'top 88%', once: true, invalidateOnRefresh: true },
       });
     });
 
-    /* ── FOOTER parallax text ───────────────────────────────────────────────── */
+    /* ── FOOTER — Emil: y 20px, 550ms (complex orchestration allowed) ────── */
     gsap.from('.footer-head', {
-      y: 40,
+      y: 20,
       opacity: 0,
-      duration: 1,
+      duration: 0.55,
       ease: 'power3.out',
       scrollTrigger: { trigger: '#footer', start: 'top 92%', once: true, invalidateOnRefresh: true }
     });
