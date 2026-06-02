@@ -13,6 +13,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <style>
+    /* Hallmark · genre: atmospheric · macrostructure: Long Document · theme: custom (dark amber-gold) · nav: topbar minimal · footer: statement */
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -33,9 +35,16 @@
       --sidebar:      210px;
       --green:        #5cb85c;
       --r:            3px;
+      /* z-index scale */
+      --z-cursor:     600;
+      --z-cursor-r:   599;
+      --z-topbar:     100;
+      --z-sidebar:     50;
+      --z-loader:    3000;
+      --z-mnav:        90;
     }
 
-    html { scroll-behavior: auto; }
+    html { scroll-behavior: auto; overflow-x: clip; }
 
     body {
       background: var(--bg);
@@ -44,7 +53,7 @@
       font-size: 16px;
       line-height: 1.75;
       cursor: none;
-      overflow-x: hidden;
+      overflow-x: clip;
     }
 
     a { color: inherit; text-decoration: none; }
@@ -88,8 +97,8 @@
     }
 
     /* CURSOR */
-    #cur   { position: fixed; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
-    #cur-r { position: fixed; width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(200,169,110,.3); pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .15s, height .15s, border-color .15s, opacity .15s; }
+    #cur   { position: fixed; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); pointer-events: none; z-index: var(--z-cursor); transform: translate(-50%,-50%); }
+    #cur-r { position: fixed; width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(200,169,110,.3); pointer-events: none; z-index: var(--z-cursor-r); transform: translate(-50%,-50%); transition: width .15s, height .15s, border-color .15s, opacity .15s; }
 
     /* TOPBAR */
     #topbar {
@@ -126,7 +135,7 @@
     @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(92,184,92,.45); } 50% { box-shadow: 0 0 0 5px rgba(92,184,92,0); } }
 
     .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
-    .hamburger span { display: block; width: 20px; height: 1px; background: var(--muted); transition: all .3s; }
+    .hamburger span { display: block; width: 20px; height: 1px; background: var(--muted); transition: transform .3s ease, opacity .2s ease; }
     .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
@@ -221,10 +230,7 @@
     }
     #hl1, #hl2 {
       display: block;
-      background: linear-gradient(108deg, var(--fg) 42%, rgba(200,169,110,.72) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--fg);
     }
 
     .hero-tw {
@@ -341,26 +347,28 @@
 
     /* WHAT I BUILD */
     #what-i-build { padding: 0 0 88px; overflow: hidden; }
-    .pillars { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-    .pillar { background: var(--bg-card); padding: 36px 30px; transition: background 150ms; opacity: 0; }
+    .pillars { display: grid; grid-template-columns: 2fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .pillar { background: var(--bg-card); padding: 40px 36px; transition: background 150ms; }
     .pillar:hover { background: var(--bg-subtle); }
-    .pillar-icon { font-size: 26px; margin-bottom: 18px; display: block; line-height: 1; }
-    .pillar-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--fg); margin-bottom: 12px; line-height: 1.3; }
-    .pillar-desc { font-size: 13px; color: var(--muted); line-height: 1.82; margin-bottom: 20px; }
+    .pillar--wide { grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; }
+    .pillar-n { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 20px; opacity: .55; }
+    .pillar-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--fg); margin-bottom: 14px; line-height: 1.25; }
+    .pillar-desc { font-size: 13.5px; color: var(--muted); line-height: 1.88; margin-bottom: 22px; }
     .pillar-proof { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: .08em; border-top: 1px solid var(--border); padding-top: 16px; line-height: 1.8; }
 
     /* SECTIONS */
     .section { padding: 100px 0; border-top: 1px solid var(--border); }
-    .section-label {
+    #certifications, #awards { padding: 72px 0; }
+    #recommendations { padding: 120px 0; }
+    #contact { padding: 120px 0 80px; }
+
+    /* Section heading — replaces section-label eyebrows */
+    .section-head {
       font-family: 'JetBrains Mono', monospace;
       font-size: 9px; letter-spacing: .32em; color: var(--muted);
-      text-transform: uppercase; margin-bottom: 64px;
-      display: flex; align-items: center; gap: 20px;
-      overflow: hidden; opacity: .5;
+      text-transform: uppercase; margin-bottom: 52px;
+      opacity: .45;
     }
-    .section-label > span { display: block; }
-    .section-label::before { content: ''; width: 20px; height: 1px; background: var(--accent); flex-shrink: 0; }
-    .section-label::after  { content: ''; flex: 1; height: 1px; background: var(--border); }
 
     /* ABOUT */
     .about-text { max-width: 820px; }
@@ -371,10 +379,7 @@
     /* IMPACT STRIP */
     .impact-strip { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 56px; }
     .impact-item { background: var(--bg-card); padding: 28px 24px; position: relative; transition: background 150ms; }
-    .impact-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--border); transition: background 150ms; }
-    .impact-item:first-child::before { background: var(--accent); }
-    .impact-item:hover { background: var(--bg-subtle); }
-    .impact-item:hover::before { background: var(--accent); }
+    .impact-item:hover { background: var(--bg-raised); }
     .impact-idx { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: .24em; color: var(--muted); opacity: .32; text-transform: uppercase; margin-bottom: 14px; }
     .impact-num { font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900; color: var(--accent); line-height: 1; display: block; margin-bottom: 10px; }
     .impact-label { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 8px; line-height: 1.35; }
@@ -407,12 +412,11 @@
     .case-study {
       width: 540px; flex-shrink: 0;
       background: var(--bg-card); border: 1px solid var(--border);
-      position: relative; overflow: hidden; transition: border-color .25s;
+      border-top: 2px solid var(--border-mid);
+      position: relative; overflow: hidden; transition: border-color .25s, border-top-color .25s;
       display: flex; flex-direction: column;
     }
-    .case-study::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--border); transition: background .25s; }
-    .case-study:hover { border-color: var(--accent-edge); }
-    .case-study:hover::before { background: var(--accent); }
+    .case-study:hover { border-color: var(--accent-edge); border-top-color: var(--accent); }
     .cs-header { padding: 24px 28px 20px; border-bottom: 1px solid var(--border); }
     .cs-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: .2em; opacity: .5; margin-bottom: 6px; }
     .cs-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--fg); line-height: 1.2; }
@@ -456,8 +460,9 @@
 
     /* EDUCATION */
     .edu-cards { display: flex; flex-direction: column; gap: 3px; }
-    .edu-card { background: var(--bg-card); border: 1px solid var(--border); padding: 32px; position: relative; }
-    .edu-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); }
+    .edu-card { background: var(--bg-card); border: 1px solid var(--border); border-top: 2px solid var(--border-mid); padding: 32px; position: relative; transition: border-top-color 150ms; }
+    .edu-card:first-child { border-top-color: var(--accent); }
+    .edu-card:hover { border-top-color: var(--accent); }
     .edu-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .1em; margin-bottom: 8px; }
     .edu-degree { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--fg); margin-bottom: 6px; }
     .edu-gpa { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); margin-bottom: 20px; letter-spacing: .08em; }
@@ -499,12 +504,8 @@
     .rec-fact-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .08em; }
 
     /* CONTACT */
-    .contact-headline { font-family: 'Playfair Display', serif; font-size: clamp(48px, 6vw, 88px); font-weight: 900; line-height: .9; letter-spacing: -.02em; margin-bottom: 52px; }
-    .contact-headline span {
-      display: block;
-      background: linear-gradient(108deg, var(--fg) 48%, rgba(200,169,110,.62) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
+    .contact-headline { font-family: 'Playfair Display', serif; font-size: clamp(48px, 6vw, 88px); font-weight: 900; line-height: .9; letter-spacing: -.02em; margin-bottom: 52px; color: var(--fg); }
+    .contact-headline span { display: block; }
     .contact-list { display: flex; flex-direction: column; gap: 2px; }
     .contact-row { display: flex; align-items: center; background: var(--bg-card); border: 1px solid var(--border); padding: 20px 28px; transition: border-color 150ms; cursor: none; }
     .contact-row:hover { border-color: var(--accent-edge); }
@@ -538,6 +539,7 @@
     }
     @media (max-width: 860px) {
       .pillars { grid-template-columns: 1fr; }
+      .pillar--wide { grid-row: span 1; }
       .skill-bento { grid-template-columns: 1fr; }
       .sb-cell--wide { grid-column: 1; }
     }
@@ -745,20 +747,22 @@
       <!-- WHAT I BUILD -->
       <section id="what-i-build" aria-labelledby="wib-h">
         <div class="pillars">
-          <div class="pillar">
-            <span class="pillar-icon" aria-hidden="true">⚙️</span>
-            <h2 class="pillar-title">Python Automation</h2>
-            <p class="pillar-desc">RPA tools that parse documents, navigate desktop software, and eliminate repetitive manual entry. No API access required, no credentials needed.</p>
+          <div class="pillar pillar--wide">
+            <div>
+              <p class="pillar-n">01</p>
+              <h2 class="pillar-title" id="wib-h">Python Automation</h2>
+              <p class="pillar-desc">RPA tools that parse documents, navigate desktop software, and eliminate repetitive manual entry. No API access required, no credentials needed.</p>
+            </div>
             <div class="pillar-proof">2 tools live in production<br>Up to 96% processing time saved</div>
           </div>
           <div class="pillar">
-            <span class="pillar-icon" aria-hidden="true">📊</span>
+            <p class="pillar-n">02</p>
             <h2 class="pillar-title">BI &amp; Dashboards</h2>
             <p class="pillar-desc">Executive-ready Power BI and Tableau dashboards with DAX models, ETL pipelines, and data stories built for decisions, not just reports.</p>
             <div class="pillar-proof">Microsoft stakeholder dashboards<br>Microsoft Fabric ETL pipelines</div>
           </div>
           <div class="pillar">
-            <span class="pillar-icon" aria-hidden="true">🧾</span>
+            <p class="pillar-n">03</p>
             <h2 class="pillar-title">Financial Analytics</h2>
             <p class="pillar-desc">SQL-driven reporting, budget development, and reconciliation work across 500+ organizations, backed by real accounting domain knowledge.</p>
             <div class="pillar-proof">500+ campus orgs supported<br>3.87 GPA &nbsp;·&nbsp; MIS &amp; Accountancy</div>
@@ -768,7 +772,7 @@
 
       <!-- ABOUT -->
       <section id="about" class="section" aria-labelledby="about-h">
-        <div class="section-label" id="about-h"><span>about</span></div>
+        <p class="section-head" id="about-h">About</p>
         <div class="about-text">
           <p><strong>MIS &amp; Accountancy dual-major at Cal State Long Beach</strong> (GPA 3.87, President's Honor List every semester) with 1.5+ years of production experience engineering Python automation tools, Power BI and Tableau dashboards, ETL pipelines, and SQL-driven financial analytics.</p>
           <p>I built two live automation systems achieving up to <strong>96% and 95% processing time reductions</strong> and redesigned office workflows delivering a 50% efficiency gain adopted team-wide. I don't prototype. I bridge technical fluency with financial domain expertise to deliver measurable, business-ready results.</p>
@@ -805,7 +809,7 @@
 
       <!-- EXPERIENCE -->
       <section id="experience" class="section" aria-labelledby="exp-h">
-        <div class="section-label" id="exp-h"><span>experience</span></div>
+        <p class="section-head" id="exp-h">Experience</p>
         <div class="timeline">
 
           <div class="tl-entry now">
@@ -895,7 +899,7 @@
 
       <!-- PROJECTS -->
       <section id="projects" class="section" aria-labelledby="proj-h">
-        <div class="section-label" id="proj-h"><span>projects</span></div>
+        <p class="section-head" id="proj-h">Projects</p>
 
         <div class="proj-viewport" id="projViewport">
           <div class="proj-track" id="projTrack">
@@ -1023,7 +1027,7 @@
 
       <!-- SKILLS -->
       <section id="skills" class="section" aria-labelledby="skills-h">
-        <div class="section-label" id="skills-h"><span>skills</span></div>
+        <p class="section-head" id="skills-h">Skills</p>
 
         <div class="skills-layout">
           <div>
@@ -1069,7 +1073,7 @@
 
       <!-- EDUCATION -->
       <section id="education" class="section" aria-labelledby="edu-h">
-        <div class="section-label" id="edu-h"><span>education</span></div>
+        <p class="section-head" id="edu-h">Education</p>
         <div class="edu-cards">
           <article class="edu-card">
             <p class="edu-meta">California State University, Long Beach &nbsp;·&nbsp; Aug 2023 – May 2027</p>
@@ -1089,7 +1093,7 @@
 
       <!-- CERTIFICATIONS -->
       <section id="certifications" class="section" aria-labelledby="cert-h">
-        <div class="section-label" id="cert-h"><span>certifications</span></div>
+        <p class="section-head" id="cert-h">Certifications</p>
         <div class="cert-grid" role="list">
           <div class="cert-card" role="listitem">
             <p class="cert-issuer">Microsoft &amp; LinkedIn</p>
@@ -1121,30 +1125,30 @@
 
       <!-- AWARDS -->
       <section id="awards" class="section" aria-labelledby="awards-h">
-        <div class="section-label" id="awards-h"><span>awards &amp; achievements</span></div>
+        <p class="section-head" id="awards-h">Awards &amp; Achievements</p>
         <div class="awards-list" role="list">
           <div class="award-row" role="listitem">
-            <div class="award-l"><span class="award-icon" aria-hidden="true">&#127942;</span><span class="award-title">3rd Place &mdash; AIS Annual Datathon 2026</span></div>
+            <div class="award-l"><span class="award-title">3rd Place &mdash; AIS Annual Datathon 2026</span></div>
             <span class="award-r">AIS CSULB &nbsp;·&nbsp; 2026</span>
           </div>
           <div class="award-row" role="listitem">
-            <div class="award-l"><span class="award-icon" aria-hidden="true">&#128499;&#65039;</span><span class="award-title">Elected VP of Finance</span></div>
+            <div class="award-l"><span class="award-title">Elected VP of Finance</span></div>
             <span class="award-r">AIS CSULB &nbsp;·&nbsp; 2026</span>
           </div>
           <div class="award-row" role="listitem">
-            <div class="award-l"><span class="award-icon" aria-hidden="true">&#127891;</span><span class="award-title">President's Honor List</span></div>
-            <span class="award-r">CSULB &nbsp;·&nbsp; Every Semester 2023-Present</span>
+            <div class="award-l"><span class="award-title">President's Honor List</span></div>
+            <span class="award-r">CSULB &nbsp;·&nbsp; Every Semester 2023&ndash;Present</span>
           </div>
           <div class="award-row" role="listitem">
-            <div class="award-l"><span class="award-icon" aria-hidden="true">&#9881;&#65039;</span><span class="award-title">Production Automation &mdash; Live in Office</span></div>
-            <span class="award-r">ASI CSULB &nbsp;·&nbsp; 2025-Present</span>
+            <div class="award-l"><span class="award-title">Production Automation &mdash; Live in Office</span></div>
+            <span class="award-r">ASI CSULB &nbsp;·&nbsp; 2025&ndash;Present</span>
           </div>
         </div>
       </section>
 
       <!-- RECOMMENDATIONS -->
       <section id="recommendations" class="section" aria-labelledby="rec-h">
-        <div class="section-label" id="rec-h"><span>recommendations</span></div>
+        <p class="section-head" id="rec-h">Recommendations</p>
         <div class="rec-wrap">
           <div class="rec-main">
             <p class="rec-badge">LinkedIn Recommendation &nbsp;·&nbsp; July 2025</p>
@@ -1176,7 +1180,7 @@
 
       <!-- CONTACT -->
       <section id="contact" class="section" aria-labelledby="contact-h">
-        <div class="section-label" id="contact-h"><span>contact</span></div>
+        <p class="section-head" id="contact-h">Contact</p>
         <div class="contact-headline">
           <span>Let's</span>
           <span>Work Together</span>
@@ -1316,7 +1320,7 @@
         gsap.to(btn, { x, y, duration: 0.3, ease: 'power2.out' });
       });
       btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, { x: 0, y: 0, duration: 0.45, ease: 'elastic.out(1,.5)' });
+        gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'power3.out' });
       });
     });
 
@@ -1442,7 +1446,7 @@
        · once: true everywhere (no re-entry jank)
     ════════════════════════════════════════════════════════════ */
 
-    gsap.set('.hero-eyebrow, .hero-meta, .hero-tw, .hero-quote, .hero-actions, .hero-right, .pillar', { opacity: 1 });
+    gsap.set('.hero-eyebrow, .hero-meta, .hero-tw, .hero-quote, .hero-actions, .hero-right', { opacity: 1 });
 
     /* LOADER */
     const loader = document.getElementById('loader');
@@ -1497,39 +1501,6 @@
       scrollTrigger: { trigger: '#hero', start: 'center top', end: 'bottom top', scrub: 1, invalidateOnRefresh: true }
     });
 
-    /* SECTION LABEL REVEALS */
-    document.querySelectorAll('.section-label > span').forEach(span => {
-      gsap.fromTo(span,
-        { clipPath: 'inset(0 100% 0 0)' },
-        { clipPath: 'inset(0 0% 0 0)', duration: 0.48, ease: 'power3.out',
-          scrollTrigger: { trigger: span, start: 'top 92%', once: true, invalidateOnRefresh: true } }
-      );
-    });
-
-    /* PILLARS */
-    gsap.from('.pillar', {
-      opacity: 0, y: 14, stagger: 0.05, duration: 0.44, ease: 'power3.out',
-      scrollTrigger: { trigger: '#what-i-build', start: 'top 92%', once: true, invalidateOnRefresh: true }
-    });
-
-    /* ABOUT */
-    gsap.from('#about .about-text', {
-      opacity: 0, y: 12, duration: 0.44, ease: 'power3.out',
-      scrollTrigger: { trigger: '#about', start: 'top 88%', once: true, invalidateOnRefresh: true }
-    });
-    gsap.from('.impact-item', {
-      opacity: 0, y: 12, stagger: 0.04, duration: 0.44, ease: 'power3.out',
-      scrollTrigger: { trigger: '.impact-strip', start: 'top 90%', once: true, invalidateOnRefresh: true }
-    });
-
-    /* EXPERIENCE — each entry triggers independently */
-    document.querySelectorAll('.tl-entry').forEach(entry => {
-      gsap.from(entry, {
-        opacity: 0, x: -10, duration: 0.4, ease: 'power3.out',
-        scrollTrigger: { trigger: entry, start: 'top 90%', once: true, invalidateOnRefresh: true }
-      });
-    });
-
     /* PROJECTS HORIZONTAL SCROLL */
     const projTrack    = document.getElementById('projTrack');
     const projViewport = document.getElementById('projViewport');
@@ -1551,41 +1522,7 @@
       });
     }
 
-    /* SKILLS */
-    gsap.from('.sbar-row', {
-      opacity: 0, x: -8, stagger: 0.04, duration: 0.38, ease: 'power3.out',
-      scrollTrigger: { trigger: '#skills', start: 'top 88%', once: true, invalidateOnRefresh: true }
-    });
-    gsap.from('.sb-cell', {
-      opacity: 0, y: 10, stagger: 0.05, duration: 0.4, ease: 'power3.out',
-      scrollTrigger: { trigger: '.skill-bento', start: 'top 90%', once: true, invalidateOnRefresh: true }
-    });
-
-    /* CERTIFICATIONS */
-    gsap.from('.cert-card', {
-      opacity: 0, y: 10, stagger: 0.04, duration: 0.38, ease: 'power3.out',
-      scrollTrigger: { trigger: '#certifications', start: 'top 88%', once: true, invalidateOnRefresh: true }
-    });
-
-    /* AWARDS */
-    gsap.from('.award-row', {
-      opacity: 0, x: -8, stagger: 0.04, duration: 0.38, ease: 'power3.out',
-      scrollTrigger: { trigger: '#awards', start: 'top 88%', once: true, invalidateOnRefresh: true }
-    });
-
-    /* REMAINING SECTIONS */
-    ['#education','#recommendations','#contact'].forEach(id => {
-      gsap.from(id + ' > *:not(.section-label)', {
-        opacity: 0, y: 12, duration: 0.42, ease: 'power3.out',
-        scrollTrigger: { trigger: id, start: 'top 88%', once: true, invalidateOnRefresh: true }
-      });
-    });
-
-    /* FOOTER */
-    gsap.from('.footer-head', {
-      y: 18, opacity: 0, duration: 0.52, ease: 'power3.out',
-      scrollTrigger: { trigger: '#footer', start: 'top 92%', once: true, invalidateOnRefresh: true }
-    });
+    /* Skill bars fire on intersection (functional, not decorative) */
 
     /* DRAG-SCROLL on projects */
     let isDown = false, startX = 0, scrollLeft = 0;
