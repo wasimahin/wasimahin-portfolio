@@ -328,7 +328,7 @@
 
     .hero-name {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(76px, 10.5vw, 128px);
+      font-size: clamp(76px, 8.5vw, 168px);
       font-weight: 900;
       line-height: 0.88;
       letter-spacing: -0.025em;
@@ -973,7 +973,7 @@
 
     .footer-head {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(64px, 9vw, 116px);
+      font-size: clamp(64px, 7.5vw, 148px);
       font-weight: 900;
       line-height: 0.88;
       color: var(--fg);
@@ -1187,6 +1187,50 @@
     .rec-fact-num { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 4px; }
     .rec-fact-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .08em; }
 
+    /* ── LARGE SCREEN SCALING ────────────────────────────────────────────────── */
+    @media (min-width: 1440px) {
+      :root { --sidebar: 230px; --bar: 68px; }
+      body { font-size: 17px; }
+      #topbar { padding: 0 50px; }
+      #sidebar { padding-left: 50px; }
+      #main { padding: 0 80px; }
+      #footer { margin-left: var(--sidebar); padding: 100px 80px 72px; }
+      .hero-photo { width: 280px; height: 280px; }
+      #hero { grid-template-columns: 1fr 280px; gap: 80px; }
+      .section { padding: 110px 0; }
+      .case-study { width: 560px; }
+    }
+
+    @media (min-width: 1920px) {
+      :root { --sidebar: 260px; --bar: 72px; }
+      body { font-size: 18px; }
+      #topbar { padding: 0 60px; }
+      #sidebar { padding-left: 60px; }
+      #main { padding: 0 100px; }
+      #footer { padding: 120px 100px 80px; }
+      .hero-photo { width: 320px; height: 320px; }
+      #hero { grid-template-columns: 1fr 320px; gap: 96px; }
+      .section { padding: 120px 0; }
+      .case-study { width: 600px; }
+      .tl-card { padding: 32px 36px; }
+      .impact-num { font-size: 58px; }
+      .rec-cta-main { padding: 56px 48px; }
+      .rec-cta-side { padding: 56px 48px; }
+    }
+
+    @media (min-width: 2400px) {
+      :root { --sidebar: 300px; --bar: 76px; }
+      body { font-size: 20px; }
+      #topbar { padding: 0 80px; }
+      #sidebar { padding-left: 80px; }
+      #main { padding: 0 120px; max-width: calc(1760px + 300px); }
+      #footer { padding: 140px 120px 90px; max-width: calc(1760px + 300px); }
+      .hero-photo { width: 380px; height: 380px; }
+      #hero { grid-template-columns: 1fr 380px; gap: 120px; }
+      .section { padding: 140px 0; }
+      .case-study { width: 680px; }
+    }
+
     /* ── PRINT ────────────────────────────────────────────────────────────────── */
     @media print {
       #loader, #cur, #cur-r, #sidebar, #topbar, #mnav, #progress, .proj-hint, .btn { display: none !important; }
@@ -1307,6 +1351,7 @@
         <div class="hero-photo-wrap" aria-hidden="true">
           <div class="hero-photo">
             <img src="photo.jpg" alt="Wasi Mahin"
+                 fetchpriority="high" decoding="async"
                  style="width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:50%;position:absolute;inset:0;" />
           </div>
         </div>
@@ -1956,7 +2001,7 @@
           if (!el._counted) { el._counted = true; countUp(el); }
         });
       });
-    }, { threshold: 0.2 }).observe(document.querySelector('.impact-strip'));
+    }, { threshold: 0.05 }).observe(document.querySelector('.impact-strip'));
 
     /* ── Skill bar reveal ───────────────────────────────────────────────────── */
     new IntersectionObserver(entries => {
@@ -1966,7 +2011,7 @@
           setTimeout(() => { fill.style.width = fill.dataset.pct + '%'; }, i * 120);
         });
       });
-    }, { threshold: 0.3 }).observe(document.getElementById('skillBars'));
+    }, { threshold: 0.05 }).observe(document.getElementById('skillBars'));
 
     /* ── Copy email ─────────────────────────────────────────────────────────── */
     const emailRow = document.getElementById('email-row');
@@ -2045,6 +2090,7 @@
         start: 'top top',
         end: 'bottom top',
         scrub: 1.5,
+        invalidateOnRefresh: true,
       }
     });
 
@@ -2057,6 +2103,7 @@
         start: 'center top',
         end: 'bottom top',
         scrub: 1,
+        invalidateOnRefresh: true,
       }
     });
 
@@ -2070,7 +2117,9 @@
           ease: 'power3.out',
           scrollTrigger: {
             trigger: span,
-            start: 'top 88%',
+            start: 'top 92%',
+            once: true,
+            invalidateOnRefresh: true,
           }
         }
       );
@@ -2085,7 +2134,9 @@
       ease: 'power3.out',
       scrollTrigger: {
         trigger: '#what-i-build',
-        start: 'top 78%',
+        start: 'top 92%',
+        once: true,
+        invalidateOnRefresh: true,
       }
     });
 
@@ -2095,7 +2146,7 @@
       y: 32,
       duration: 0.8,
       ease: 'power3.out',
-      scrollTrigger: { trigger: '#about', start: 'top 78%' }
+      scrollTrigger: { trigger: '#about', start: 'top 88%', once: true, invalidateOnRefresh: true }
     });
 
     gsap.from('.impact-item', {
@@ -2104,20 +2155,24 @@
       stagger: 0.12,
       duration: 0.75,
       ease: 'power3.out',
-      scrollTrigger: { trigger: '.impact-strip', start: 'top 82%' }
+      scrollTrigger: { trigger: '.impact-strip', start: 'top 90%', once: true, invalidateOnRefresh: true }
     });
 
     /* ── EXPERIENCE timeline ────────────────────────────────────────────────── */
-    gsap.from('.tl-entry', {
-      opacity: 0,
-      x: -24,
-      stagger: 0.14,
-      duration: 0.75,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '#experience',
-        start: 'top 75%',
-      }
+    document.querySelectorAll('.tl-entry').forEach((entry, i) => {
+      gsap.from(entry, {
+        opacity: 0,
+        x: -24,
+        duration: 0.75,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: entry,
+          start: 'top 90%',
+          once: true,
+          invalidateOnRefresh: true,
+        },
+        delay: i * 0.05,
+      });
     });
 
     /* ── PROJECTS horizontal scroll ─────────────────────────────────────────── */
@@ -2152,7 +2207,7 @@
           if (!el._counted) { el._counted = true; countUp(el); }
         });
       });
-    }, { threshold: 0.1 }).observe(document.getElementById('projects'));
+    }, { threshold: 0.05 }).observe(document.getElementById('projects'));
 
     /* ── SKILLS pills ───────────────────────────────────────────────────────── */
     gsap.from('.pill', {
@@ -2164,20 +2219,22 @@
       ease: 'power2.out',
       scrollTrigger: {
         trigger: '#skills',
-        start: 'top 78%',
+        start: 'top 88%',
+        once: true,
+        invalidateOnRefresh: true,
       }
     });
 
     /* ── Cert rows stagger ──────────────────────────────────────────────────── */
     gsap.from('.cert-row', {
       opacity: 0, x: -16, stagger: 0.08, duration: 0.6, ease: 'power3.out',
-      scrollTrigger: { trigger: '#certifications', start: 'top 80%' }
+      scrollTrigger: { trigger: '#certifications', start: 'top 88%', once: true, invalidateOnRefresh: true }
     });
 
     /* ── Award rows stagger ─────────────────────────────────────────────────── */
     gsap.from('.award-row', {
       opacity: 0, x: -16, stagger: 0.1, duration: 0.65, ease: 'power3.out',
-      scrollTrigger: { trigger: '#awards', start: 'top 80%' }
+      scrollTrigger: { trigger: '#awards', start: 'top 88%', once: true, invalidateOnRefresh: true }
     });
 
     /* ── Generic section fade-up for remaining sections ─────────────────────── */
@@ -2187,7 +2244,7 @@
         y: 28,
         duration: 0.75,
         ease: 'power3.out',
-        scrollTrigger: { trigger: id, start: 'top 78%' },
+        scrollTrigger: { trigger: id, start: 'top 88%', once: true, invalidateOnRefresh: true },
       });
     });
 
@@ -2197,19 +2254,22 @@
       opacity: 0,
       duration: 1,
       ease: 'power3.out',
-      scrollTrigger: { trigger: '#footer', start: 'top 85%' }
+      scrollTrigger: { trigger: '#footer', start: 'top 92%', once: true, invalidateOnRefresh: true }
     });
 
-    /* ── Init on resize ─────────────────────────────────────────────────────── */
+    /* ── Init on load + resize ──────────────────────────────────────────────── */
     window.addEventListener('load', () => {
       initHorizontal();
       ScrollTrigger.refresh();
     });
 
+    // Debounced resize — just refresh positions, never kill triggers
+    let _rszTimer;
     window.addEventListener('resize', () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
-      // Re-run scroll triggers (simplified — page refresh handles it cleanly)
-      ScrollTrigger.refresh();
+      clearTimeout(_rszTimer);
+      _rszTimer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 250);
     });
 
   })();
