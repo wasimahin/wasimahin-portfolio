@@ -1,1895 +1,863 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wasi Mahin — Data Analyst & Business Automation Engineer</title>
-  <meta name="description" content="Wasi Mahin — Data Analyst, Business Automation Engineer & Finance Leader. MIS & Accountancy at CSULB, GPA 3.87. 2 production tools, 500+ organizations served." />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Wasi Mahin — Data Analyst & Business Automation Engineer</title>
+<meta name="description" content="Wasi Mahin — MIS & Accountancy student at CSULB. Data analyst, business automation engineer, and Python developer with production tools live in Microsoft Business Central."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Wasi Mahin — Portfolio" />
-  <meta property="og:description" content="Data Analyst & Automation Engineer building production-grade Python tools, Power BI dashboards, and financial systems." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://wasimahin.com" />
-  <meta property="og:image" content="https://wasimahin.com/apple-touch-icon.png" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Wasi Mahin — Portfolio" />
-  <meta name="twitter:description" content="Data Analyst & Automation Engineer. 2 tools live in production. CSULB MIS & Accountancy, GPA 3.87." />
-  <meta name="twitter:image" content="https://wasimahin.com/apple-touch-icon.png" />
+:root {
+  --bg:       #f3ede3;
+  --bg-s:     #ece5d8;
+  --bg-dark:  #1a1610;
+  --fg:       #1a1610;
+  --fg-2:     #6b5e4e;
+  --fg-3:     #a8957f;
+  --accent:   #c94b00;
+  --a-soft:   rgba(201,75,0,.08);
+  --a-border: rgba(201,75,0,.18);
+  --border:   #d5cdc0;
+  --green:    #1a9450;
+  --max:      1140px;
+}
 
-  <!-- Favicons -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+/* ── UTILITIES ─────────────────────── */
+.mono { font-family: 'JetBrains Mono', monospace; }
+.serif { font-family: 'Instrument Serif', serif; font-style: italic; }
+.display { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; letter-spacing: -.04em; }
+.center { max-width: var(--max); margin: 0 auto; }
+.padded { padding-left: 48px; padding-right: 48px; }
 
-  <style>
-    /* ─────────────────────────────────────────
-       RESET & ROOT
-    ───────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg:           #070711;
-      --bg-surface:   #0d0d1c;
-      --bg-raised:    #131328;
-      --fg:           #f0efff;
-      --fg-dim:       #8b8aae;
-      --muted:        #4a4a6a;
-      --accent:       #6366f1;
-      --accent-light: #818cf8;
-      --accent-soft:  rgba(99,102,241,.1);
-      --accent-glow:  rgba(99,102,241,.3);
-      --border:       #1a1a30;
-      --border-mid:   #252545;
-      --green:        #34d399;
-      --green-dim:    rgba(52,211,153,.15);
-      --bar:          64px;
-      --max-w:        1060px;
-      --r:            6px;
-      --r-lg:         12px;
-      --z-nav:        100;
-      --z-mnav:        90;
-      --z-cur:        600;
-      --z-cur-r:      599;
-    }
+/* ── NAV ────────────────────────────── */
+nav {
+  position: sticky; top: 0; z-index: 200;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  height: 60px; display: flex; align-items: center;
+  padding: 0 48px;
+}
+.nav-inner {
+  max-width: var(--max); margin: 0 auto; width: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 17px; font-weight: 800; letter-spacing: -.04em; color: var(--fg);
+}
+.logo em { color: var(--accent); font-style: normal; }
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  font-size: 13px; color: var(--fg-3); position: relative;
+  transition: color .15s; padding-bottom: 1px;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 0; height: 1.5px; background: var(--accent); transition: width .2s;
+}
+.nav-links a:hover { color: var(--fg); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta {
+  background: var(--fg); color: var(--bg);
+  border: none; border-radius: 6px; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+  padding: 8px 18px; transition: background .15s;
+}
+.nav-cta:hover { background: var(--accent); }
 
-    html { scroll-behavior: auto; overflow-x: clip; }
-    body {
-      background: var(--bg);
-      color: var(--fg);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 16px;
-      line-height: 1.75;
-      cursor: none;
-      overflow-x: clip;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { color: inherit; text-decoration: none; }
-    ul { list-style: none; }
-    img { display: block; max-width: 100%; }
-    button { font: inherit; cursor: none; }
+/* ── HERO ───────────────────────────── */
+.hero {
+  min-height: calc(100vh - 60px);
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 48%;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+.hero-left {
+  display: flex;
+  align-items: center;
+  padding: 80px 56px 80px max(48px, calc((100vw - var(--max)) / 2 + 48px));
+  position: relative;
+  z-index: 2;
+}
+.hero-left-inner { max-width: 520px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--a-soft); border: 1px solid var(--a-border);
+  border-radius: 100px; padding: 5px 14px; margin-bottom: 24px; width: fit-content;
+}
+.hero-badge .bdot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(26,148,80,.15);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{box-shadow:0 0 0 3px rgba(26,148,80,.15)} 50%{box-shadow:0 0 0 6px rgba(26,148,80,.06)} }
+.hero-badge span { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; }
 
-    /* subtle noise texture overlay */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; pointer-events: none; z-index: 1;
-      opacity: .018;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 256px 256px;
-    }
-    /* ambient top glow */
-    body::after {
-      content: '';
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      background:
-        radial-gradient(ellipse 70% 40% at 50% -5%, rgba(99,102,241,.06) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 30% at 90% 85%, rgba(99,102,241,.03) 0%, transparent 50%);
-    }
+.hero h1 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-weight: 800; letter-spacing: -.05em;
+  font-size: clamp(48px, 6.5vw, 86px);
+  line-height: .93; color: var(--fg);
+  margin-bottom: 24px;
+}
+.hero h1 .it { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; letter-spacing: -.02em; color: var(--accent); }
 
-    /* ─────────────────────────────────────────
-       SKIP LINK
-    ───────────────────────────────────────── */
-    .skip-link {
-      position: fixed; top: 8px; left: 8px; z-index: 9999;
-      background: var(--accent); color: #fff;
-      padding: 8px 16px; border-radius: var(--r);
-      font-family: 'JetBrains Mono', monospace; font-size: 11px;
-      transform: translateY(-120%); transition: transform .2s;
-    }
-    .skip-link:focus { transform: translateY(0); }
+.hero-sub {
+  font-size: 15.5px; color: var(--fg-2); line-height: 1.8;
+  max-width: 480px; margin-bottom: 36px;
+}
+.hero-sub strong { color: var(--fg); font-weight: 500; }
 
-    /* ─────────────────────────────────────────
-       CURSOR
-    ───────────────────────────────────────── */
-    #cur {
-      position: fixed; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent); pointer-events: none;
-      z-index: var(--z-cur); transform: translate(-50%,-50%);
-      transition: width .12s, height .12s;
-    }
-    #cur-r {
-      position: fixed; width: 26px; height: 26px; border-radius: 50%;
-      border: 1px solid rgba(99,102,241,.35); pointer-events: none;
-      z-index: var(--z-cur-r); transform: translate(-50%,-50%);
-      transition: width .14s, height .14s, border-color .14s, opacity .14s;
-    }
-    body.cursor-big #cur-r { width: 44px; height: 44px; border-color: rgba(99,102,241,.55); }
-    @media (hover: none) { #cur, #cur-r { display: none; } body { cursor: auto; } button { cursor: pointer; } }
+.hero-btns { display: flex; gap: 10px; align-items: center; }
+.btn-solid {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--fg); color: var(--bg); border: none;
+  padding: 12px 22px; border-radius: 7px;
+  font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif;
+  cursor: pointer; transition: background .15s, transform .1s;
+}
+.btn-solid:hover { background: var(--accent); transform: translateY(-1px); }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: transparent; color: var(--fg-2);
+  border: 1.5px solid var(--border); padding: 12px 22px; border-radius: 7px;
+  font-size: 13px; font-family: 'DM Sans', sans-serif; cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.btn-outline:hover { border-color: var(--fg-2); color: var(--fg); }
 
-    /* ─────────────────────────────────────────
-       SCROLL PROGRESS
-    ───────────────────────────────────────── */
-    #progress {
-      position: fixed; top: 0; left: 0; height: 2px; width: 0%;
-      background: linear-gradient(to right, var(--accent), var(--accent-light));
-      z-index: 200; transition: width .05s linear;
-    }
+/* ── HERO PHOTO — full-panel cover crop ─── */
+.hero-right {
+  background: var(--bg-s);  /* slightly darker cream — subtle separation */
+  overflow: hidden;
+  position: relative;
+  height: calc(100vh - 60px);
+  align-self: start;
+  border-left: 1px solid var(--border);
+}
+.photo-wrap {
+  width: 100%;
+  height: 100%;
+}
+.hero-portrait {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: 50% 8%;      /* face near top, shirt crops at bottom — intentional */
+  mix-blend-mode: multiply;     /* white areas take on bg-s color */
+}
+.photo-line { display: none; }
+.hero-portrait-fallback {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 8px;
+}
+.hero-portrait-fallback .initials {
+  font-family: 'Bricolage Grotesque', sans-serif; font-size: 72px;
+  font-weight: 800; color: var(--border); letter-spacing: -.04em;
+}
+.hero-portrait-fallback .note {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  color: var(--fg-3); letter-spacing: .1em; text-transform: uppercase;
+}
 
-    /* ─────────────────────────────────────────
-       TOP NAV
-    ───────────────────────────────────────── */
-    #topbar {
-      position: fixed; top: 0; left: 0; right: 0;
-      height: var(--bar); z-index: var(--z-nav);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 clamp(20px, 4vw, 56px);
-      transition: background .3s, border-color .3s, backdrop-filter .3s;
-      border-bottom: 1px solid transparent;
-    }
-    #topbar.scrolled {
-      background: rgba(7,7,17,.88);
-      backdrop-filter: blur(20px) saturate(160%);
-      border-color: var(--border);
-    }
-    .nav-brand {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px; letter-spacing: .14em; color: var(--accent);
-      font-weight: 500;
-    }
-    .nav-links {
-      display: flex; gap: 32px;
-    }
-    .nav-links a {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--fg-dim); transition: color .15s;
-      position: relative;
-    }
-    .nav-links a::after {
-      content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
-      height: 1px; background: var(--accent);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform .2s ease;
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--fg); }
-    .nav-links a.active::after, .nav-links a:hover::after { transform: scaleX(1); }
 
-    .nav-right { display: flex; align-items: center; gap: 12px; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
-      padding: 10px 20px; border-radius: var(--r);
-      transition: all .15s; cursor: none;
-      font-weight: 500;
-    }
-    .btn:active { transform: scale(.97); }
-    .btn-accent { background: var(--accent); color: #fff; }
-    .btn-accent:hover { background: var(--accent-light); }
-    .btn-ghost { background: transparent; color: var(--fg-dim); border: 1px solid var(--border-mid); }
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-    .btn-lg { font-size: 11px; padding: 13px 28px; }
+/* ── STATS STRIP ────────────────────── */
+.stats-strip {
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-dark);
+}
+.stats-inner {
+  max-width: var(--max); margin: 0 auto;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+}
+.stat {
+  padding: 28px 32px; border-right: 1px solid rgba(255,255,255,.06);
+  transition: background .15s;
+}
+.stat:last-child { border-right: none; }
+.stat:hover { background: rgba(255,255,255,.03); }
+.stat .sn {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 36px; font-weight: 800; letter-spacing: -.04em;
+  color: #fff; line-height: 1;
+}
+.stat .sn em { color: var(--accent); font-style: normal; }
+.stat .sd { font-size: 12px; color: rgba(255,255,255,.35); margin-top: 6px; line-height: 1.5; }
 
-    .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      background: none; border: none; padding: 4px; cursor: pointer;
-    }
-    .hamburger span {
-      display: block; width: 20px; height: 1.5px; background: var(--fg-dim);
-      transition: transform .3s, opacity .2s, background .2s;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--accent); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--accent); }
+/* ── TICKER ─────────────────────────── */
+.ticker-bar { overflow: hidden; border-bottom: 1px solid var(--border); padding: 11px 0; }
+.ticker-track {
+  display: flex; width: max-content;
+  animation: slide 30s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+@keyframes slide { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.t-item {
+  display: flex; align-items: center; gap: 28px; padding: 0 28px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--fg-3); white-space: nowrap;
+}
+.t-item .sep { color: var(--accent); }
 
-    /* ─────────────────────────────────────────
-       MOBILE NAV
-    ───────────────────────────────────────── */
-    #mnav {
-      display: none; position: fixed;
-      top: var(--bar); left: 0; right: 0; bottom: 0;
-      background: rgba(7,7,17,.97); backdrop-filter: blur(24px);
-      z-index: var(--z-mnav);
-      flex-direction: column; padding: 32px clamp(20px, 4vw, 56px);
-      gap: 4px; overflow-y: auto;
-    }
-    #mnav.open { display: flex; }
-    #mnav a {
-      font-family: 'Outfit', sans-serif;
-      font-size: clamp(28px, 6vw, 42px); font-weight: 700;
-      color: var(--fg-dim); padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-      transition: color .15s, padding-left .2s;
-    }
-    #mnav a:last-child { border-bottom: none; }
-    #mnav a:hover { color: var(--accent); padding-left: 12px; }
-    .mnav-resume {
-      margin-top: 32px;
-    }
+/* ── SECTION HEADER ─────────────────── */
+.sec-wrap { padding: 72px 48px; border-bottom: 1px solid var(--border); }
+.sec-wrap.alt { background: var(--bg-s); }
+.sec-head {
+  max-width: var(--max); margin: 0 auto 48px;
+  display: flex; align-items: center; gap: 16px;
+}
+.sec-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: .14em; }
+.sec-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(24px, 3vw, 36px); font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+.sec-rule { flex: 1; height: 1px; background: var(--border); }
 
-    /* ─────────────────────────────────────────
-       LAYOUT
-    ───────────────────────────────────────── */
-    #main { padding-top: var(--bar); }
-    .section {
-      padding: clamp(80px, 10vw, 140px) clamp(20px, 4vw, 56px);
-      max-width: calc(var(--max-w) + clamp(40px, 8vw, 112px));
-      margin: 0 auto;
-      border-top: 1px solid var(--border);
-    }
-    .section:first-child { border-top: none; }
-    .sec-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px; letter-spacing: .3em; color: var(--muted);
-      text-transform: uppercase; margin-bottom: 48px;
-      display: flex; align-items: center; gap: 16px;
-    }
-    .sec-label::after {
-      content: ''; flex: 1; max-width: 80px; height: 1px;
-      background: linear-gradient(to right, var(--border-mid), transparent);
-    }
+/* ── PROJECTS ───────────────────────── */
+.projects { max-width: var(--max); margin: 0 auto; }
+.proj-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  background: var(--border); border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--border); margin-bottom: 2px;
+}
+.proj-card {
+  background: var(--bg); padding: 36px 32px;
+  position: relative; transition: background .15s;
+  cursor: pointer;
+}
+.proj-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: var(--accent);
+  transform: scaleY(0); transform-origin: bottom;
+  transition: transform .25s ease;
+}
+.proj-card:hover { background: var(--bg-s); }
+.proj-card:hover::before { transform: scaleY(1); }
 
-    /* ─────────────────────────────────────────
-       HERO
-    ───────────────────────────────────────── */
-    #hero {
-      min-height: calc(100vh - var(--bar));
-      padding: clamp(60px, 8vw, 100px) clamp(20px, 4vw, 56px) clamp(60px, 8vw, 100px);
-      max-width: calc(var(--max-w) + clamp(40px, 8vw, 112px));
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 40px; align-items: center;
-      position: relative;
-    }
-    @media (max-width: 767px) {
-      #hero {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto;
-        text-align: center;
-      }
-      .hero-right { justify-items: center; }
-    }
+.pj-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+.pj-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--fg-3); letter-spacing: .12em; text-transform: uppercase; }
+.pj-live {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--green); background: rgba(26,148,80,.07);
+  border: 1px solid rgba(26,148,80,.18); padding: 3px 9px;
+  border-radius: 100px; letter-spacing: .08em; text-transform: uppercase;
+}
+.pj-live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
 
-    .hero-status {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--green-dim); border: 1px solid rgba(52,211,153,.25);
-      border-radius: 100px; padding: 5px 14px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px; letter-spacing: .1em; color: var(--green);
-      text-transform: uppercase; margin-bottom: 28px;
-    }
-    .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,.4);}50%{box-shadow:0 0 0 5px rgba(52,211,153,0);} }
+.pj-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 21px; font-weight: 800; letter-spacing: -.03em;
+  line-height: 1.15; color: var(--fg); margin-bottom: 10px;
+}
+.pj-desc {
+  font-size: 13px; color: var(--fg-2); line-height: 1.7; margin-bottom: 22px;
+}
+.pj-metrics {
+  display: flex; gap: 24px; padding: 14px 0;
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+.pj-m .val {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 24px; font-weight: 800; color: var(--accent);
+  letter-spacing: -.04em; line-height: 1;
+}
+.pj-m .lbl { font-size: 11px; color: var(--fg-3); margin-top: 2px; }
+.pj-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+.ptag {
+  font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+  color: var(--fg-3); background: var(--bg-s);
+  border: 1px solid var(--border); padding: 3px 8px; border-radius: 3px; letter-spacing: .04em;
+}
 
-    .hero-name {
-      font-family: 'Outfit', sans-serif;
-      font-size: clamp(64px, 10vw, 140px);
-      font-weight: 800; line-height: .9;
-      letter-spacing: -.03em;
-      margin-bottom: 24px;
-      color: var(--fg);
-    }
-    .hero-name span { display: block; }
+/* Datathon wide card */
+.proj-wide {
+  background: var(--bg-dark); padding: 32px;
+  border: 1px solid var(--border); border-top: none;
+  border-radius: 0 0 12px 12px;
+  display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
+  transition: background .15s; cursor: pointer;
+}
+.proj-wide:hover { background: #201a13; }
+.proj-wide .pj-num { color: rgba(255,255,255,.25); }
+.proj-wide .pj-title { color: rgba(255,255,255,.9); font-size: 18px; margin: 6px 0 8px; }
+.proj-wide .pj-desc { color: rgba(255,255,255,.4); font-size: 13px; margin: 0; }
+.proj-wide .pj-tags .ptag { color: rgba(255,255,255,.3); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.08); }
+.award-badge {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--accent); border-radius: 10px; padding: 18px 22px; min-width: 108px; text-align: center; flex-shrink: 0;
+}
+.award-badge .place { font-family: 'Bricolage Grotesque', sans-serif; font-size: 30px; font-weight: 800; color: #fff; letter-spacing: -.04em; line-height: 1; }
+.award-badge .plbl { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(255,255,255,.65); letter-spacing: .1em; text-transform: uppercase; margin-top: 5px; }
 
-    .hero-role {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: clamp(12px, 1.4vw, 14px); color: var(--fg-dim);
-      letter-spacing: .06em; margin-bottom: 4px;
-      min-height: 20px; display: flex; align-items: center;
-    }
-    @media (max-width: 767px) { .hero-role { justify-content: center; } }
-    .tw-cur { display: inline-block; width: 1px; height: 13px; background: var(--accent); margin-left: 2px; animation: blink .75s step-start infinite; vertical-align: middle; }
-    @keyframes blink { 0%,100%{opacity:1}50%{opacity:0} }
+/* ── EXPERIENCE ─────────────────────── */
+.exp-list { max-width: var(--max); margin: 0 auto; display: flex; flex-direction: column; gap: 0; }
+.exp-item {
+  display: grid; grid-template-columns: 200px 1fr;
+  gap: 40px; padding: 32px 0;
+  border-bottom: 1px solid var(--border); align-items: start;
+}
+.exp-item:first-child { padding-top: 0; }
+.exp-item:last-child { border-bottom: none; }
+.exp-meta {}
+.exp-date { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--fg-3); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; }
+.exp-org { font-size: 13px; color: var(--fg-2); line-height: 1.4; }
+.exp-current {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  color: var(--green); margin-top: 8px;
+  letter-spacing: .08em; text-transform: uppercase;
+}
+.exp-current .cdot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+.exp-content {}
+.exp-role {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 19px; font-weight: 800; letter-spacing: -.03em;
+  color: var(--fg); margin-bottom: 12px; line-height: 1.1;
+}
+.exp-bullets { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.exp-bullets li {
+  font-size: 13.5px; color: var(--fg-2); line-height: 1.65; padding-left: 16px; position: relative;
+}
+.exp-bullets li::before {
+  content: ''; position: absolute; left: 0; top: 9px;
+  width: 4px; height: 4px; border-radius: 50%; background: var(--accent);
+}
+.exp-bullets li strong { color: var(--fg); font-weight: 500; }
+.exp-tags { display: flex; gap: 5px; flex-wrap: wrap; }
 
-    .hero-tagline {
-      max-width: 500px;
-      font-size: clamp(14px, 1.5vw, 15.5px); color: var(--fg-dim);
-      line-height: 1.85; margin-bottom: 40px; margin-top: 18px;
-      border-left: 2px solid var(--accent); padding-left: 16px;
-    }
-    @media (max-width: 767px) {
-      .hero-tagline { margin: 18px auto 40px; text-align: left; }
-    }
+/* ── SKILLS ─────────────────────────── */
+.skills-wrap { max-width: var(--max); margin: 0 auto; display: flex; flex-direction: column; gap: 32px; }
+.skill-group {}
+.sg-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 12px; }
+.sg-items { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-pill {
+  font-size: 13px; color: var(--fg);
+  background: var(--bg); border: 1px solid var(--border);
+  padding: 7px 14px; border-radius: 6px;
+  transition: border-color .15s, background .15s, color .15s;
+  cursor: pointer;
+}
+.skill-pill:hover { border-color: var(--accent); background: var(--a-soft); color: var(--accent); }
+.skill-pill.strong { font-weight: 500; background: var(--bg-s); }
 
-    .hero-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    @media (max-width: 767px) { .hero-actions { justify-content: center; } }
+/* ── EDUCATION + CERTS ──────────────── */
+.edu-certs { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.edu-block h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: -.03em; margin-bottom: 4px; }
+.edu-block .sch { font-size: 13px; color: var(--fg-2); margin-bottom: 16px; }
+.edu-detail { display: flex; flex-direction: column; gap: 6px; }
+.edu-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.edu-row:last-child { border-bottom: none; }
+.edu-row .el { font-size: 13px; color: var(--fg-2); }
+.edu-row .er { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: .06em; }
 
-    /* HERO RIGHT */
-    .hero-right {
-      display: flex; flex-direction: column;
-      align-items: center; gap: 20px;
-    }
-    .hero-photo-wrap { position: relative; flex-shrink: 0; }
-    .hero-photo-wrap::before,
-    .hero-photo-wrap::after {
-      content: ''; position: absolute; border-radius: 50%;
-      border: 1px solid rgba(99,102,241,.2); pointer-events: none;
-    }
-    .hero-photo-wrap::before { inset: -14px; animation: ring-breathe 5s ease-in-out infinite; }
-    .hero-photo-wrap::after  { inset: -28px; opacity: .35; animation: ring-breathe 5s ease-in-out infinite 1.5s; }
-    @keyframes ring-breathe {
-      0%,100%{opacity:.25;transform:scale(1);}
-      50%{opacity:.55;transform:scale(1.012);}
-    }
-    .hero-photo {
-      width: 220px; height: 220px; border-radius: 50%;
-      border: 1px solid var(--border-mid); overflow: hidden; position: relative;
-      background: var(--bg-surface);
-      box-shadow: 0 0 60px rgba(99,102,241,.15), 0 0 120px rgba(99,102,241,.06);
-    }
-    .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; border-radius: 50%; }
+.certs-block h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: -.03em; margin-bottom: 4px; }
+.certs-block .csub { font-size: 13px; color: var(--fg-2); margin-bottom: 16px; }
+.cert-list { display: flex; flex-direction: column; gap: 0; }
+.cert-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--border); gap: 16px; }
+.cert-item:last-child { border-bottom: none; }
+.cert-item .cn { font-size: 13px; color: var(--fg); line-height: 1.4; }
+.cert-item .ci { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--fg-3); letter-spacing: .06em; white-space: nowrap; flex-shrink: 0; }
 
-    .hero-stats {
-      display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 1px; background: var(--border); border: 1px solid var(--border);
-      border-radius: var(--r); overflow: hidden; width: 100%;
-    }
-    .hstat {
-      background: var(--bg-surface); padding: 12px 8px; text-align: center;
-      transition: background .15s;
-    }
-    .hstat:hover { background: var(--bg-raised); }
-    .hstat-n {
-      font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700;
-      color: var(--accent); display: block; line-height: 1; margin-bottom: 3px;
-    }
-    .hstat-l {
-      font-family: 'JetBrains Mono', monospace; font-size: 8px;
-      color: var(--muted); letter-spacing: .1em; text-transform: uppercase;
-    }
+/* ── CONTACT ────────────────────────── */
+.contact-sec { background: var(--bg-dark); padding: 72px 48px; }
+.contact-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: end; }
+.contact-head {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(36px, 5.5vw, 68px); font-weight: 800;
+  letter-spacing: -.05em; line-height: .9; color: #fff;
+  margin-bottom: 24px;
+}
+.contact-head em { color: var(--accent); font-style: normal; }
+.contact-sub { font-size: 14px; color: rgba(255,255,255,.35); max-width: 400px; }
+.contact-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+.clink {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; color: rgba(255,255,255,.55);
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
+  padding: 11px 18px; border-radius: 7px; min-width: 220px; justify-content: space-between;
+  transition: background .15s, color .15s, border-color .15s; cursor: pointer;
+}
+.clink:hover { background: rgba(255,255,255,.09); color: #fff; border-color: rgba(255,255,255,.15); }
+.clink.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.clink.primary:hover { background: #b04200; }
+.clink .cl { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,.25); letter-spacing: .06em; }
 
-    /* ─────────────────────────────────────────
-       TICKER
-    ───────────────────────────────────────── */
-    .ticker-wrap {
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      overflow: hidden;
-      -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-      mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
-    }
-    .ticker-track { display: inline-flex; animation: ticker 30s linear infinite; white-space: nowrap; }
-    @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-    .ticker-item {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px; letter-spacing: .22em; color: var(--muted);
-      text-transform: uppercase; padding: 12px 28px;
-      border-right: 1px solid var(--border); opacity: .4;
-      transition: color .15s, opacity .15s; cursor: default;
-    }
-    .ticker-item:hover { color: var(--accent); opacity: 1; }
-    .ticker-item.hi { color: var(--accent); opacity: .7; }
+/* ── FOOTER ─────────────────────────── */
+footer {
+  background: var(--bg-dark); border-top: 1px solid rgba(255,255,255,.05);
+  padding: 20px 48px; display: flex; justify-content: space-between; align-items: center;
+}
+footer .fl, footer .fr {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  color: rgba(255,255,255,.2); letter-spacing: .08em;
+}
 
-    /* ─────────────────────────────────────────
-       WHAT I BUILD
-    ───────────────────────────────────────── */
-    #what-i-build { padding-bottom: 0; border-top: none; }
-    .pillars-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px; background: var(--border); border: 1px solid var(--border);
-      border-radius: var(--r-lg); overflow: hidden;
-    }
-    @media (max-width: 639px) {
-      .pillars-grid { grid-template-columns: 1fr; }
-    }
-    .pillar {
-      background: var(--bg-surface); padding: clamp(32px,3.5vw,48px);
-      transition: background .18s; display: flex; flex-direction: column;
-      gap: 16px; min-height: 240px;
-    }
-    .pillar:hover { background: var(--bg-raised); }
-    .pillar-num {
-      font-family: 'Outfit', sans-serif; font-size: 44px; font-weight: 800;
-      color: var(--accent); opacity: .15; line-height: 1; display: block;
-      margin-bottom: 4px;
-    }
-    .pillar-title {
-      font-family: 'Outfit', sans-serif; font-size: clamp(18px,2vw,22px);
-      font-weight: 700; color: var(--fg); line-height: 1.2;
-    }
-    .pillar-desc {
-      font-size: 14px; color: var(--fg-dim); line-height: 1.8;
-      flex: 1;
-    }
-    .pillar-proof {
-      font-family: 'JetBrains Mono', monospace; font-size: 10px;
-      color: var(--accent); letter-spacing: .06em;
-      border-top: 1px solid var(--border); padding-top: 14px;
-      line-height: 1.8; margin-top: auto;
-    }
+/* ── RESPONSIVE — TABLET (≤ 900px) ─────── */
+@media (max-width: 900px) {
+  /* Nav: hide text links, keep logo + CTA */
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
 
-    /* ─────────────────────────────────────────
-       ABOUT
-    ───────────────────────────────────────── */
-    .about-body { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
-    @media (max-width: 767px) { .about-body { grid-template-columns: 1fr; gap: 40px; } }
-    .about-text p { font-size: 15px; color: var(--fg-dim); line-height: 1.9; }
-    .about-text p + p { margin-top: 16px; }
-    .about-text strong { color: var(--fg); font-weight: 500; }
+  /* Hero: stack columns */
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .hero-left {
+    padding: 56px 24px 48px;
+    align-items: flex-start;
+  }
+  .hero-left-inner { max-width: 100%; }
+  .hero-right {
+    height: 60vw;
+    align-self: auto;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
 
-    /* IMPACT STRIP */
-    .impact-strip {
-      grid-column: 1 / -1;
-      display: grid; grid-template-columns: repeat(4,1fr); gap: 1px;
-      background: var(--border); border: 1px solid var(--border);
-      border-radius: var(--r); overflow: hidden; margin-top: 56px;
-    }
-    @media (max-width: 767px) { .impact-strip { grid-template-columns: repeat(2,1fr); } }
-    .impact-item {
-      background: var(--bg-surface); padding: clamp(24px,3vw,36px) 24px;
-      transition: background .15s; position: relative; overflow: hidden;
-    }
-    .impact-item::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 2px; background: linear-gradient(to right, var(--accent), transparent);
-      opacity: 0; transition: opacity .2s;
-    }
-    .impact-item:hover { background: var(--bg-raised); }
-    .impact-item:hover::before { opacity: 1; }
-    .impact-idx {
-      font-family: 'JetBrains Mono', monospace; font-size: 9px;
-      letter-spacing: .24em; color: var(--muted); text-transform: uppercase;
-      margin-bottom: 10px; opacity: .5;
-    }
-    .impact-num {
-      font-family: 'Outfit', sans-serif; font-size: clamp(36px,5vw,52px);
-      font-weight: 800; color: var(--accent); line-height: 1;
-      display: block; margin-bottom: 8px;
-    }
-    .impact-label { font-size: 13px; font-weight: 600; color: var(--fg); margin-bottom: 6px; line-height: 1.3; }
-    .impact-ctx {
-      font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
-      color: var(--fg-dim); letter-spacing: .02em; line-height: 1.7; opacity: .65;
-    }
+  /* Stats: 2×2 grid */
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(2) { border-right: none; }
+  .stat:nth-child(3), .stat:nth-child(4) { border-top: 1px solid rgba(255,255,255,.06); }
+  .stat:nth-child(4) { border-right: none; }
 
-    /* ─────────────────────────────────────────
-       EXPERIENCE — ALTERNATING TIMELINE
-    ───────────────────────────────────────── */
-    .timeline { position: relative; }
+  /* All sections */
+  .sec-wrap { padding: 56px 24px; }
+  .sec-head { margin-bottom: 40px; }
 
-    /* center line on desktop */
-    @media (min-width: 1024px) {
-      .timeline::before {
-        content: ''; position: absolute; left: 50%; top: 12px; bottom: 0;
-        width: 1px; transform: translateX(-50%);
-        background: linear-gradient(to bottom, var(--accent) 0%, var(--border) 60%, transparent 100%);
-      }
-    }
+  /* Experience: collapse meta into inline row above bullets */
+  .exp-item { grid-template-columns: 1fr; gap: 10px; }
+  .exp-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; }
+  .exp-date { margin-bottom: 0; }
 
-    .tl-entry { margin-bottom: 24px; position: relative; }
+  /* Projects: single column */
+  .proj-grid { grid-template-columns: 1fr; }
+  .proj-wide { grid-template-columns: 1fr auto; }
 
-    @media (min-width: 1024px) {
-      .tl-entry {
-        display: grid;
-        grid-template-columns: 1fr 48px 1fr;
-        align-items: start;
-        margin-bottom: 32px;
-      }
-      /* Odd entries: card left, dot center, empty right */
-      .tl-entry:nth-child(odd)  .tl-card  { grid-column: 1; grid-row: 1; padding-right: 0; }
-      .tl-entry:nth-child(odd)  .tl-dot   { grid-column: 2; grid-row: 1; }
-      .tl-entry:nth-child(odd)  .tl-blank { grid-column: 3; grid-row: 1; }
-      /* Even entries: empty left, dot center, card right */
-      .tl-entry:nth-child(even) .tl-blank { grid-column: 1; grid-row: 1; }
-      .tl-entry:nth-child(even) .tl-dot   { grid-column: 2; grid-row: 1; }
-      .tl-entry:nth-child(even) .tl-card  { grid-column: 3; grid-row: 1; }
-    }
+  /* Education: stack */
+  .edu-certs { grid-template-columns: 1fr; gap: 40px; }
 
-    .tl-blank { display: none; }
-    @media (min-width: 1024px) { .tl-blank { display: block; } }
+  /* Contact: stack */
+  .contact-sec { padding: 56px 24px; }
+  .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+  .contact-links { align-items: stretch; }
+  .clink { min-width: auto; width: 100%; }
 
-    .tl-dot {
-      display: none;
-    }
-    @media (min-width: 1024px) {
-      .tl-dot {
-        display: flex; align-items: flex-start; justify-content: center;
-        padding-top: 24px;
-      }
-      .tl-dot::after {
-        content: ''; width: 10px; height: 10px; border-radius: 50%;
-        border: 2px solid var(--border-mid); background: var(--bg);
-        flex-shrink: 0; transition: border-color .2s, background .2s;
-      }
-      .tl-entry.now .tl-dot::after {
-        border-color: var(--accent); background: var(--accent);
-        box-shadow: 0 0 12px var(--accent-glow);
-      }
-    }
+  footer { padding: 20px 24px; }
+}
 
-    /* Mobile: left-border style */
-    @media (max-width: 1023px) {
-      .timeline { padding-left: 20px; }
-      .timeline::before {
-        content: ''; position: absolute; left: 4px; top: 14px; bottom: 14px;
-        width: 1px;
-        background: linear-gradient(to bottom, var(--accent), var(--border) 65%, transparent);
-      }
-      .tl-entry { position: relative; }
-      .tl-entry::before {
-        content: ''; position: absolute; left: -17px; top: 24px;
-        width: 8px; height: 8px; border-radius: 50%;
-        border: 1.5px solid var(--border-mid); background: var(--bg);
-      }
-      .tl-entry.now::before { border-color: var(--accent); background: var(--accent); }
-    }
+/* ── RESPONSIVE — MOBILE (≤ 480px) ─────── */
+@media (max-width: 480px) {
+  nav { padding: 0 20px; }
+  .logo { font-size: 16px; }
+  .nav-cta { padding: 7px 14px; font-size: 12px; }
 
-    .tl-card {
-      background: var(--bg-surface); border: 1px solid var(--border);
-      border-radius: var(--r-lg); padding: clamp(22px, 3vw, 32px);
-      position: relative; overflow: hidden;
-      transition: border-color .2s, transform .2s;
-    }
-    .tl-card::before {
-      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-      width: 3px; background: var(--border); transition: background .2s;
-    }
-    .tl-entry.now .tl-card::before { background: var(--accent); }
-    .tl-card:hover { border-color: rgba(99,102,241,.25); }
-    .tl-card:hover::before { background: var(--accent); }
+  /* Hero */
+  .hero-left { padding: 40px 20px 36px; }
+  .hero h1 { font-size: clamp(38px, 11vw, 56px); margin-bottom: 18px; }
+  .hero-sub { font-size: 14.5px; margin-bottom: 28px; }
+  .hero-btns { flex-direction: column; align-items: stretch; }
+  .btn-solid, .btn-outline { justify-content: center; }
+  .hero-right { height: 76vw; }
 
-    .tl-meta {
-      font-family: 'JetBrains Mono', monospace; font-size: 10px;
-      color: var(--muted); letter-spacing: .1em; margin-bottom: 6px;
-    }
-    .tl-title {
-      font-family: 'Outfit', sans-serif; font-size: clamp(16px, 2vw, 19px);
-      font-weight: 700; color: var(--fg); margin-bottom: 14px; line-height: 1.2;
-    }
-    .tl-bullets { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-    .tl-bullets li {
-      font-size: 13.5px; color: var(--fg-dim); padding-left: 14px;
-      position: relative; line-height: 1.72;
-    }
-    .tl-bullets li::before {
-      content: ''; position: absolute; left: 0; top: 10px;
-      width: 5px; height: 1px; background: var(--accent);
-    }
-    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 14px; }
-    .tag {
-      background: var(--bg-raised); border: 1px solid var(--border);
-      border-radius: var(--r); padding: 3px 9px;
-      font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
-      color: var(--fg-dim); letter-spacing: .04em;
-      transition: color .15s, border-color .15s;
-    }
-    .tl-card:hover .tag { border-color: rgba(99,102,241,.2); }
+  /* Stats */
+  .sec-wrap { padding: 44px 20px; }
+  .stat { padding: 20px 16px; }
+  .stat .sn { font-size: 28px; }
+  .sec-title { font-size: 24px; }
 
-    /* ─────────────────────────────────────────
-       PROJECTS — 2-COL GRID
-    ───────────────────────────────────────── */
-    .proj-grid {
-      display: grid;
-      grid-template-columns: repeat(2,1fr); gap: 16px;
-    }
-    @media (max-width: 767px) { .proj-grid { grid-template-columns: 1fr; } }
+  /* Experience */
+  .exp-role { font-size: 17px; }
+  .exp-bullets li { font-size: 13px; }
 
-    .proj-card {
-      background: var(--bg-surface); border: 1px solid var(--border);
-      border-top: 2px solid var(--border-mid);
-      border-radius: var(--r-lg); overflow: hidden;
-      display: flex; flex-direction: column;
-      transition: border-color .2s, border-top-color .2s, transform .25s;
-    }
-    .proj-card:hover { border-color: rgba(99,102,241,.25); border-top-color: var(--accent); }
+  /* Projects */
+  .proj-card { padding: 28px 20px; }
+  .pj-title { font-size: 18px; }
+  .pj-metrics { gap: 16px; }
+  .pj-m .val { font-size: 20px; }
+  .proj-wide { grid-template-columns: 1fr; gap: 20px; padding: 24px 20px; }
+  .award-badge { flex-direction: row; gap: 14px; padding: 14px 18px; min-width: auto; align-self: flex-start; text-align: left; }
+  .award-badge .place { font-size: 26px; }
 
-    .proj-header { padding: 22px 24px 18px; border-bottom: 1px solid var(--border); }
-    .proj-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: .2em; opacity: .55; margin-bottom: 4px; }
-    .proj-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 700; color: var(--fg); line-height: 1.2; }
+  /* Contact */
+  .contact-sec { padding: 44px 20px; }
+  .contact-head { font-size: clamp(28px, 10vw, 44px); }
 
-    .proj-metric {
-      display: flex; align-items: center; gap: 14px;
-      padding: 14px 24px;
-      background: rgba(99,102,241,.04); border-bottom: 1px solid rgba(99,102,241,.1);
-    }
-    .proj-big-n {
-      font-family: 'Outfit', sans-serif; font-size: 34px; font-weight: 800;
-      color: var(--accent); line-height: 1;
-    }
-    .proj-big-desc {
-      font-family: 'JetBrains Mono', monospace; font-size: 10px;
-      color: var(--fg-dim); letter-spacing: .06em; line-height: 1.6;
-    }
-    .proj-live {
-      margin-left: auto; font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px; color: var(--green); letter-spacing: .08em;
-      display: flex; align-items: center; gap: 5px; flex-shrink: 0;
-    }
-    .proj-live::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 1.8s infinite; }
+  footer { padding: 16px 20px; flex-direction: column; gap: 4px; align-items: flex-start; }
+}
 
-    .proj-award {
-      display: flex; align-items: center; gap: 10px;
-      padding: 12px 24px;
-      background: rgba(99,102,241,.05); border-bottom: 1px solid rgba(99,102,241,.1);
-      font-family: 'JetBrains Mono', monospace; font-size: 11px;
-      color: var(--accent); letter-spacing: .04em;
-    }
+/* ── REDUCED MOTION ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track { animation: none; }
+  .hero-badge .bdot,
+  .exp-current .cdot,
+  .pj-live-dot { animation: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
-    .proj-body { padding: 18px 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
-    .proj-col-label {
-      font-family: 'JetBrains Mono', monospace; font-size: 9px;
-      color: var(--muted); letter-spacing: .18em; text-transform: uppercase;
-      opacity: .55; margin-bottom: 4px;
-    }
-    .proj-col-text { font-size: 13px; color: var(--fg-dim); line-height: 1.8; }
-
-    /* Accordion */
-    .proj-more { padding: 0 24px; overflow: hidden; }
-    .proj-more[hidden] { display: none; }
-    .proj-more-inner { padding-bottom: 14px; border-top: 1px solid var(--border); padding-top: 12px; }
-    .proj-toggle {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: none; border: none;
-      font-family: 'JetBrains Mono', monospace; font-size: 10px;
-      letter-spacing: .1em; color: var(--accent);
-      padding: 12px 24px; text-transform: uppercase;
-      transition: opacity .15s; cursor: pointer;
-    }
-    .proj-toggle:hover { opacity: .75; }
-    .proj-toggle-icon { transition: transform .25s; font-style: normal; }
-    .proj-toggle[aria-expanded="true"] .proj-toggle-icon { transform: rotate(180deg); }
-    .proj-divider { height: 1px; background: var(--border); margin: 0; }
-
-    .proj-footer {
-      padding: 14px 24px;
-      border-top: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .proj-link {
-      font-family: 'JetBrains Mono', monospace; font-size: 10px;
-      letter-spacing: .1em; text-transform: uppercase;
-      color: var(--fg-dim); border: 1px solid var(--border);
-      padding: 6px 14px; border-radius: var(--r);
-      display: inline-flex; align-items: center; gap: 5px;
-      transition: border-color .15s, color .15s;
-    }
-    .proj-link:hover { border-color: var(--accent); color: var(--accent); }
-    .proj-link-dead { opacity: .3; cursor: default; }
-
-    /* ─────────────────────────────────────────
-       SKILLS
-    ───────────────────────────────────────── */
-    .skills-top { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-bottom: 48px; }
-    @media (max-width: 767px) { .skills-top { grid-template-columns: 1fr; gap: 40px; } }
-
-    .skill-groups { display: flex; flex-direction: column; gap: 24px; }
-    .skill-group-label {
-      font-family: 'JetBrains Mono', monospace; font-size: 9px;
-      letter-spacing: .24em; color: var(--accent); text-transform: uppercase;
-      opacity: .8; margin-bottom: 10px;
-    }
-    .skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
-    .skill-tag {
-      background: var(--bg-surface); border: 1px solid var(--border);
-      border-radius: 100px; padding: 5px 14px;
-      font-family: 'JetBrains Mono', monospace; font-size: 11px;
-      color: var(--fg-dim); letter-spacing: .04em;
-      transition: background .15s, border-color .15s, color .15s;
-      cursor: default;
-    }
-    .skill-tag:hover { background: var(--accent-soft); border-color: rgba(99,102,241,.4); color: var(--accent-light); }
-
-    .skill-bars-section { }
-    .skill-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 13px; }
-    .sbar-name { font-size: 12.5px; color: var(--fg-dim); min-width: 190px; flex-shrink: 0; }
-    .sbar-track { flex: 1; height: 1px; background: var(--border); position: relative; }
-    .sbar-fill { position: absolute; left: 0; top: -1px; height: 3px; width: 0; background: linear-gradient(to right, var(--accent), var(--accent-soft)); transition: width 1.1s cubic-bezier(.16,1,.3,1); }
-    .sbar-pct { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); opacity: .65; min-width: 32px; text-align: right; }
-
-    /* ─────────────────────────────────────────
-       EDUCATION
-    ───────────────────────────────────────── */
-    .edu-cards { display: flex; flex-direction: column; gap: 3px; }
-    .edu-card {
-      background: var(--bg-surface); border: 1px solid var(--border);
-      border-top: 2px solid var(--border-mid);
-      border-radius: var(--r-lg); padding: clamp(24px, 3vw, 36px);
-      position: relative; transition: border-top-color .2s;
-    }
-    .edu-card.primary { border-top-color: var(--accent); }
-    .edu-card:hover { border-top-color: var(--accent); }
-    .edu-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .1em; margin-bottom: 6px; }
-    .edu-degree { font-family: 'Outfit', sans-serif; font-size: clamp(16px, 2vw, 20px); font-weight: 700; color: var(--fg); margin-bottom: 6px; }
-    .edu-gpa { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); margin-bottom: 18px; letter-spacing: .08em; }
-    .edu-course-lbl { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: .2em; text-transform: uppercase; opacity: .45; margin-bottom: 6px; }
-    .edu-courses { font-size: 13px; color: var(--fg-dim); line-height: 1.85; }
-    .edu-activities { font-size: 13px; color: var(--fg-dim); line-height: 1.85; margin-top: 12px; font-style: italic; }
-
-    /* ─────────────────────────────────────────
-       CERTIFICATIONS
-    ───────────────────────────────────────── */
-    .cert-grid {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
-      background: var(--border); border: 1px solid var(--border);
-      border-radius: var(--r-lg); overflow: hidden;
-    }
-    @media (max-width: 639px) { .cert-grid { grid-template-columns: 1fr; } }
-    @media (min-width: 640px) and (max-width: 1023px) { .cert-grid { grid-template-columns: repeat(2,1fr); } }
-    .cert-card {
-      background: var(--bg-surface); padding: 22px 20px;
-      transition: background .15s; position: relative; overflow: hidden;
-    }
-    .cert-card::after {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(to right, var(--accent), transparent);
-      opacity: 0; transition: opacity .15s;
-    }
-    .cert-card:hover { background: var(--bg-raised); }
-    .cert-card:hover::after { opacity: 1; }
-    .cert-issuer { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: .2em; color: var(--accent); text-transform: uppercase; opacity: .75; margin-bottom: 10px; }
-    .cert-title { font-size: 13.5px; font-weight: 600; color: var(--fg); line-height: 1.35; margin-bottom: 8px; }
-    .cert-year { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--muted); letter-spacing: .1em; }
-
-    /* ─────────────────────────────────────────
-       AWARDS
-    ───────────────────────────────────────── */
-    .awards-list { display: flex; flex-direction: column; }
-    .award-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 0; border-bottom: 1px solid var(--border); gap: 24px;
-      transition: padding-left .2s;
-    }
-    .award-row:first-child { border-top: 1px solid var(--border); }
-    .award-row:hover { padding-left: 6px; }
-    .award-title { font-size: 14.5px; font-weight: 500; color: var(--fg); }
-    .award-r { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .08em; white-space: nowrap; flex-shrink: 0; }
-
-    /* ─────────────────────────────────────────
-       RECOMMENDATIONS
-    ───────────────────────────────────────── */
-    .rec-wrap { display: grid; grid-template-columns: 1.6fr 1fr; gap: 40px; align-items: start; }
-    @media (max-width: 767px) { .rec-wrap { grid-template-columns: 1fr; } }
-    .rec-main {
-      background: var(--bg-surface); border: 1px solid var(--border);
-      border-radius: var(--r-lg); padding: clamp(28px, 3.5vw, 44px);
-      position: relative;
-    }
-    .rec-openquote {
-      font-family: 'Outfit', sans-serif; font-size: 120px; font-weight: 800;
-      color: var(--accent); opacity: .08; line-height: .6;
-      position: absolute; top: 20px; left: 20px; pointer-events: none;
-      user-select: none;
-    }
-    .rec-badge {
-      font-family: 'JetBrains Mono', monospace; font-size: 9px;
-      letter-spacing: .2em; color: var(--accent); text-transform: uppercase;
-      opacity: .75; margin-bottom: 12px;
-    }
-    .rec-person {
-      font-family: 'Outfit', sans-serif; font-size: clamp(18px, 2.5vw, 24px);
-      font-weight: 700; color: var(--fg); margin-bottom: 4px;
-    }
-    .rec-role-txt { font-size: 13px; color: var(--fg-dim); margin-bottom: 24px; }
-    .rec-quote { font-size: 15px; color: var(--fg-dim); line-height: 1.9; margin-bottom: 28px; font-style: italic; position: relative; z-index: 1; }
-
-    .rec-side { display: flex; flex-direction: column; gap: 20px; }
-    .rec-fact {
-      background: var(--bg-surface); border: 1px solid var(--border);
-      border-radius: var(--r-lg); padding: 22px 24px;
-      transition: border-color .15s;
-    }
-    .rec-fact:hover { border-color: rgba(99,102,241,.25); }
-    .rec-fact-num {
-      font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 800;
-      color: var(--accent); line-height: 1; margin-bottom: 6px;
-    }
-    .rec-fact-label { font-size: 13px; color: var(--fg-dim); line-height: 1.5; }
-
-    /* ─────────────────────────────────────────
-       CONTACT
-    ───────────────────────────────────────── */
-    #contact {
-      text-align: center;
-      padding: clamp(100px, 14vw, 180px) clamp(20px, 4vw, 56px);
-      background: none;
-    }
-    .contact-headline {
-      font-family: 'Outfit', sans-serif;
-      font-size: clamp(48px, 9vw, 110px);
-      font-weight: 800; line-height: .9;
-      letter-spacing: -.03em; margin-bottom: 48px;
-    }
-    .contact-headline span { display: block; }
-    .contact-headline span:last-child { color: var(--accent); }
-
-    .contact-list { display: flex; flex-direction: column; max-width: 600px; margin: 0 auto 40px; }
-    .contact-row {
-      display: grid;
-      grid-template-columns: 90px 1fr 24px;
-      align-items: center;
-      padding: 18px 0; border-bottom: 1px solid var(--border);
-      transition: padding-left .2s, color .15s;
-    }
-    .contact-row:first-child { border-top: 1px solid var(--border); }
-    .contact-row:hover { padding-left: 6px; }
-    .c-lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .12em; color: var(--muted); text-transform: uppercase; }
-    .c-val { font-size: 14px; color: var(--fg-dim); transition: color .15s; text-align: center; }
-    .contact-row:hover .c-val { color: var(--accent); }
-    .c-arr { color: var(--muted); transition: transform .2s, color .15s; justify-self: end; }
-    .contact-row:hover .c-arr { transform: translateX(4px); color: var(--accent); }
-    .copy-ok { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--green); opacity: 0; transition: opacity .2s; pointer-events: none; position: absolute; right: 32px; }
-    .copy-ok.show { opacity: 1; }
-    #email-row { position: relative; }
-
-    .contact-status {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--green-dim); border: 1px solid rgba(52,211,153,.2);
-      border-radius: 100px; padding: 6px 18px;
-      font-family: 'JetBrains Mono', monospace; font-size: 10px;
-      color: var(--green); letter-spacing: .08em;
-    }
-
-    /* ─────────────────────────────────────────
-       FOOTER
-    ───────────────────────────────────────── */
-    #footer {
-      border-top: 1px solid var(--border);
-      padding: 40px clamp(20px, 4vw, 56px);
-      max-width: calc(var(--max-w) + clamp(40px, 8vw, 112px));
-      margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 20px; flex-wrap: wrap;
-    }
-    .footer-copy {
-      font-family: 'JetBrains Mono', monospace; font-size: 10px;
-      color: var(--muted); letter-spacing: .08em;
-    }
-    .footer-acts { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-
-    /* ─────────────────────────────────────────
-       FADE-IN UTILITY (initial state set by JS)
-    ───────────────────────────────────────── */
-    .will-reveal { opacity: 0; transform: translateY(32px); }
-    .will-reveal-left { opacity: 0; transform: translateX(-24px); }
-    .will-reveal-right { opacity: 0; transform: translateX(24px); }
-    .will-scale { opacity: 0; transform: scale(.95); }
-
-    /* ─────────────────────────────────────────
-       RESPONSIVE NAV
-    ───────────────────────────────────────── */
-    @media (max-width: 767px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .btn-accent.nav-resume { display: none; }
-    }
-    @media (min-width: 768px) { #mnav { display: none !important; } }
-  </style>
+</style>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to content</a>
 
-  <!-- Custom cursor -->
-  <div id="cur" aria-hidden="true"></div>
-  <div id="cur-r" aria-hidden="true"></div>
-
-  <!-- Scroll progress -->
-  <div id="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-hidden="true"></div>
-
-  <!-- ── TOP NAV ──────────────────────────── -->
-  <header id="topbar" role="banner">
-    <a href="#hero" class="nav-brand" aria-label="Wasi Mahin — Home">WM</a>
-    <nav class="nav-links" aria-label="Primary navigation">
-      <a href="#about" class="nl">About</a>
-      <a href="#experience" class="nl">Experience</a>
-      <a href="#projects" class="nl">Projects</a>
-      <a href="#skills" class="nl">Skills</a>
-      <a href="#education" class="nl">Education</a>
-      <a href="#contact" class="nl">Contact</a>
-    </nav>
-    <div class="nav-right">
-      <a href="WasiMahin_Resume.pdf" download="WasiMahin_Resume.pdf" class="btn btn-accent nav-resume" aria-label="Download Resume PDF">&#8595;&nbsp;Resume</a>
-      <button class="hamburger" id="hbtn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mnav">
-        <span></span><span></span><span></span>
-      </button>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">Wasi<em>.</em></div>
+    <div class="nav-links">
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#work">Projects</a>
+      <a href="#contact">Contact</a>
     </div>
-  </header>
+    <a href="WasiMahin_Resume.pdf" class="nav-cta" download>Resume ↓</a>
+  </div>
+</nav>
 
-  <!-- ── MOBILE NAV ───────────────────────── -->
-  <nav id="mnav" aria-label="Mobile navigation" aria-hidden="true">
-    <a href="#about"       class="mnl">About</a>
-    <a href="#experience"  class="mnl">Experience</a>
-    <a href="#projects"    class="mnl">Projects</a>
-    <a href="#skills"      class="mnl">Skills</a>
-    <a href="#education"   class="mnl">Education</a>
-    <a href="#contact"     class="mnl">Contact</a>
-    <a href="WasiMahin_Resume.pdf" download class="btn btn-accent btn-lg mnav-resume">&#8595;&nbsp;Download Resume</a>
-  </nav>
-
-  <main id="main">
-
-    <!-- ── HERO ───────────────────────────── -->
-    <section id="hero" aria-label="Introduction">
-      <div class="hero-content">
-        <div class="hero-status" aria-label="Available for opportunities">
-          <span class="pulse" aria-hidden="true"></span>
-          Available for Opportunities
-        </div>
-
-        <h1 class="hero-name" aria-label="Wasi Mahin">
-          <span id="hl1">Wasi</span>
-          <span id="hl2">Mahin</span>
-        </h1>
-
-        <p class="hero-role" aria-live="polite">
-          <span id="tw"></span><span class="tw-cur" aria-hidden="true"></span>
-        </p>
-
-        <blockquote class="hero-tagline">
-          I build financial software that replaces manual workflows — two tools
-          are live in a real office, used every working day. Not demos. Production.
-        </blockquote>
-
-        <div class="hero-actions">
-          <a href="WasiMahin_Resume.pdf" download="WasiMahin_Resume.pdf" class="btn btn-accent btn-lg">&#8595;&nbsp; Download Resume</a>
-          <a href="#projects" class="btn btn-ghost btn-lg">View Work</a>
-        </div>
+<!-- HERO -->
+<div class="hero">
+  <!-- LEFT: text on cream -->
+  <div class="hero-left">
+    <div class="hero-left-inner">
+      <div class="hero-badge">
+        <div class="bdot"></div>
+        <span>Open to Roles · Long Beach, CA</span>
       </div>
-
-      <div class="hero-right" aria-hidden="true">
-        <div class="hero-photo-wrap">
-          <div class="hero-photo">
-            <img src="photo.jpg" alt="Wasi Mahin"
-                 fetchpriority="high" decoding="async" />
-          </div>
-        </div>
-        <div class="hero-stats">
-          <div class="hstat"><span class="hstat-n">3.87</span><span class="hstat-l">GPA</span></div>
-          <div class="hstat"><span class="hstat-n">2</span><span class="hstat-l">Live Tools</span></div>
-          <div class="hstat"><span class="hstat-n">500+</span><span class="hstat-l">Orgs Served</span></div>
-        </div>
+      <h1>Data Analyst<br/>&amp; Business<br/><span class="it">Automation</span><br/>Engineer.</h1>
+      <p class="hero-sub">
+        MIS &amp; Accountancy student at CSULB with <strong>two production Python tools</strong>
+        running inside Microsoft Dynamics every day — built without an API, adopted team-wide,
+        and still live. Also VP of Finance. Also 3.87 GPA.
+      </p>
+      <div class="hero-btns">
+        <a href="#work" class="btn-solid">View Work ↓</a>
+        <a href="WasiMahin_Resume.pdf" class="btn-outline" download>Download Resume</a>
       </div>
-    </section>
+    </div>
+  </div>
+  <!-- RIGHT: photo panel -->
+  <div class="hero-right">
+    <div class="photo-wrap">
+      <img src="photo.png" alt="Wasi Mahin" class="hero-portrait"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
+      <div class="hero-portrait-fallback" style="display:none">
+        <div class="initials">WM</div>
+        <div class="note">photo.png</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <!-- ── TICKER ─────────────────────────── -->
-    <div class="ticker-wrap" aria-hidden="true">
-      <div class="ticker-track">
-        <span class="ticker-item hi">Python</span>
-        <span class="ticker-item">Power BI</span>
-        <span class="ticker-item">SQL</span>
-        <span class="ticker-item hi">Microsoft Fabric</span>
-        <span class="ticker-item">Tableau</span>
-        <span class="ticker-item">DAX</span>
-        <span class="ticker-item hi">pdfplumber</span>
-        <span class="ticker-item">pyautogui</span>
-        <span class="ticker-item">ETL Pipelines</span>
-        <span class="ticker-item hi">Business Central</span>
-        <span class="ticker-item">Prompt Engineering</span>
-        <span class="ticker-item">openpyxl</span>
-        <span class="ticker-item hi">RPA Automation</span>
-        <span class="ticker-item">Financial Analysis</span>
-        <span class="ticker-item">Data Storytelling</span>
-        <span class="ticker-item hi">GitHub</span>
-        <!-- duplicate for seamless loop -->
-        <span class="ticker-item hi">Python</span>
-        <span class="ticker-item">Power BI</span>
-        <span class="ticker-item">SQL</span>
-        <span class="ticker-item hi">Microsoft Fabric</span>
-        <span class="ticker-item">Tableau</span>
-        <span class="ticker-item">DAX</span>
-        <span class="ticker-item hi">pdfplumber</span>
-        <span class="ticker-item">pyautogui</span>
-        <span class="ticker-item">ETL Pipelines</span>
-        <span class="ticker-item hi">Business Central</span>
-        <span class="ticker-item">Prompt Engineering</span>
-        <span class="ticker-item">openpyxl</span>
-        <span class="ticker-item hi">RPA Automation</span>
-        <span class="ticker-item">Financial Analysis</span>
-        <span class="ticker-item">Data Storytelling</span>
-        <span class="ticker-item hi">GitHub</span>
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="sn">~96<em>%</em></div>
+      <div class="sd">Invoice processing<br/>time reduction</div>
+    </div>
+    <div class="stat">
+      <div class="sn">95<em>%</em></div>
+      <div class="sd">Journal entry<br/>time reduction</div>
+    </div>
+    <div class="stat">
+      <div class="sn">500<em>+</em></div>
+      <div class="sd">Campus orgs<br/>served through ASI</div>
+    </div>
+    <div class="stat">
+      <div class="sn">3.87</div>
+      <div class="sd">GPA · President's<br/>Honor List every sem.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+  <div class="ticker-track">
+    <div class="t-item">Python <span class="sep">·</span> SQL <span class="sep">·</span> Power BI <span class="sep">·</span> Tableau <span class="sep">·</span> DAX <span class="sep">·</span> Microsoft Fabric <span class="sep">·</span> ETL Pipelines <span class="sep">·</span> pdfplumber <span class="sep">·</span> openpyxl <span class="sep">·</span> pyautogui <span class="sep">·</span> Microsoft Copilot <span class="sep">·</span> Prompt Engineering <span class="sep">·</span> Financial Analysis <span class="sep">·</span> Business Central <span class="sep">·</span> Excel <span class="sep">·</span> Data Visualization <span class="sep">·</span></div>
+    <div class="t-item">Python <span class="sep">·</span> SQL <span class="sep">·</span> Power BI <span class="sep">·</span> Tableau <span class="sep">·</span> DAX <span class="sep">·</span> Microsoft Fabric <span class="sep">·</span> ETL Pipelines <span class="sep">·</span> pdfplumber <span class="sep">·</span> openpyxl <span class="sep">·</span> pyautogui <span class="sep">·</span> Microsoft Copilot <span class="sep">·</span> Prompt Engineering <span class="sep">·</span> Financial Analysis <span class="sep">·</span> Business Central <span class="sep">·</span> Excel <span class="sep">·</span> Data Visualization <span class="sep">·</span></div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="sec-wrap alt" id="experience">
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <h2 class="sec-title">Experience</h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">May 2026 – Present</div>
+        <div class="exp-org">Association for Information Systems · CSULB</div>
+        <div class="exp-current"><span class="cdot"></span>Current role</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Vice President of Finance</div>
+        <ul class="exp-bullets">
+          <li>Elected VP overseeing <strong>$5,000+ operating budget</strong> and grant funding for a 100+ member organization — driving financial tracking, reporting, and strategic resource allocation across all programs.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="ptag">Budget Management</span><span class="ptag">Financial Reporting</span><span class="ptag">Leadership</span>
+        </div>
       </div>
     </div>
 
-    <!-- ── WHAT I BUILD ───────────────────── -->
-    <section id="what-i-build" class="section" aria-labelledby="wib-h" style="border-top:none;">
-      <p class="sec-label" id="wib-h">What I Build</p>
-      <div class="pillars-grid">
-        <div class="pillar">
-          <span class="pillar-num" aria-hidden="true">01</span>
-          <h2 class="pillar-title">Python Automation</h2>
-          <p class="pillar-desc">Zero-API desktop RPA that reads PDFs, parses Excel files, and drives enterprise ERP software directly — no credentials, no integration, just results. Both tools run live in a business office every working day.</p>
-          <p class="pillar-proof">2 tools in production · ~96% &amp; 95% time eliminated</p>
-        </div>
-        <div class="pillar">
-          <span class="pillar-num" aria-hidden="true">02</span>
-          <h2 class="pillar-title">BI &amp; Dashboards</h2>
-          <p class="pillar-desc">Executive-ready Power BI and Tableau dashboards built with DAX, custom data models, and ETL pipelines — delivered directly to Microsoft stakeholders.</p>
-          <p class="pillar-proof">Microsoft Fabric · Power BI · Tableau</p>
-        </div>
-        <div class="pillar">
-          <span class="pillar-num" aria-hidden="true">03</span>
-          <h2 class="pillar-title">Financial Analytics</h2>
-          <p class="pillar-desc">SQL-driven budget analysis, reconciliation, and reporting across 500+ campus organizations — backed by dual-major accounting expertise and 100% audit accuracy.</p>
-          <p class="pillar-proof">500+ orgs · SQL · Bank Reconciliation</p>
-        </div>
-        <div class="pillar">
-          <span class="pillar-num" aria-hidden="true">04</span>
-          <h2 class="pillar-title">AI &amp; Prompt Engineering</h2>
-          <p class="pillar-desc">Microsoft Copilot workflows and prompt engineering pipelines that cut financial reporting and extraction time by 70–80% — without any external API or paid integration.</p>
-          <p class="pillar-proof">Microsoft Copilot · Microsoft 365 · Workflow Automation</p>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Feb 2026 – Present</div>
+        <div class="exp-org">Associated Students Inc. · CSULB</div>
+        <div class="exp-current"><span class="cdot"></span>Current role</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Lead Business Office Representative</div>
+        <ul class="exp-bullets">
+          <li>Engineered <strong>two production Python tools</strong> (zero API) — Snehin Check Request Helper (~96% time reduction) and BC Journal Entry Bot (95% reduction) — both live in Business Central.</li>
+          <li>Oversee financial documentation for <strong>500+ campus organizations</strong> — accounts payable, purchase orders, bank reconciliations, and compliance verification.</li>
+          <li>Automated financial reporting via <strong>Microsoft Copilot</strong> (70–80% time reduction); redesigned workflows achieving 50% efficiency gain adopted team-wide.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="ptag">Python</span><span class="ptag">Business Central</span><span class="ptag">Microsoft Copilot</span><span class="ptag">SQL</span><span class="ptag">Financial Analysis</span>
         </div>
       </div>
-    </section>
-
-    <!-- ── ABOUT ──────────────────────────── -->
-    <section id="about" class="section" aria-labelledby="about-h">
-      <p class="sec-label" id="about-h">About</p>
-      <div class="about-body">
-        <div class="about-text will-reveal">
-          <p><strong>MIS &amp; Accountancy dual-major at Cal State Long Beach</strong> (GPA 3.87, President's Honor List every semester since Fall 2023). I've been building production tools and financial systems for 1.5+ years — not side projects, but actual automation used by real staff at a real organization.</p>
-          <p>My background is unusual: I bridge <strong>software engineering instincts</strong> with deep <strong>financial domain knowledge</strong>. I understand both the Python that drives the automation and the accounting entries it's filling out. That combination is what makes the tools actually work in practice.</p>
-          <p>My focus areas span <strong>Data Analytics, Business Intelligence, Financial Technology, and Business Analysis</strong> — anywhere the intersection of software and finance creates measurable impact.</p>
-        </div>
-        <div class="about-text will-reveal">
-          <p>Current role: <strong>VP of Finance at AIS CSULB</strong>, overseeing a $5,000+ operating budget and grant funding for a 100+ member organization.</p>
-          <p>Previous: <strong>Lead Business Office Representative</strong> at ASI CSULB, where I built the automation tools, ran financial operations for 500+ campus orgs, and redesigned office workflows from the ground up.</p>
-          <p>Before that: <strong>Business Analyst Intern on Project Microsoft</strong>, building Power BI dashboards and ETL pipelines for Microsoft stakeholders alongside the AIS team.</p>
-        </div>
-      </div>
-
-      <div class="impact-strip">
-        <div class="impact-item">
-          <p class="impact-idx">Metric 01</p>
-          <span class="impact-num" data-count="96" data-prefix="~" data-suffix="%">~96%</span>
-          <p class="impact-label">Processing time eliminated</p>
-          <p class="impact-ctx">Snehin RPA: 3–5 min per invoice &rarr; under 10 seconds. Zero API, zero credentials.</p>
-        </div>
-        <div class="impact-item">
-          <p class="impact-idx">Metric 02</p>
-          <span class="impact-num" data-count="2">2</span>
-          <p class="impact-label">Tools in production</p>
-          <p class="impact-ctx">Live at ASI CSULB, used by real staff every working day since 2025.</p>
-        </div>
-        <div class="impact-item">
-          <p class="impact-idx">Metric 03</p>
-          <span class="impact-num" data-count="500" data-suffix="+">500+</span>
-          <p class="impact-label">Campus organizations served</p>
-          <p class="impact-ctx">AP, reconciliations, and compliance documentation for CSULB's entire campus org network.</p>
-        </div>
-        <div class="impact-item">
-          <p class="impact-idx">Metric 04</p>
-          <span class="impact-num" data-count="3.87" data-decimal="2">3.87</span>
-          <p class="impact-label">GPA &mdash; Dual Major</p>
-          <p class="impact-ctx">MIS &amp; Accountancy · President's Honor List every semester since Fall 2023.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── EXPERIENCE ─────────────────────── -->
-    <section id="experience" class="section" aria-labelledby="exp-h">
-      <p class="sec-label" id="exp-h">Experience</p>
-      <div class="timeline">
-
-        <!-- VP Finance (left) -->
-        <div class="tl-entry now">
-          <article class="tl-card">
-            <p class="tl-meta">Association for Information Systems – CSULB &nbsp;·&nbsp; Long Beach, CA &nbsp;·&nbsp; May 2026 – Present</p>
-            <h3 class="tl-title">Vice President of Finance</h3>
-            <ul class="tl-bullets">
-              <li>Elected VP of Finance; oversee $5,000+ operating budget and external grant funding for a 100+ member organization, managing financial planning across all workshops, seminars, and large-scale events</li>
-              <li>Analyze financial data to support strategic decision-making; lead improvements to financial tracking and reporting processes to enhance organizational transparency and scalability</li>
-              <li>Collaborate with board leadership on budget forecasting, resource allocation, and organizational growth strategy throughout the full fiscal year</li>
-            </ul>
-            <div class="tags">
-              <span class="tag">Budget Management</span><span class="tag">Financial Planning</span>
-              <span class="tag">Forecasting</span><span class="tag">Stakeholder Reporting</span>
-            </div>
-          </article>
-          <div class="tl-dot" aria-hidden="true"></div>
-          <div class="tl-blank"></div>
-        </div>
-
-        <!-- Lead BOR (right) -->
-        <div class="tl-entry now">
-          <div class="tl-blank"></div>
-          <div class="tl-dot" aria-hidden="true"></div>
-          <article class="tl-card">
-            <p class="tl-meta">Associated Students Inc. – CSULB &nbsp;·&nbsp; Long Beach, CA &nbsp;·&nbsp; Feb 2026 – Present</p>
-            <h3 class="tl-title">Lead Business Office Representative</h3>
-            <ul class="tl-bullets">
-              <li>Engineered two production Python automation tools with zero API access: <strong>Snehin Check Request Helper</strong> (pdfplumber, PyMuPDF, pyautogui) cutting invoice processing from 3–5 minutes to under 10 seconds (~96% reduction); <strong>BC Journal Entry Bot</strong> (pdfplumber, openpyxl, pyautogui) reducing journal entry time by up to 95% — both live in Microsoft Dynamics 365 Business Central</li>
-              <li>Oversee financial documentation for 500+ registered campus organizations — accounts payable, purchase orders, bank reconciliations, document auditing, and compliance verification</li>
-              <li>Automated financial data extraction, validation, and reporting pipelines using Microsoft Copilot and prompt engineering, reducing processing time by 70–80% across ASI and USU operations</li>
-              <li>Deliver SQL-driven budget analysis, assist in creating ASI and USU operating budgets, and maintain 100% data accuracy across all financial statement analysis and audit cycles</li>
-              <li>Redesigned end-to-end office workflows achieving a 50% operational efficiency gain; standardized protocols adopted team-wide</li>
-              <li>Mentor and train team members on financial systems, automation tools, and compliance best practices</li>
-            </ul>
-            <div class="tags">
-              <span class="tag">Python</span><span class="tag">pdfplumber</span><span class="tag">PyMuPDF</span>
-              <span class="tag">pyautogui</span><span class="tag">openpyxl</span><span class="tag">Business Central</span>
-              <span class="tag">SQL</span><span class="tag">Microsoft Copilot</span>
-            </div>
-          </article>
-        </div>
-
-        <!-- BA Intern (left) -->
-        <div class="tl-entry">
-          <article class="tl-card">
-            <p class="tl-meta">Association for Information Systems – CSULB &nbsp;·&nbsp; Long Beach, CA &nbsp;·&nbsp; Sep – Nov 2025</p>
-            <h3 class="tl-title">Business Analyst Intern — Project Microsoft</h3>
-            <ul class="tl-bullets">
-              <li>Engineered interactive Power BI dashboards using DAX and custom data models, transforming raw performance datasets into executive-ready KPI visualizations for Microsoft's cross-functional stakeholder team</li>
-              <li>Built ETL pipelines in Microsoft Fabric; conducted correlation analysis and market research generating actionable insights that directly shaped project strategy and implementation decisions</li>
-              <li>Executed SWOT and cost-benefit feasibility analyses; co-authored and delivered business pitches to Microsoft representatives, securing stakeholder confidence and project buy-in</li>
-              <li>Collaborated across a cross-functional AIS team on a 3-month Microsoft-sponsored project, gaining hands-on enterprise data workflow experience and stakeholder communication skills</li>
-            </ul>
-            <div class="tags">
-              <span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Microsoft Fabric</span>
-              <span class="tag">ETL</span><span class="tag">SWOT</span><span class="tag">Data Modeling</span>
-            </div>
-          </article>
-          <div class="tl-dot" aria-hidden="true"></div>
-          <div class="tl-blank"></div>
-        </div>
-
-        <!-- BOR (right) -->
-        <div class="tl-entry">
-          <div class="tl-blank"></div>
-          <div class="tl-dot" aria-hidden="true"></div>
-          <article class="tl-card">
-            <p class="tl-meta">Associated Students Inc. – CSULB &nbsp;·&nbsp; Long Beach, CA &nbsp;·&nbsp; Oct 2024 – Feb 2026</p>
-            <h3 class="tl-title">Business Office Representative</h3>
-            <ul class="tl-bullets">
-              <li>Reduced check processing time by 80% by implementing an upgraded financial system; automated data extraction and visualization pipelines using Microsoft Copilot, cutting processing time by 70%</li>
-              <li>Co-developed 2025–2026 ASI and USU operating budgets; managed and reconciled financial statements for 20+ student organizations, ensuring strategic financial alignment and data accuracy</li>
-              <li>Processed and documented accounts payable transactions, purchase orders, and bank reconciliations with zero discrepancy across multiple audit cycles</li>
-            </ul>
-            <div class="tags">
-              <span class="tag">Accounts Payable</span><span class="tag">Bank Reconciliation</span>
-              <span class="tag">Budget Planning</span><span class="tag">Microsoft Copilot</span>
-            </div>
-          </article>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── PROJECTS ───────────────────────── -->
-    <section id="projects" class="section" aria-labelledby="proj-h">
-      <p class="sec-label" id="proj-h">Projects</p>
-      <div class="proj-grid">
-
-        <!-- Snehin -->
-        <article class="proj-card">
-          <div class="proj-header">
-            <p class="proj-num">PROJ 01</p>
-            <h3 class="proj-title">Snehin Check Request Helper</h3>
-          </div>
-          <div class="proj-metric">
-            <div class="proj-big-n" data-count="96" data-prefix="~" data-suffix="%">~96%</div>
-            <div class="proj-big-desc">processing time eliminated<br><span style="opacity:.65;font-size:9px;">3–5 min &rarr; under 10 sec per invoice</span></div>
-            <div class="proj-live">Live in Production</div>
-          </div>
-          <div class="proj-body">
-            <div>
-              <p class="proj-col-label">The Problem</p>
-              <p class="proj-col-text">Manual PDF-to-ERP data entry consumed significant staff hours per batch. No API existed. No ERP credentials available. The only path was a human typing into Business Central, field by field.</p>
-            </div>
-            <div>
-              <p class="proj-col-label">The Approach</p>
-              <p class="proj-col-text">Zero-API desktop RPA: parses vendor invoice PDFs with pdfplumber, extracts structured data, then drives the Business Central UI directly via pyautogui. No credentials, no integration.</p>
-            </div>
-          </div>
-          <div class="proj-more" id="snehin-more" hidden>
-            <div class="proj-more-inner">
-              <p class="proj-col-label">Technical Details</p>
-              <p class="proj-col-text">Built as a desktop application with CustomTkinter for a clean user interface. Uses PyMuPDF for advanced PDF parsing alongside pdfplumber for structured data extraction. The automation layer handles dynamic field detection, error recovery, and batch processing — all without any server-side components or API keys.</p>
-            </div>
-          </div>
-          <button class="proj-toggle" aria-expanded="false" aria-controls="snehin-more">
-            Show more <em class="proj-toggle-icon" aria-hidden="true">&#8964;</em>
-          </button>
-          <div class="proj-footer">
-            <div class="tags">
-              <span class="tag">Python</span><span class="tag">pdfplumber</span>
-              <span class="tag">PyMuPDF</span><span class="tag">pyautogui</span><span class="tag">CustomTkinter</span>
-            </div>
-            <a href="https://github.com/wasimahin/snehin-check-request-helper" target="_blank" rel="noopener" class="proj-link" aria-label="View Snehin on GitHub">GitHub &#8599;</a>
-          </div>
-        </article>
-
-        <!-- BC Journal Entry Bot -->
-        <article class="proj-card">
-          <div class="proj-header">
-            <p class="proj-num">PROJ 02</p>
-            <h3 class="proj-title">BC Journal Entry Bot</h3>
-          </div>
-          <div class="proj-metric">
-            <div class="proj-big-n" data-count="95" data-prefix="&#8593;" data-suffix="%">&#8593;95%</div>
-            <div class="proj-big-desc">reduction in processing time<br><span style="opacity:.65;font-size:9px;">Multi-source automation: PDF + Excel</span></div>
-            <div class="proj-live">Live in Production</div>
-          </div>
-          <div class="proj-body">
-            <div>
-              <p class="proj-col-label">The Problem</p>
-              <p class="proj-col-text">Journal entry processing required manually reading DocuSign PDFs and CashNet Excel files, then re-entering every debit/credit line into Business Central. Slow, error-prone, and repeated constantly.</p>
-            </div>
-            <div>
-              <p class="proj-col-label">The Approach</p>
-              <p class="proj-col-text">Automated end-to-end: reads PDF and Excel sources, structures debit/credit lines, then enters complete journal entries into Business Central via hotkey automation. No manual re-keying.</p>
-            </div>
-          </div>
-          <div class="proj-more" id="bcbot-more" hidden>
-            <div class="proj-more-inner">
-              <p class="proj-col-label">Technical Details</p>
-              <p class="proj-col-text">Combines two input sources — DocuSign PDFs (parsed with pdfplumber) and CashNet Excel exports (processed with openpyxl) — into a unified data structure. The automation then navigates Business Central's journal entry workflow, populating account codes, descriptions, and amounts for both debit and credit lines. Built with CustomTkinter for a staff-friendly UI.</p>
-            </div>
-          </div>
-          <button class="proj-toggle" aria-expanded="false" aria-controls="bcbot-more">
-            Show more <em class="proj-toggle-icon" aria-hidden="true">&#8964;</em>
-          </button>
-          <div class="proj-footer">
-            <div class="tags">
-              <span class="tag">Python</span><span class="tag">pdfplumber</span>
-              <span class="tag">openpyxl</span><span class="tag">pyautogui</span><span class="tag">CustomTkinter</span>
-            </div>
-            <a href="https://github.com/wasimahin/bc-journal-entry-bot" target="_blank" rel="noopener" class="proj-link" aria-label="View BC Bot on GitHub">GitHub &#8599;</a>
-          </div>
-        </article>
-
-        <!-- Datathon -->
-        <article class="proj-card">
-          <div class="proj-header">
-            <p class="proj-num">PROJ 03</p>
-            <h3 class="proj-title">Is the American Dream Still Attainable?</h3>
-          </div>
-          <div class="proj-award">
-            <span style="font-size:18px;">&#127942;</span>
-            3rd Place &nbsp;&middot;&nbsp; AIS Annual Datathon 2026
-          </div>
-          <div class="proj-body">
-            <div>
-              <p class="proj-col-label">The Question</p>
-              <p class="proj-col-text">Is economic mobility still achievable for the average household? The team interrogated purchasing power, regional inequality, and structural cost-of-living shifts — going beyond surface-level income numbers.</p>
-            </div>
-            <div>
-              <p class="proj-col-label">The Analysis</p>
-              <p class="proj-col-text">End-to-end economic research: income growth vs. household purchasing power, cost-of-living adjustments, regional wealth inequality — all visualized in Tableau with a clear narrative arc.</p>
-            </div>
-          </div>
-          <div class="proj-more" id="datathon-more" hidden>
-            <div class="proj-more-inner">
-              <p class="proj-col-label">Methodology</p>
-              <p class="proj-col-text">Applied feature engineering and correlation analysis on public economic datasets. Built Tableau dashboards that told a coherent data story rather than just displaying statistics. Presented findings under time-constrained competition conditions, placing 3rd among competing CSULB teams.</p>
-            </div>
-          </div>
-          <button class="proj-toggle" aria-expanded="false" aria-controls="datathon-more">
-            Show more <em class="proj-toggle-icon" aria-hidden="true">&#8964;</em>
-          </button>
-          <div class="proj-footer">
-            <div class="tags">
-              <span class="tag">Tableau</span><span class="tag">Data Analysis</span>
-              <span class="tag">Economic Research</span><span class="tag">Data Storytelling</span>
-            </div>
-            <span class="proj-link proj-link-dead" aria-label="Competition project — no public repo">Competition</span>
-          </div>
-        </article>
-
-        <!-- One Piece Dashboard -->
-        <article class="proj-card">
-          <div class="proj-header">
-            <p class="proj-num">PROJ 04</p>
-            <h3 class="proj-title">One Piece Bounty Analytics Dashboard</h3>
-          </div>
-          <div class="proj-metric">
-            <div class="proj-big-n" style="font-size:28px;">&#128202;</div>
-            <div class="proj-big-desc">Interactive BI dashboard<br><span style="opacity:.65;font-size:9px;">Kaggle datasets · Chart.js visualizations</span></div>
-          </div>
-          <div class="proj-body">
-            <div>
-              <p class="proj-col-label">The Goal</p>
-              <p class="proj-col-text">Build a real-world BI problem from scratch: combine disparate datasets, design a data model, and create an interactive dashboard that tells a narrative story rather than just displaying numbers.</p>
-            </div>
-            <div>
-              <p class="proj-col-label">The Result</p>
-              <p class="proj-col-text">Treats bounty as a proxy for value and risk. Unified Kaggle datasets into a single model; Chart.js visualizations let users explore patterns across crews, arcs, and regions interactively.</p>
-            </div>
-          </div>
-          <div class="proj-more" id="onepiece-more" hidden>
-            <div class="proj-more-inner">
-              <p class="proj-col-label">Technical Details</p>
-              <p class="proj-col-text">Sourced and cleaned multiple Kaggle datasets, resolved entity conflicts across character naming inconsistencies, and built a unified normalized data model. Built entirely in vanilla HTML/CSS/JS with Chart.js for visualization — no frameworks, demonstrating foundational web development alongside data skills.</p>
-            </div>
-          </div>
-          <button class="proj-toggle" aria-expanded="false" aria-controls="onepiece-more">
-            Show more <em class="proj-toggle-icon" aria-hidden="true">&#8964;</em>
-          </button>
-          <div class="proj-footer">
-            <div class="tags">
-              <span class="tag">HTML</span><span class="tag">Chart.js</span>
-              <span class="tag">JavaScript</span><span class="tag">Kaggle</span><span class="tag">Data Modeling</span>
-            </div>
-            <a href="https://github.com/wasimahin/onepiece-bounty-sept-2021" target="_blank" rel="noopener" class="proj-link" aria-label="View One Piece Dashboard on GitHub">GitHub &#8599;</a>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- ── SKILLS ─────────────────────────── -->
-    <section id="skills" class="section" aria-labelledby="skills-h">
-      <p class="sec-label" id="skills-h">Skills</p>
-      <div class="skills-top">
-        <div class="skill-groups">
-          <div class="skill-group">
-            <p class="skill-group-label">Expert</p>
-            <div class="skill-tags">
-              <span class="skill-tag">Python</span>
-              <span class="skill-tag">SQL</span>
-              <span class="skill-tag">Excel</span>
-              <span class="skill-tag">Power BI</span>
-              <span class="skill-tag">Financial Analysis</span>
-              <span class="skill-tag">Accounts Payable</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <p class="skill-group-label">Proficient</p>
-            <div class="skill-tags">
-              <span class="skill-tag">Tableau</span>
-              <span class="skill-tag">DAX</span>
-              <span class="skill-tag">ETL Pipelines</span>
-              <span class="skill-tag">Microsoft Fabric</span>
-              <span class="skill-tag">pdfplumber</span>
-              <span class="skill-tag">pyautogui</span>
-              <span class="skill-tag">openpyxl</span>
-              <span class="skill-tag">Bank Reconciliation</span>
-              <span class="skill-tag">Budget Planning</span>
-              <span class="skill-tag">Variance Analysis</span>
-            </div>
-          </div>
-          <div class="skill-group">
-            <p class="skill-group-label">Working Knowledge</p>
-            <div class="skill-tags">
-              <span class="skill-tag">Microsoft Copilot</span>
-              <span class="skill-tag">Prompt Engineering</span>
-              <span class="skill-tag">CustomTkinter</span>
-              <span class="skill-tag">PyMuPDF</span>
-              <span class="skill-tag">Data Storytelling</span>
-              <span class="skill-tag">SWOT Analysis</span>
-              <span class="skill-tag">Cost-Benefit Analysis</span>
-              <span class="skill-tag">Chart.js</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="skill-bars-section">
-          <p class="sec-label" style="margin-bottom:20px;">Proficiency</p>
-          <div id="skillBars">
-            <div class="skill-bar-row"><span class="sbar-name">Python (RPA / Automation)</span><div class="sbar-track"><div class="sbar-fill" data-pct="90"></div></div><span class="sbar-pct">90%</span></div>
-            <div class="skill-bar-row"><span class="sbar-name">Power BI &amp; DAX</span><div class="sbar-track"><div class="sbar-fill" data-pct="88"></div></div><span class="sbar-pct">88%</span></div>
-            <div class="skill-bar-row"><span class="sbar-name">Financial Analysis</span><div class="sbar-track"><div class="sbar-fill" data-pct="87"></div></div><span class="sbar-pct">87%</span></div>
-            <div class="skill-bar-row"><span class="sbar-name">Excel (Power Query · Pivots)</span><div class="sbar-track"><div class="sbar-fill" data-pct="85"></div></div><span class="sbar-pct">85%</span></div>
-            <div class="skill-bar-row"><span class="sbar-name">SQL (Joins, CTEs, Aggregations)</span><div class="sbar-track"><div class="sbar-fill" data-pct="82"></div></div><span class="sbar-pct">82%</span></div>
-            <div class="skill-bar-row"><span class="sbar-name">Tableau</span><div class="sbar-track"><div class="sbar-fill" data-pct="80"></div></div><span class="sbar-pct">80%</span></div>
-            <div class="skill-bar-row"><span class="sbar-name">ETL / Microsoft Fabric</span><div class="sbar-track"><div class="sbar-fill" data-pct="74"></div></div><span class="sbar-pct">74%</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── EDUCATION ──────────────────────── -->
-    <section id="education" class="section" aria-labelledby="edu-h">
-      <p class="sec-label" id="edu-h">Education</p>
-      <div class="edu-cards">
-        <article class="edu-card primary">
-          <p class="edu-meta">California State University, Long Beach &nbsp;·&nbsp; Aug 2023 – May 2027</p>
-          <h3 class="edu-degree">B.S. — Management Information Systems &amp; Accountancy</h3>
-          <p class="edu-gpa">GPA: 3.87 &nbsp;·&nbsp; President's Honor List (every semester)</p>
-          <p class="edu-course-lbl">Relevant Coursework</p>
-          <p class="edu-courses">Business Data Analysis &amp; Programming &middot; Management Information Systems &middot; Business Application Programming &middot; Systems Analysis &amp; Design &middot; Database Management &middot; Business Statistics &middot; Intermediate Accounting I &amp; II &middot; Federal Tax Law &middot; Cost Accounting &middot; Business Finance &middot; Financial Statement Analysis</p>
-          <p class="edu-activities">VP of Finance — Association for Information Systems (AIS) &nbsp;·&nbsp; Lead Business Office Representative — ASI CSULB</p>
-        </article>
-        <article class="edu-card" style="padding: clamp(16px,2vw,22px) clamp(24px,3vw,36px);">
-          <p class="edu-meta">Academia School Dhaka &nbsp;·&nbsp; 2013 – 2023</p>
-          <h3 class="edu-degree" style="font-size:16px;">Secondary &amp; Higher Secondary Education</h3>
-          <p class="edu-gpa" style="color:var(--fg-dim); font-size:10px;">Grade: 4.5 / 5.0</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ── CERTIFICATIONS ─────────────────── -->
-    <section id="certifications" class="section" aria-labelledby="cert-h">
-      <p class="sec-label" id="cert-h">Certifications</p>
-      <div class="cert-grid" role="list">
-        <div class="cert-card" role="listitem">
-          <p class="cert-issuer">Microsoft &amp; LinkedIn</p>
-          <h4 class="cert-title">Career Essentials in Data Analysis</h4>
-          <span class="cert-year">2025</span>
-        </div>
-        <div class="cert-card" role="listitem">
-          <p class="cert-issuer">DataCamp</p>
-          <h4 class="cert-title">Data Manipulation in SQL</h4>
-          <span class="cert-year">2025</span>
-        </div>
-        <div class="cert-card" role="listitem">
-          <p class="cert-issuer">DataCamp</p>
-          <h4 class="cert-title">Creating &amp; Analyzing Dashboards in Tableau</h4>
-          <span class="cert-year">2025</span>
-        </div>
-        <div class="cert-card" role="listitem">
-          <p class="cert-issuer">DataCamp</p>
-          <h4 class="cert-title">Analyzing Data in Tableau</h4>
-          <span class="cert-year">2025</span>
-        </div>
-        <div class="cert-card" role="listitem">
-          <p class="cert-issuer">DataCamp</p>
-          <h4 class="cert-title">Introduction to Tableau</h4>
-          <span class="cert-year">2025</span>
-        </div>
-        <div class="cert-card" role="listitem">
-          <p class="cert-issuer">DataCamp</p>
-          <h4 class="cert-title">Tableau Fundamentals (23 hrs)</h4>
-          <span class="cert-year">2025</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── AWARDS ─────────────────────────── -->
-    <section id="awards" class="section" aria-labelledby="awards-h">
-      <p class="sec-label" id="awards-h">Awards &amp; Achievements</p>
-      <div class="awards-list" role="list">
-        <div class="award-row" role="listitem">
-          <span class="award-title">&#127942;&nbsp; 3rd Place — AIS Annual Datathon 2026</span>
-          <span class="award-r">AIS CSULB &nbsp;·&nbsp; 2026</span>
-        </div>
-        <div class="award-row" role="listitem">
-          <span class="award-title">Elected VP of Finance</span>
-          <span class="award-r">AIS CSULB &nbsp;·&nbsp; 2026</span>
-        </div>
-        <div class="award-row" role="listitem">
-          <span class="award-title">President's Honor List</span>
-          <span class="award-r">CSULB &nbsp;·&nbsp; Every Semester 2023–Present</span>
-        </div>
-        <div class="award-row" role="listitem">
-          <span class="award-title">2 Production Automation Tools — Live in Office</span>
-          <span class="award-r">ASI CSULB &nbsp;·&nbsp; 2025–Present</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── RECOMMENDATIONS ────────────────── -->
-    <section id="recommendations" class="section" aria-labelledby="rec-h">
-      <p class="sec-label" id="rec-h">Recommendations</p>
-      <div class="rec-wrap">
-        <div class="rec-main">
-          <span class="rec-openquote" aria-hidden="true">"</span>
-          <p class="rec-badge">LinkedIn Recommendation &nbsp;·&nbsp; July 2025</p>
-          <h3 class="rec-person">Stewart Ohanesian</h3>
-          <p class="rec-role-txt">Senior Accountant &nbsp;·&nbsp; ASI, Cal State Long Beach &nbsp;·&nbsp; Direct Manager</p>
-          <blockquote class="rec-quote">
-            Wasi is a very dedicated and detail-oriented employee with Associated Students. He is great at problem solving efficiently, not only for his own situations but for everyone in our office. He is a great team player and customer friendly. He is a great part of our team at the Business Office. It has been a pleasure having him with us for going on a year.
-          </blockquote>
-          <a href="https://www.linkedin.com/in/wasi-mahin/" target="_blank" rel="noopener" class="btn btn-ghost">View on LinkedIn &#8599;</a>
-        </div>
-        <div class="rec-side">
-          <div class="rec-fact">
-            <div class="rec-fact-num">1.5+</div>
-            <div class="rec-fact-label">Years of production experience at ASI CSULB</div>
-          </div>
-          <div class="rec-fact">
-            <div class="rec-fact-num">4</div>
-            <div class="rec-fact-label">Roles held across ASI and AIS with progressive responsibility</div>
-          </div>
-          <div class="rec-fact">
-            <div class="rec-fact-num">2</div>
-            <div class="rec-fact-label">Live tools trusted by management to run daily operations</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── CONTACT ────────────────────────── -->
-    <section id="contact" aria-labelledby="contact-h">
-      <p class="sec-label" id="contact-h" style="justify-content:center;">Contact</p>
-      <div class="contact-headline">
-        <span>Let's build</span>
-        <span>something great.</span>
-      </div>
-      <div class="contact-list">
-        <a href="mailto:wasimahin@gmail.com" class="contact-row" id="email-row" aria-label="Email — click to copy">
-          <span class="c-lbl">Email</span>
-          <span class="c-val">wasimahin@gmail.com</span>
-          <span class="copy-ok" id="cpok" aria-live="polite">Copied!</span>
-          <span class="c-arr" aria-hidden="true">&#8594;</span>
-        </a>
-        <a href="https://www.linkedin.com/in/wasi-mahin/" target="_blank" rel="noopener" class="contact-row" aria-label="LinkedIn profile">
-          <span class="c-lbl">LinkedIn</span>
-          <span class="c-val">linkedin.com/in/wasi-mahin</span>
-          <span class="c-arr" aria-hidden="true">&#8594;</span>
-        </a>
-        <a href="https://github.com/wasimahin" target="_blank" rel="noopener" class="contact-row" aria-label="GitHub profile">
-          <span class="c-lbl">GitHub</span>
-          <span class="c-val">github.com/wasimahin</span>
-          <span class="c-arr" aria-hidden="true">&#8594;</span>
-        </a>
-        <a href="tel:+15626860679" class="contact-row" aria-label="Phone number">
-          <span class="c-lbl">Phone</span>
-          <span class="c-val">+1 (562) 686-0679</span>
-          <span class="c-arr" aria-hidden="true">&#8594;</span>
-        </a>
-        <div class="contact-row" style="cursor:default;" role="presentation">
-          <span class="c-lbl">Location</span>
-          <span class="c-val">Long Beach, CA &nbsp;(UTC&minus;8)</span>
-        </div>
-      </div>
-      <div class="contact-status" role="status">
-        <span class="pulse" aria-hidden="true"></span>
-        Available for opportunities &mdash; Let&rsquo;s talk
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ── FOOTER ─────────────────────────── -->
-  <footer id="footer" role="contentinfo">
-    <span class="footer-copy">Wasi Mahin &nbsp;·&nbsp; &copy; 2026</span>
-    <div class="footer-acts">
-      <a href="WasiMahin_Resume.pdf" download="WasiMahin_Resume.pdf" class="btn btn-accent">&#8595;&nbsp; Download Resume</a>
-      <a href="#contact" class="btn btn-ghost">Contact</a>
     </div>
-  </footer>
 
-  <!-- ── SCRIPTS ────────────────────────── -->
-  <script src="gsap.min.js"></script>
-  <script src="ScrollTrigger.min.js"></script>
-  <script src="lenis.min.js"></script>
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Sep – Nov 2025</div>
+        <div class="exp-org">Association for Information Systems · CSULB</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Business Analyst Intern <span style="font-weight:400;color:var(--fg-2);font-size:15px;">— Project Microsoft</span></div>
+        <ul class="exp-bullets">
+          <li>Engineered <strong>3+ Power BI dashboards</strong> using DAX and custom data models for Microsoft's cross-functional stakeholder team.</li>
+          <li>Built ETL pipelines in <strong>Microsoft Fabric</strong>; conducted correlation analysis and market research shaping final project strategy.</li>
+          <li>Co-authored and delivered business pitches to <strong>Microsoft representatives</strong>, securing stakeholder confidence.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="ptag">Power BI</span><span class="ptag">DAX</span><span class="ptag">Microsoft Fabric</span><span class="ptag">ETL</span><span class="ptag">SWOT Analysis</span>
+        </div>
+      </div>
+    </div>
 
-  <script>
-  (() => {
-    'use strict';
-    gsap.registerPlugin(ScrollTrigger);
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Oct 2024 – Feb 2026</div>
+        <div class="exp-org">Associated Students Inc. · CSULB</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Business Office Representative</div>
+        <ul class="exp-bullets">
+          <li>Reduced check processing time <strong>80%</strong>; automated data pipelines via Microsoft Copilot (70% reduction); co-developed 2025–2026 ASI and USU operating budgets.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="ptag">Accounts Payable</span><span class="ptag">Microsoft Copilot</span><span class="ptag">Budget Planning</span>
+        </div>
+      </div>
+    </div>
 
-    /* ── Reduced motion ──────────────────────────────────── */
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced) gsap.globalTimeline.timeScale(20);
+  </div>
+</div>
 
-    /* ── Lenis smooth scroll ─────────────────────────────── */
-    const lenis = new Lenis({
-      duration: 1.1,
-      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      smoothTouch: false,
-    });
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add(time => lenis.raf(time * 1000));
-    gsap.ticker.lagSmoothing(0);
+<!-- EDUCATION + CERTS -->
+<div class="sec-wrap alt" id="education">
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <h2 class="sec-title">Education & Certifications</h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="edu-certs">
+    <div class="edu-block">
+      <h3>California State University, Long Beach</h3>
+      <div class="sch">B.S. Management Information Systems & Accountancy · Expected May 2027</div>
+      <div class="edu-detail">
+        <div class="edu-row"><span class="el">GPA</span><span class="er">3.87</span></div>
+        <div class="edu-row"><span class="el">Academic Standing</span><span class="er">President's Honor List</span></div>
+        <div class="edu-row"><span class="el">Every Semester Since</span><span class="er">Fall 2023</span></div>
+        <div class="edu-row"><span class="el">Dual Major</span><span class="er">MIS + Accountancy</span></div>
+      </div>
+    </div>
+    <div class="certs-block">
+      <h3>Certifications</h3>
+      <div class="csub">Professional credentials — Microsoft & DataCamp</div>
+      <div class="cert-list">
+        <div class="cert-item"><span class="cn">Career Essentials in Data Analysis</span><span class="ci">Microsoft · LinkedIn</span></div>
+        <div class="cert-item"><span class="cn">Data Manipulation in SQL</span><span class="ci">DataCamp</span></div>
+        <div class="cert-item"><span class="cn">Creating & Analyzing Dashboards in Tableau</span><span class="ci">DataCamp</span></div>
+        <div class="cert-item"><span class="cn">Analyzing Data in Tableau</span><span class="ci">DataCamp</span></div>
+        <div class="cert-item"><span class="cn">Introduction to Tableau</span><span class="ci">DataCamp</span></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    /* ── Custom cursor ───────────────────────────────────── */
-    const dot  = document.getElementById('cur');
-    const ring = document.getElementById('cur-r');
-    if (dot && ring) {
-      let mx = -200, my = -200, rx = -200, ry = -200;
-      document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-      (function loop() {
-        dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-        rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-        ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-        requestAnimationFrame(loop);
-      })();
-      document.querySelectorAll('a, button, .skill-tag, .award-row').forEach(el => {
-        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-big'));
-        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-big'));
-      });
-    }
+<!-- SKILLS -->
+<div class="sec-wrap" id="skills">
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <h2 class="sec-title">Skills</h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="skills-wrap">
+    <div class="skill-group">
+      <div class="sg-label">Languages & Querying</div>
+      <div class="sg-items">
+        <span class="skill-pill strong">Python</span>
+        <span class="skill-pill strong">SQL</span>
+        <span class="skill-pill strong">DAX</span>
+        <span class="skill-pill">Excel (Power Query, Pivot Tables, VLOOKUP)</span>
+        <span class="skill-pill">pdfplumber</span>
+        <span class="skill-pill">PyMuPDF</span>
+        <span class="skill-pill">openpyxl</span>
+        <span class="skill-pill">pyautogui</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="sg-label">BI & Data Visualization</div>
+      <div class="sg-items">
+        <span class="skill-pill strong">Power BI</span>
+        <span class="skill-pill strong">Tableau</span>
+        <span class="skill-pill">Data Modeling</span>
+        <span class="skill-pill">KPI Dashboard Design</span>
+        <span class="skill-pill">Data Storytelling</span>
+        <span class="skill-pill">Custom Visuals</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="sg-label">Data Engineering & AI</div>
+      <div class="sg-items">
+        <span class="skill-pill strong">ETL Pipelines</span>
+        <span class="skill-pill strong">Microsoft Fabric</span>
+        <span class="skill-pill">Microsoft Copilot</span>
+        <span class="skill-pill">Prompt Engineering</span>
+        <span class="skill-pill">Workflow Automation</span>
+        <span class="skill-pill">Validation Pipelines</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="sg-label">Finance & Strategy</div>
+      <div class="sg-items">
+        <span class="skill-pill strong">Financial Analysis</span>
+        <span class="skill-pill">Financial Forecasting</span>
+        <span class="skill-pill">Budget Planning</span>
+        <span class="skill-pill">Accounts Payable</span>
+        <span class="skill-pill">Bank Reconciliation</span>
+        <span class="skill-pill">Variance Analysis</span>
+        <span class="skill-pill">SWOT Analysis</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="sg-label">Platforms</div>
+      <div class="sg-items">
+        <span class="skill-pill strong">Microsoft Dynamics 365 Business Central</span>
+        <span class="skill-pill">Microsoft 365</span>
+        <span class="skill-pill">GitHub</span>
+      </div>
+    </div>
+  </div>
+</div>
 
-    /* ── Scroll progress ─────────────────────────────────── */
-    const prog = document.getElementById('progress');
-    lenis.on('scroll', ({ progress }) => {
-      if (prog) prog.style.width = (progress * 100) + '%';
-    });
+<!-- WORK -->
+<div class="sec-wrap" id="work">
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <h2 class="sec-title">Projects</h2>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="projects">
+    <div class="proj-grid">
+      <div class="proj-card">
+        <div class="pj-top">
+          <span class="pj-num">Automation · Production</span>
+          <span class="pj-live"><span class="pj-live-dot"></span>Live daily</span>
+        </div>
+        <div class="pj-title">Snehin Check Request Helper</div>
+        <p class="pj-desc">Python desktop tool that extracts invoice data from PDFs and auto-fills Microsoft Dynamics Business Central — eliminating 3–5 minutes of manual re-entry per invoice with zero API dependency. Built to solve a real daily pain point at ASI.</p>
+        <div class="pj-metrics">
+          <div class="pj-m"><div class="val">~96%</div><div class="lbl">time saved</div></div>
+          <div class="pj-m"><div class="val">10s</div><div class="lbl">vs 3–5 min</div></div>
+          <div class="pj-m"><div class="val">0</div><div class="lbl">API needed</div></div>
+        </div>
+        <div class="pj-tags">
+          <span class="ptag">Python</span><span class="ptag">pdfplumber</span><span class="ptag">PyMuPDF</span><span class="ptag">pyautogui</span><span class="ptag">CustomTkinter</span><span class="ptag">Business Central</span>
+        </div>
+      </div>
+      <div class="proj-card">
+        <div class="pj-top">
+          <span class="pj-num">Automation · Production</span>
+          <span class="pj-live"><span class="pj-live-dot"></span>Live daily</span>
+        </div>
+        <div class="pj-title">BC Journal Entry Bot</div>
+        <p class="pj-desc">Python automation that reads Docusign PDFs and CashNet Excel files then enters structured journal data directly into Business Central. Replaced a multi-step manual process that was both time-consuming and error-prone.</p>
+        <div class="pj-metrics">
+          <div class="pj-m"><div class="val">95%</div><div class="lbl">time saved</div></div>
+          <div class="pj-m"><div class="val">0</div><div class="lbl">manual errors</div></div>
+        </div>
+        <div class="pj-tags">
+          <span class="ptag">Python</span><span class="ptag">pdfplumber</span><span class="ptag">openpyxl</span><span class="ptag">pyautogui</span><span class="ptag">Docusign</span><span class="ptag">Business Central</span>
+        </div>
+      </div>
+    </div>
+    <div class="proj-wide">
+      <div>
+        <div class="pj-num">Data Analysis · Datathon 2026</div>
+        <div class="pj-title">Is the American Dream Still Attainable?</div>
+        <p class="pj-desc">Economic analysis of real income growth, purchasing power decline, and regional inequality across the U.S. Built in Tableau with a focus on data storytelling. Placed 3rd at the AIS Annual Datathon 2026 competing against all CSULB teams.</p>
+        <div class="pj-tags" style="margin-top:12px"><span class="ptag">Tableau</span><span class="ptag">Data Visualization</span><span class="ptag">Economic Analysis</span><span class="ptag">Data Storytelling</span></div>
+      </div>
+      <div class="award-badge">
+        <div class="place">3<sup style="font-size:.55em">rd</sup></div>
+        <div class="plbl">AIS Annual<br/>Datathon<br/>2026</div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    /* ── Nav: glass on scroll ────────────────────────────── */
-    const topbar = document.getElementById('topbar');
-    lenis.on('scroll', ({ scroll }) => {
-      topbar.classList.toggle('scrolled', scroll > 40);
-    });
+<!-- CONTACT -->
+<div class="contact-sec" id="contact">
+  <div class="contact-inner">
+    <div>
+      <div class="contact-head">Let's talk<br/><em>work.</em></div>
+      <p class="contact-sub">Open to data analyst, business analyst, and automation engineering internships and roles.</p>
+    </div>
+    <div class="contact-links">
+      <a class="clink primary" href="#">wasimahin@gmail.com <span class="cl">EMAIL ↗</span></a>
+      <a class="clink" href="#">linkedin.com/in/wasi-mahin <span class="cl">LINKEDIN ↗</span></a>
+      <a class="clink" href="#">github.com/wasimahin <span class="cl">GITHUB ↗</span></a>
+      <a class="clink" href="#">WasiMahin_Resume.pdf <span class="cl">RESUME ↓</span></a>
+    </div>
+  </div>
+</div>
 
-    /* ── Hamburger / mobile nav ──────────────────────────── */
-    const hbtn = document.getElementById('hbtn');
-    const mnav = document.getElementById('mnav');
-    hbtn.addEventListener('click', () => {
-      const open = mnav.classList.toggle('open');
-      hbtn.classList.toggle('open', open);
-      hbtn.setAttribute('aria-expanded', open);
-      mnav.setAttribute('aria-hidden', !open);
-      document.body.style.overflow = open ? 'hidden' : '';
-    });
-    document.querySelectorAll('.mnl, .mnav-resume').forEach(a => {
-      a.addEventListener('click', () => {
-        mnav.classList.remove('open');
-        hbtn.classList.remove('open');
-        hbtn.setAttribute('aria-expanded', 'false');
-        mnav.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      });
-    });
+<!-- FOOTER -->
+<footer>
+  <div class="fl">Wasi Mahin · © 2026</div>
+  <div class="fr">wasimahin.com</div>
+</footer>
 
-    /* ── Scroll spy ──────────────────────────────────────── */
-    const allNavLinks = document.querySelectorAll('.nl');
-    const sections = document.querySelectorAll('section[id]');
-    const spy = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        allNavLinks.forEach(a => {
-          a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
-        });
-      });
-    }, { rootMargin: '-20% 0px -60% 0px' });
-    sections.forEach(s => spy.observe(s));
-
-    /* ── Typewriter ──────────────────────────────────────── */
-    const roles = [
-      'Data Analyst & Finance Leader',
-      'Python RPA & Automation Engineer',
-      'VP of Finance · AIS CSULB',
-      'Power BI · SQL · Tableau Specialist',
-      'Business Analyst'
-    ];
-    const twEl = document.getElementById('tw');
-    let ri = 0, ci = 0, deleting = false;
-    function tw() {
-      const role = roles[ri];
-      if (!deleting) {
-        twEl.textContent = role.slice(0, ci + 1); ci++;
-        if (ci === role.length) { deleting = true; setTimeout(tw, 2000); return; }
-        setTimeout(tw, 48);
-      } else {
-        twEl.textContent = role.slice(0, ci - 1); ci--;
-        if (ci === 0) { deleting = false; ri = (ri + 1) % roles.length; setTimeout(tw, 300); return; }
-        setTimeout(tw, 22);
-      }
-    }
-
-    /* ── Text scramble ───────────────────────────────────── */
-    function scramble(el, final, dur) {
-      if (reduced) { el.textContent = final; return; }
-      const ch = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-      const steps = Math.ceil(dur / 34);
-      let s = 0;
-      const iv = setInterval(() => {
-        el.textContent = final.split('').map((c, i) =>
-          s / steps > (i + 1) / final.length ? c : ch[Math.floor(Math.random() * 26)]
-        ).join('');
-        if (++s > steps) { el.textContent = final; clearInterval(iv); }
-      }, 34);
-    }
-
-    /* ── Count-up ────────────────────────────────────────── */
-    function countUp(el) {
-      const target = parseFloat(el.dataset.count);
-      const prefix = el.dataset.prefix || '';
-      const suffix = el.dataset.suffix || '';
-      const decimals = parseInt(el.dataset.decimal || 0);
-      const dur = reduced ? 0 : 1400;
-      const t0 = performance.now();
-      (function tick(now) {
-        const p = Math.min((now - t0) / dur, 1);
-        const ease = dur === 0 ? 1 : 1 - Math.pow(1 - p, 3);
-        el.textContent = prefix + (target * ease).toFixed(decimals) + suffix;
-        if (p < 1) requestAnimationFrame(tick);
-      })(t0);
-    }
-
-    /* ── Hero entrance (no loader) ───────────────────────── */
-    function heroEntrance() {
-      gsap.to(topbar, { opacity: 1, duration: .4, ease: 'power2.out' });
-
-      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
-      tl
-        .from('.hero-status',  { opacity: 0, y: 10, duration: .4 }, 0)
-        .call(() => {
-          scramble(document.getElementById('hl1'), 'Wasi',  400);
-          setTimeout(() => scramble(document.getElementById('hl2'), 'Mahin', 400), 60);
-        }, [], .1)
-        .from('#hl1',          { opacity: 0, y: 28, duration: .55 }, .1)
-        .from('#hl2',          { opacity: 0, y: 28, duration: .55 }, .18)
-        .from('.hero-role',    { opacity: 0, duration: .3           }, .44)
-        .from('.hero-tagline', { opacity: 0, x: -12, duration: .45  }, .5)
-        .from('.hero-actions', { opacity: 0, y: 10, duration: .38   }, .56)
-        .from('.hero-right',   { opacity: 0, scale: .96, duration: .52, ease: 'power2.out' }, .2);
-
-      setTimeout(tw, 800);
-    }
-
-    /* ── Parallax on hero ────────────────────────────────── */
-    gsap.to('.hero-right', {
-      y: -40, ease: 'none',
-      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1.4 }
-    });
-    gsap.to('.hero-name', {
-      y: -24, opacity: .5, ease: 'none',
-      scrollTrigger: { trigger: '#hero', start: 'center top', end: 'bottom top', scrub: 1 }
-    });
-
-    /* ── Section reveals ─────────────────────────────────── */
-    function revealEl(el, extra = {}) {
-      const from = el.classList.contains('will-reveal-left')  ? { opacity: 0, x: -28 }
-                 : el.classList.contains('will-reveal-right') ? { opacity: 0, x: 28  }
-                 : el.classList.contains('will-scale')        ? { opacity: 0, scale: .94 }
-                 :                                               { opacity: 0, y: 36  };
-      // Remove class FIRST so GSAP reads the correct "to" destination (opacity: 1, y: 0)
-      el.classList.remove('will-reveal','will-reveal-left','will-reveal-right','will-scale');
-      gsap.from(el, {
-        ...from, duration: .65, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-        ...extra
-      });
-    }
-
-    /* ── Stagger cards ───────────────────────────────────── */
-    function revealGroup(parent, childSel, stagger = .07) {
-      const children = parent.querySelectorAll(childSel);
-      if (!children.length) return;
-      gsap.from(children, {
-        opacity: 0, y: 40, duration: .6, ease: 'power3.out', stagger,
-        scrollTrigger: { trigger: parent, start: 'top 80%', once: true }
-      });
-    }
-
-    /* ── Impact strip (sticky + count-up) ───────────────── */
-    const impactStrip = document.querySelector('.impact-strip');
-    if (impactStrip) {
-      const impactObs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (!e.isIntersecting) return;
-          e.target.querySelectorAll('[data-count]').forEach(el => {
-            if (!el._counted) { el._counted = true; countUp(el); }
-          });
-        });
-      }, { threshold: .1 });
-      impactObs.observe(impactStrip);
-    }
-
-    /* ── Project metric count-ups ────────────────────────── */
-    const projGrid = document.querySelector('.proj-grid');
-    if (projGrid) {
-      const projObs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (!e.isIntersecting) return;
-          e.target.querySelectorAll('[data-count]').forEach(el => {
-            if (!el._counted) { el._counted = true; countUp(el); }
-          });
-        });
-      }, { threshold: .05 });
-      projObs.observe(projGrid);
-    }
-
-    /* ── Skill bars ──────────────────────────────────────── */
-    const skillBarsEl = document.getElementById('skillBars');
-    if (skillBarsEl) {
-      const sbObs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (!e.isIntersecting) return;
-          e.target.querySelectorAll('.sbar-fill').forEach((fill, i) => {
-            setTimeout(() => { fill.style.width = fill.dataset.pct + '%'; }, i * 60);
-          });
-        });
-      }, { threshold: .05 });
-      sbObs.observe(skillBarsEl);
-    }
-
-    /* ── Project accordion ───────────────────────────────── */
-    document.querySelectorAll('.proj-toggle').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.getAttribute('aria-controls');
-        const panel = document.getElementById(id);
-        const isOpen = btn.getAttribute('aria-expanded') === 'true';
-        btn.setAttribute('aria-expanded', !isOpen);
-        panel.hidden = isOpen;
-        btn.innerHTML = isOpen
-          ? 'Show more <em class="proj-toggle-icon" aria-hidden="true">&#8964;</em>'
-          : 'Show less <em class="proj-toggle-icon" aria-hidden="true" style="transform:rotate(180deg)">&#8964;</em>';
-        if (!isOpen) {
-          gsap.from(panel, { opacity: 0, y: -8, duration: .28, ease: 'power2.out' });
-        }
-      });
-    });
-
-    /* ── Magnetic buttons ────────────────────────────────── */
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('mousemove', e => {
-        const r = btn.getBoundingClientRect();
-        const x = (e.clientX - r.left - r.width  / 2) * .16;
-        const y = (e.clientY - r.top  - r.height / 2) * .16;
-        gsap.to(btn, { x, y, duration: .28, ease: 'power2.out' });
-      });
-      btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, { x: 0, y: 0, duration: .45, ease: 'power3.out' });
-      });
-    });
-
-    /* ── Copy email ──────────────────────────────────────── */
-    const emailRow = document.getElementById('email-row');
-    const cpok = document.getElementById('cpok');
-    if (emailRow) {
-      emailRow.addEventListener('click', e => {
-        e.preventDefault();
-        navigator.clipboard.writeText('wasimahin@gmail.com')
-          .then(() => {
-            cpok.classList.add('show');
-            setTimeout(() => cpok.classList.remove('show'), 1800);
-          })
-          .catch(() => { window.location.href = 'mailto:wasimahin@gmail.com'; });
-      });
-    }
-
-    /* ── Pillar & card hover glow (proj) ─────────────────── */
-    document.querySelectorAll('.proj-card').forEach(card => {
-      card.addEventListener('mouseenter', () => {
-        gsap.to(card, { y: -5, duration: .28, ease: 'power2.out' });
-      });
-      card.addEventListener('mouseleave', () => {
-        gsap.to(card, { y: 0, duration: .4, ease: 'power3.out' });
-      });
-    });
-
-    /* ── INIT ────────────────────────────────────────────── */
-    window.addEventListener('DOMContentLoaded', () => {
-      heroEntrance();
-
-      // Stagger groups
-      revealGroup(document.querySelector('.pillars-grid'), '.pillar', .06);
-      revealGroup(document.querySelector('.proj-grid'),    '.proj-card', .08);
-      revealGroup(document.querySelector('.cert-grid'),    '.cert-card', .05);
-      revealGroup(document.querySelector('.edu-cards'),    '.edu-card', .08);
-      revealGroup(document.querySelector('.rec-side'),     '.rec-fact', .1);
-      revealGroup(document.querySelector('.awards-list'),  '.award-row', .06);
-      revealGroup(document.querySelector('.skill-groups'), '.skill-group', .1);
-
-      // Individual reveals
-      document.querySelectorAll('.will-reveal, .will-reveal-left, .will-reveal-right, .will-scale')
-        .forEach(el => revealEl(el));
-
-      // Timeline cards
-      document.querySelectorAll('.tl-card').forEach((card, i) => {
-        gsap.from(card, {
-          opacity: 0,
-          x: i % 2 === 0 ? -32 : 32,
-          duration: .65, ease: 'power3.out',
-          scrollTrigger: { trigger: card, start: 'top 82%', once: true }
-        });
-      });
-
-      // Impact strip reveal
-      if (impactStrip) {
-        gsap.from(impactStrip.querySelectorAll('.impact-item'), {
-          opacity: 0, y: 30, duration: .55, ease: 'power3.out', stagger: .07,
-          scrollTrigger: { trigger: impactStrip, start: 'top 82%', once: true }
-        });
-      }
-
-      // Contact headline
-      const contactWords = document.querySelectorAll('.contact-headline span');
-      if (contactWords.length) {
-        gsap.from(contactWords, {
-          opacity: 0, y: 50, duration: .7, ease: 'power4.out', stagger: .1,
-          scrollTrigger: { trigger: '.contact-headline', start: 'top 80%', once: true }
-        });
-      }
-
-      ScrollTrigger.refresh();
-    });
-
-    window.addEventListener('resize', () => {
-      ScrollTrigger.refresh();
-    });
-
-  })();
-  </script>
 </body>
 </html>
