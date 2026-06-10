@@ -26,10 +26,9 @@
 <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,500..900&family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet"/>
+<!-- Fonts — self-hosted (no third-party requests; see privacy.html) -->
+<link rel="preload" as="font" type="font/woff2" href="fonts/archivo-normal-500-900.woff2" crossorigin/>
+<link rel="preload" as="font" type="font/woff2" href="fonts/space-grotesk-normal-300-700.woff2" crossorigin/>
 <link rel="preload" as="image" href="photo.webp" type="image/webp" media="(min-width: 881px)"/>
 
 <script type="application/ld+json">
@@ -53,6 +52,51 @@
 <script>document.documentElement.classList.replace('no-js','js');</script>
 
 <style>
+/* ════════════════════════════════════════════
+   00 · SELF-HOSTED FONTS (latin subsets)
+════════════════════════════════════════════ */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500 900;
+  font-stretch: 125%;
+  font-display: swap;
+  src: url('fonts/archivo-normal-500-900.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/instrument-serif-italic-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/jetbrains-mono-normal-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/jetbrains-mono-normal-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url('fonts/space-grotesk-normal-300-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* ════════════════════════════════════════════
    01 · RESET + TOKENS
 ════════════════════════════════════════════ */
@@ -177,10 +221,10 @@ button { font: inherit; background: none; border: none; color: inherit; cursor: 
   height: var(--nav-h);
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 var(--pad);
-  transition: transform .45s cubic-bezier(.4,0,.2,1), background-color .3s, backdrop-filter .3s;
+  transition: transform .35s cubic-bezier(.4,0,.2,1), background-color .25s;
 }
 .nav.is-hidden { transform: translateY(-100%); }
-.nav.is-solid { background: rgba(13,11,8,.78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line-2); }
+.nav.is-solid { background: rgba(13,11,8,.82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line-2); }
 
 .nav-logo {
   font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
@@ -1345,6 +1389,7 @@ button { font: inherit; background: none; border: none; color: inherit; cursor: 
   <footer class="footer">
     <span>© 2026 Wasi Mahin — Built from scratch, no templates</span>
     <span class="ft-mid">Long Beach, CA <em>·</em> <span id="clock2">--:--:--</span> PT</span>
+    <a class="to-top" href="privacy.html">Privacy</a>
     <a class="to-top" href="#top">Back to top ↑</a>
   </footer>
 </section>
@@ -1401,7 +1446,7 @@ button { font: inherit; background: none; border: none; color: inherit; cursor: 
   var lenis = null;
   if (ALLOW && typeof Lenis !== 'undefined') {
     document.documentElement.classList.add('lenis');
-    lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    lenis = new Lenis({ duration: .9, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
     gsap.ticker.lagSmoothing(0);
@@ -1410,7 +1455,7 @@ button { font: inherit; background: none; border: none; color: inherit; cursor: 
   function scrollToHash(hash) {
     var el = q(hash);
     if (!el) return;
-    if (lenis) lenis.scrollTo(el, { offset: hash === '#top' ? 0 : -20, duration: 1.2 });
+    if (lenis) lenis.scrollTo(el, { offset: hash === '#top' ? 0 : -20, duration: 1 });
     else el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
   }
   qa('a[href^="#"]').forEach(function (a) {
@@ -1448,9 +1493,9 @@ button { font: inherit; background: none; border: none; color: inherit; cursor: 
   if (ALLOW) {
     menuTl = gsap.timeline({ paused: true })
       .set(menu, { visibility: 'visible' })
-      .to(menu, { clipPath: 'inset(0% 0 0% 0)', duration: .7, ease: 'power4.inOut' })
-      .from(qa('.menu-links a'), { yPercent: 60, autoAlpha: 0, stagger: .07, duration: .5, ease: 'power3.out' }, '-=.25')
-      .from('.menu-foot', { autoAlpha: 0, y: 14, duration: .4 }, '-=.3');
+      .to(menu, { clipPath: 'inset(0% 0 0% 0)', duration: .55, ease: 'power4.inOut' })
+      .from(qa('.menu-links a'), { yPercent: 60, autoAlpha: 0, stagger: .05, duration: .4, ease: 'power3.out' }, '-=.2')
+      .from('.menu-foot', { autoAlpha: 0, y: 12, duration: .3 }, '-=.25');
   }
   function toggleMenu(open) {
     menuOpen = open;
@@ -1520,27 +1565,32 @@ button { font: inherit; background: none; border: none; color: inherit; cursor: 
   /* ── preloader + hero intro ──────────────── */
   var plnum = q('#plnum');
   var heroIn = gsap.timeline({ paused: true })
-    .from('.hero-name .lw1 .li', { yPercent: 112, duration: 1.05, ease: 'power4.out' }, 0)
-    .from('.hero-name .lw2 .li', { yPercent: 112, duration: 1.05, ease: 'power4.out' }, .09)
-    .from('.hero-photo', { y: 90, autoAlpha: 0, duration: 1.2, ease: 'power3.out' }, .15)
-    .from(['.hero-glow', '.hero-ring'], { autoAlpha: 0, scale: .85, duration: 1.4, ease: 'power2.out' }, .2)
-    .from('.hi-st', { y: 26, autoAlpha: 0, stagger: .09, duration: .8, ease: 'power3.out' }, .45)
-    .from(['.hero-scroll', '.hero-coords', '.hero-vert'], { autoAlpha: 0, duration: .8 }, .95);
+    .from('.hero-name .lw1 .li', { yPercent: 112, duration: .85, ease: 'power4.out' }, 0)
+    .from('.hero-name .lw2 .li', { yPercent: 112, duration: .85, ease: 'power4.out' }, .07)
+    .from('.hero-photo', { y: 70, autoAlpha: 0, duration: .9, ease: 'power3.out' }, .1)
+    .from(['.hero-glow', '.hero-ring'], { autoAlpha: 0, scale: .88, duration: 1, ease: 'power2.out' }, .15)
+    .from('.hi-st', { y: 22, autoAlpha: 0, stagger: .07, duration: .6, ease: 'power3.out' }, .3)
+    .from(['.hero-scroll', '.hero-coords', '.hero-vert'], { autoAlpha: 0, duration: .6 }, .65);
 
-  if (pre && pre.style.display !== 'none') {
+  /* preloader plays once per browsing session — repeat loads go straight in */
+  var plSeen = false;
+  try { plSeen = sessionStorage.getItem('wm-pl') === '1'; } catch (e) {}
+  if (pre && pre.style.display !== 'none' && !plSeen) {
+    try { sessionStorage.setItem('wm-pl', '1'); } catch (e) {}
     var cnt = { v: 0 };
     gsap.timeline()
       .to(cnt, {
-        v: 100, duration: 1.15, ease: 'power2.inOut',
+        v: 100, duration: .7, ease: 'power2.inOut',
         onUpdate: function () { plnum.textContent = String(Math.round(cnt.v)).padStart(3, '0'); }
       })
-      .to('.pl-inner, .pl-count', { autoAlpha: 0, y: -24, duration: .35, ease: 'power2.in' }, '+=.1')
+      .to('.pl-inner, .pl-count', { autoAlpha: 0, y: -20, duration: .25, ease: 'power2.in' }, '+=.05')
       .to(pre, {
-        yPercent: -100, duration: .85, ease: 'power4.inOut',
+        yPercent: -100, duration: .7, ease: 'power4.inOut',
         onComplete: function () { pre.style.display = 'none'; }
       }, '-=.05')
-      .add(function () { heroIn.play(); }, '-=.55');
+      .add(function () { heroIn.play(); }, '-=.5');
   } else {
+    killPreloader();
     heroIn.play();
   }
 
@@ -1569,7 +1619,7 @@ button { font: inherit; background: none; border: none; color: inherit; cursor: 
       onEnter: function () {
         var o = { v: 0 };
         gsap.to(o, {
-          v: end, duration: 1.7, ease: 'power3.out',
+          v: end, duration: 1.2, ease: 'power3.out',
           onUpdate: function () { el.textContent = o.v.toFixed(dec); }
         });
       }
@@ -1609,16 +1659,16 @@ button { font: inherit; background: none; border: none; color: inherit; cursor: 
   /* ── section h2 reveals ──────────────────── */
   qa('.sec-head h2, .contact-head .ri').forEach(function (el) {
     gsap.from(el, {
-      yPercent: 36, autoAlpha: 0, duration: 1, ease: 'power4.out',
-      scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+      yPercent: 36, autoAlpha: 0, duration: .7, ease: 'power4.out',
+      scrollTrigger: { trigger: el, start: 'top 92%', once: true }
     });
   });
 
   /* ── generic reveals ─────────────────────── */
   ScrollTrigger.batch('[data-rv]', {
-    start: 'top 90%', once: true,
+    start: 'top 93%', once: true,
     onEnter: function (batch) {
-      gsap.from(batch, { y: 34, autoAlpha: 0, duration: .9, ease: 'power3.out', stagger: .09 });
+      gsap.from(batch, { y: 24, autoAlpha: 0, duration: .6, ease: 'power3.out', stagger: .06 });
     }
   });
 
