@@ -56,7 +56,10 @@ Structure (single column, in this order):
 7. **Certifications** — name + issuer.
 
 Formatting rules (each one is an ATS failure mode if violated):
-- One page. Single column. No tables, text boxes, images, icons, charts, or multi-column layouts.
+- **Content drives length** (user preference): keep US Letter page size, but let the resume
+  run to a second page rather than cutting or cramming quantified bullets. Never shrink fonts
+  below 9.5pt or margins below 0.55" to force a page count. Current resume: 2 pages.
+- Single column. No tables, text boxes, images, icons, charts, or multi-column layouts.
 - Standard headings exactly: "Summary", "Experience", "Projects", "Education", "Skills", "Certifications".
 - Standard font (Calibri or Arial, 10.5–12pt body), real bullet characters (`•`), no Unicode decorations.
 - File name: `WasiMahin_Resume.pdf` / `.docx`. Default to PDF; DOCX only when a posting demands it.
@@ -73,11 +76,19 @@ Keyword rules (from 2026 ATS research):
 
 ## §4 — Step 4: Generate DOCX + PDF and validate
 
-1. Build `WasiMahin_Resume.docx` with the **docx skill** following §3.
-2. Export `WasiMahin_Resume.pdf` (docx→pdf conversion, or the pdf skill).
-3. Validate the PDF:
-   - `pdftotext WasiMahin_Resume.pdf - | head -50` (or pdf skill extraction) — text must come out complete, in reading order, no garbled glyphs.
-   - Confirm one page, contact info present, all §3 keywords present: spot-grep for `SQL`, `Python`, `Power BI`, `Tableau`, `Excel`.
+**Canonical generator: `tools/resume_gen.py`** — one content structure at the top of the file
+produces both `WasiMahin_Resume.docx` (python-docx) and `WasiMahin_Resume.pdf` (reportlab),
+so the two can never drift apart. To update the resume: edit the CONTENT section of that
+script, then run `python3 tools/resume_gen.py` from the repo root.
+
+Toolchain notes for this machine: no Node (so the docx skill's docx-js path is unavailable)
+and no LibreOffice (no docx→pdf conversion). `python3 -m pip install --user python-docx
+reportlab pypdf` covers everything.
+
+Validate after generating:
+1. `python3 -c "from pypdf import PdfReader; r=PdfReader('WasiMahin_Resume.pdf'); t=''.join(p.extract_text() for p in r.pages); print(len(r.pages),'pages,',len(t),'chars')"` — text must extract complete and in reading order.
+2. Keyword check: confirm `SQL`, `Python`, `Power BI`, `Tableau`, `Excel`, `ETL`, `Business Central` all appear.
+3. Read the PDF visually (Read tool renders it) — check page breaks don't orphan a role header.
 4. Keep both files in the repo root (the site links the PDF; the DOCX is for postings that require it).
 
 ## §5 — Step 5: Update the website
