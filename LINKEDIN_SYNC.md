@@ -4,6 +4,16 @@ Reference document for keeping wasimahin.com and the resume in sync with LinkedI
 Runnable in Claude Code via the `/linkedin-sync` command (`.claude/commands/linkedin-sync.md`),
 or follow manually.
 
+**Cadence:** the LinkedIn profile is the source of truth and is kept current by Wasi.
+Intended usage is **one click, once a week** — open Claude Code in this project and type
+`/linkedin-sync`. No unattended schedule is configured (by choice: LinkedIn reading
+requires the signed-in browser, so manual triggering is the reliable path).
+
+**Important when extracting Experience:** LinkedIn collapses long descriptions behind
+"…see more" — expand every entry before reading, or bullets get silently truncated.
+The profile PDF export (More → Save to PDF) always contains the full text and is the
+safer source.
+
 ```
 LinkedIn profile ──▶ extract + diff ──▶ ATS-100 resume ──▶ DOCX + PDF ──▶ website update ──▶ verify ──▶ commit/push
 ```
