@@ -1,863 +1,1570 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Wasi Mahin — Data Analyst & Business Automation Engineer</title>
-<meta name="description" content="Wasi Mahin — MIS & Accountancy student at CSULB. Data analyst, business automation engineer, and Python developer with production tools live in Microsoft Business Central."/>
+<meta name="description" content="Wasi Mahin — Data Analyst & Business Automation Engineer. MIS & Accountancy at CSULB, GPA 3.87. Two production Python tools live in Microsoft Business Central, 500+ organizations served."/>
+<meta name="theme-color" content="#0d0b08"/>
+
+<!-- Open Graph -->
+<meta property="og:title" content="Wasi Mahin — Portfolio"/>
+<meta property="og:description" content="Data Analyst & Automation Engineer building production Python tools, Power BI dashboards, and financial systems."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://wasimahin.com"/>
+<meta property="og:image" content="https://wasimahin.com/apple-touch-icon.png"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Wasi Mahin — Portfolio"/>
+<meta name="twitter:description" content="Data Analyst & Automation Engineer. 2 tools live in production. CSULB MIS & Accountancy, GPA 3.87."/>
+
+<!-- Favicons -->
+<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,500..900&family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
+
+<script>document.documentElement.classList.replace('no-js','js');</script>
+
 <style>
+/* ════════════════════════════════════════════
+   01 · RESET + TOKENS
+════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:       #f3ede3;
-  --bg-s:     #ece5d8;
-  --bg-dark:  #1a1610;
-  --fg:       #1a1610;
-  --fg-2:     #6b5e4e;
-  --fg-3:     #a8957f;
-  --accent:   #c94b00;
-  --a-soft:   rgba(201,75,0,.08);
-  --a-border: rgba(201,75,0,.18);
-  --border:   #d5cdc0;
-  --green:    #1a9450;
-  --max:      1140px;
+  --bg:       #0d0b08;
+  --bg2:      #14110c;
+  --ivory:    #f2ede3;
+  --dim:      rgba(242,237,227,.58);
+  --faint:    rgba(242,237,227,.34);
+  --ghost:    rgba(242,237,227,.16);
+  --line:     rgba(242,237,227,.1);
+  --line-2:   rgba(242,237,227,.06);
+  --orange:   #ff4d00;
+  --orange-2: #ff6a26;
+  --green:    #3ecf6f;
+  --pad:      clamp(20px, 4vw, 64px);
+  --nav-h:    72px;
 }
 
-html { scroll-behavior: smooth; }
+html { background: var(--bg); scroll-behavior: smooth; }
+html.js.lenis { scroll-behavior: auto; }
 body {
   background: var(--bg);
-  color: var(--fg);
-  font-family: 'DM Sans', sans-serif;
+  color: var(--ivory);
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 15px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
 }
 a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+button { font: inherit; background: none; border: none; color: inherit; cursor: pointer; }
 
-/* ── UTILITIES ─────────────────────── */
+::selection { background: var(--orange); color: var(--bg); }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #2b251d; border-radius: 99px; border: 2px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: #3d352a; }
+
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; border-radius: 2px; }
+
+.skip-link {
+  position: fixed; top: -60px; left: 16px; z-index: 10000;
+  background: var(--orange); color: var(--bg);
+  padding: 10px 18px; font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; border-radius: 4px; transition: top .2s;
+}
+.skip-link:focus { top: 14px; }
+
+/* type utilities */
 .mono { font-family: 'JetBrains Mono', monospace; }
-.serif { font-family: 'Instrument Serif', serif; font-style: italic; }
-.display { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; letter-spacing: -.04em; }
-.center { max-width: var(--max); margin: 0 auto; }
-.padded { padding-left: 48px; padding-right: 48px; }
 
-/* ── NAV ────────────────────────────── */
-nav {
-  position: sticky; top: 0; z-index: 200;
-  background: var(--bg); border-bottom: 1px solid var(--border);
-  height: 60px; display: flex; align-items: center;
-  padding: 0 48px;
+/* ════════════════════════════════════════════
+   02 · GRAIN + PROGRESS + CURSOR
+════════════════════════════════════════════ */
+.grain {
+  position: fixed; inset: -100%; z-index: 9000; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .045;
+  animation: grain 8s steps(10) infinite;
 }
-.nav-inner {
-  max-width: var(--max); margin: 0 auto; width: 100%;
-  display: flex; align-items: center; justify-content: space-between;
+@keyframes grain {
+  0%,100% { transform: translate(0,0) } 10% { transform: translate(-5%,-10%) }
+  20% { transform: translate(-15%,5%) } 30% { transform: translate(7%,-25%) }
+  40% { transform: translate(-5%,25%) } 50% { transform: translate(-15%,10%) }
+  60% { transform: translate(15%,0%) } 70% { transform: translate(0%,15%) }
+  80% { transform: translate(3%,35%) } 90% { transform: translate(-10%,10%) }
 }
-.logo {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 17px; font-weight: 800; letter-spacing: -.04em; color: var(--fg);
-}
-.logo em { color: var(--accent); font-style: normal; }
-.nav-links { display: flex; gap: 32px; }
-.nav-links a {
-  font-size: 13px; color: var(--fg-3); position: relative;
-  transition: color .15s; padding-bottom: 1px;
-}
-.nav-links a::after {
-  content: ''; position: absolute; bottom: 0; left: 0;
-  width: 0; height: 1.5px; background: var(--accent); transition: width .2s;
-}
-.nav-links a:hover { color: var(--fg); }
-.nav-links a:hover::after { width: 100%; }
-.nav-cta {
-  background: var(--fg); color: var(--bg);
-  border: none; border-radius: 6px; cursor: pointer;
-  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
-  padding: 8px 18px; transition: background .15s;
-}
-.nav-cta:hover { background: var(--accent); }
 
-/* ── HERO ───────────────────────────── */
-.hero {
-  min-height: calc(100vh - 60px);
-  border-bottom: 1px solid var(--border);
-  display: grid;
-  grid-template-columns: 1fr 48%;
+.progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 950;
+  background: var(--orange); transform-origin: 0 0; transform: scaleX(0);
+}
+
+.cur-dot, .cur-ring {
+  position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none;
+  border-radius: 50%; opacity: 0;
+}
+.cur-dot { width: 6px; height: 6px; background: var(--orange); margin: -3px 0 0 -3px; }
+.cur-ring {
+  width: 36px; height: 36px; margin: -18px 0 0 -18px;
+  border: 1px solid rgba(255,77,0,.5);
+  transition: transform .3s cubic-bezier(.2,.8,.2,1), border-color .3s, background-color .3s;
+}
+.cur-ring.is-hot { transform: scale(1.8); border-color: rgba(255,77,0,.9); background: rgba(255,77,0,.08); }
+@media (pointer: coarse) { .cur-dot, .cur-ring { display: none; } }
+
+/* ════════════════════════════════════════════
+   03 · PRELOADER
+════════════════════════════════════════════ */
+.preloader {
+  position: fixed; inset: 0; z-index: 9500;
   background: var(--bg);
-  position: relative;
-  overflow: hidden;
+  display: none;
+  align-items: center; justify-content: center;
 }
-.hero-left {
-  display: flex;
-  align-items: center;
-  padding: 80px 56px 80px max(48px, calc((100vw - var(--max)) / 2 + 48px));
-  position: relative;
-  z-index: 2;
-}
-.hero-left-inner { max-width: 520px; }
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--a-soft); border: 1px solid var(--a-border);
-  border-radius: 100px; padding: 5px 14px; margin-bottom: 24px; width: fit-content;
-}
-.hero-badge .bdot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 0 3px rgba(26,148,80,.15);
-  animation: pulse 2.5s ease-in-out infinite;
-}
-@keyframes pulse { 0%,100%{box-shadow:0 0 0 3px rgba(26,148,80,.15)} 50%{box-shadow:0 0 0 6px rgba(26,148,80,.06)} }
-.hero-badge span { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; }
-
-.hero h1 {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-weight: 800; letter-spacing: -.05em;
-  font-size: clamp(48px, 6.5vw, 86px);
-  line-height: .93; color: var(--fg);
-  margin-bottom: 24px;
-}
-.hero h1 .it { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; letter-spacing: -.02em; color: var(--accent); }
-
-.hero-sub {
-  font-size: 15.5px; color: var(--fg-2); line-height: 1.8;
-  max-width: 480px; margin-bottom: 36px;
-}
-.hero-sub strong { color: var(--fg); font-weight: 500; }
-
-.hero-btns { display: flex; gap: 10px; align-items: center; }
-.btn-solid {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: var(--fg); color: var(--bg); border: none;
-  padding: 12px 22px; border-radius: 7px;
-  font-size: 13px; font-weight: 500; font-family: 'DM Sans', sans-serif;
-  cursor: pointer; transition: background .15s, transform .1s;
-}
-.btn-solid:hover { background: var(--accent); transform: translateY(-1px); }
-.btn-outline {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: transparent; color: var(--fg-2);
-  border: 1.5px solid var(--border); padding: 12px 22px; border-radius: 7px;
-  font-size: 13px; font-family: 'DM Sans', sans-serif; cursor: pointer;
-  transition: border-color .15s, color .15s;
-}
-.btn-outline:hover { border-color: var(--fg-2); color: var(--fg); }
-
-/* ── HERO PHOTO — full-panel cover crop ─── */
-.hero-right {
-  background: var(--bg-s);  /* slightly darker cream — subtle separation */
-  overflow: hidden;
-  position: relative;
-  height: calc(100vh - 60px);
-  align-self: start;
-  border-left: 1px solid var(--border);
-}
-.photo-wrap {
-  width: 100%;
-  height: 100%;
-}
-.hero-portrait {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  object-position: 50% 8%;      /* face near top, shirt crops at bottom — intentional */
-  mix-blend-mode: multiply;     /* white areas take on bg-s color */
-}
-.photo-line { display: none; }
-.hero-portrait-fallback {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 8px;
-}
-.hero-portrait-fallback .initials {
-  font-family: 'Bricolage Grotesque', sans-serif; font-size: 72px;
-  font-weight: 800; color: var(--border); letter-spacing: -.04em;
-}
-.hero-portrait-fallback .note {
-  font-family: 'JetBrains Mono', monospace; font-size: 9px;
-  color: var(--fg-3); letter-spacing: .1em; text-transform: uppercase;
-}
-
-
-/* ── STATS STRIP ────────────────────── */
-.stats-strip {
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-dark);
-}
-.stats-inner {
-  max-width: var(--max); margin: 0 auto;
-  display: grid; grid-template-columns: repeat(4, 1fr);
-}
-.stat {
-  padding: 28px 32px; border-right: 1px solid rgba(255,255,255,.06);
-  transition: background .15s;
-}
-.stat:last-child { border-right: none; }
-.stat:hover { background: rgba(255,255,255,.03); }
-.stat .sn {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 36px; font-weight: 800; letter-spacing: -.04em;
-  color: #fff; line-height: 1;
-}
-.stat .sn em { color: var(--accent); font-style: normal; }
-.stat .sd { font-size: 12px; color: rgba(255,255,255,.35); margin-top: 6px; line-height: 1.5; }
-
-/* ── TICKER ─────────────────────────── */
-.ticker-bar { overflow: hidden; border-bottom: 1px solid var(--border); padding: 11px 0; }
-.ticker-track {
-  display: flex; width: max-content;
-  animation: slide 30s linear infinite;
-}
-.ticker-track:hover { animation-play-state: paused; }
-@keyframes slide { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-.t-item {
-  display: flex; align-items: center; gap: 28px; padding: 0 28px;
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--fg-3); white-space: nowrap;
-}
-.t-item .sep { color: var(--accent); }
-
-/* ── SECTION HEADER ─────────────────── */
-.sec-wrap { padding: 72px 48px; border-bottom: 1px solid var(--border); }
-.sec-wrap.alt { background: var(--bg-s); }
-.sec-head {
-  max-width: var(--max); margin: 0 auto 48px;
-  display: flex; align-items: center; gap: 16px;
-}
-.sec-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: .14em; }
-.sec-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(24px, 3vw, 36px); font-weight: 800; letter-spacing: -.04em; line-height: 1; }
-.sec-rule { flex: 1; height: 1px; background: var(--border); }
-
-/* ── PROJECTS ───────────────────────── */
-.projects { max-width: var(--max); margin: 0 auto; }
-.proj-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
-  background: var(--border); border-radius: 12px; overflow: hidden;
-  border: 1px solid var(--border); margin-bottom: 2px;
-}
-.proj-card {
-  background: var(--bg); padding: 36px 32px;
-  position: relative; transition: background .15s;
-  cursor: pointer;
-}
-.proj-card::before {
-  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-  width: 3px; background: var(--accent);
-  transform: scaleY(0); transform-origin: bottom;
-  transition: transform .25s ease;
-}
-.proj-card:hover { background: var(--bg-s); }
-.proj-card:hover::before { transform: scaleY(1); }
-
-.pj-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
-.pj-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--fg-3); letter-spacing: .12em; text-transform: uppercase; }
-.pj-live {
-  display: inline-flex; align-items: center; gap: 5px;
+.js .preloader { display: flex; }
+.pl-inner { text-align: center; }
+.pl-name {
   font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  color: var(--green); background: rgba(26,148,80,.07);
-  border: 1px solid rgba(26,148,80,.18); padding: 3px 9px;
-  border-radius: 100px; letter-spacing: .08em; text-transform: uppercase;
+  letter-spacing: .42em; text-transform: uppercase; color: var(--faint);
+  text-indent: .42em;
 }
-.pj-live-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+.pl-count {
+  position: absolute; right: var(--pad); bottom: calc(var(--pad) - 10px);
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 900; font-size: clamp(80px, 14vw, 200px); line-height: 1;
+  letter-spacing: -.03em; color: var(--ivory);
+}
+.pl-count em { font-style: normal; color: var(--orange); }
 
-.pj-title {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 21px; font-weight: 800; letter-spacing: -.03em;
-  line-height: 1.15; color: var(--fg); margin-bottom: 10px;
+/* ════════════════════════════════════════════
+   04 · NAV
+════════════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--pad);
+  transition: transform .45s cubic-bezier(.4,0,.2,1), background-color .3s, backdrop-filter .3s;
 }
-.pj-desc {
-  font-size: 13px; color: var(--fg-2); line-height: 1.7; margin-bottom: 22px;
+.nav.is-hidden { transform: translateY(-100%); }
+.nav.is-solid { background: rgba(13,11,8,.78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line-2); }
+
+.nav-logo {
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 900; font-size: 17px; letter-spacing: -.01em;
 }
-.pj-metrics {
-  display: flex; gap: 24px; padding: 14px 0;
-  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-  margin-bottom: 18px;
+.nav-logo em { font-style: normal; color: var(--orange); }
+
+.nav-links { display: flex; gap: 34px; }
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--faint);
+  position: relative; padding: 4px 0;
+  transition: color .25s;
 }
-.pj-m .val {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 24px; font-weight: 800; color: var(--accent);
-  letter-spacing: -.04em; line-height: 1;
+.nav-links a::before {
+  content: ''; position: absolute; left: -12px; top: 50%;
+  width: 5px; height: 5px; border-radius: 50%; background: var(--orange);
+  transform: translateY(-50%) scale(0); transition: transform .25s cubic-bezier(.34,1.56,.64,1);
 }
-.pj-m .lbl { font-size: 11px; color: var(--fg-3); margin-top: 2px; }
-.pj-tags { display: flex; gap: 5px; flex-wrap: wrap; }
-.ptag {
+.nav-links a:hover, .nav-links a.on { color: var(--ivory); }
+.nav-links a.on::before { transform: translateY(-50%) scale(1); }
+
+.nav-right { display: flex; align-items: center; gap: 22px; }
+.nav-clock {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  color: var(--faint); letter-spacing: .08em;
+}
+.nav-clock em { font-style: normal; color: var(--orange); }
+.nav-resume {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--bg); background: var(--ivory);
+  padding: 10px 18px; border-radius: 99px;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: background-color .25s, color .25s;
+}
+.nav-resume:hover { background: var(--orange); color: var(--bg); }
+
+.nav-burger {
+  display: none; flex-direction: column; gap: 5px;
+  width: 40px; height: 40px;
+  align-items: center; justify-content: center;
+}
+.nav-burger span {
+  display: block; width: 22px; height: 1.5px; background: var(--ivory);
+  transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .25s;
+}
+.nav-burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* fullscreen menu */
+.menu {
+  position: fixed; inset: 0; z-index: 850;
+  background: #0a0805;
+  clip-path: inset(0 0 100% 0);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: var(--nav-h) var(--pad) 40px;
+  visibility: hidden;
+}
+.menu.open { clip-path: inset(0 0 0% 0); visibility: visible; }
+.menu-links { display: flex; flex-direction: column; }
+.menu-links a {
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 900; text-transform: uppercase;
+  font-size: clamp(40px, 9.5vw, 84px); line-height: 1.12;
+  letter-spacing: -.02em; color: var(--ivory);
+  display: flex; align-items: baseline; gap: 18px;
+  padding: 2px 0;
+  transition: color .25s;
+}
+.menu-links a:hover { color: var(--orange); }
+.menu-links a .mi {
+  font-family: 'JetBrains Mono', monospace; font-weight: 400;
+  font-size: 12px; color: var(--orange); letter-spacing: .1em;
+}
+.menu-foot {
+  position: absolute; bottom: 34px; left: var(--pad); right: var(--pad);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: .1em; color: var(--faint); text-transform: uppercase;
+}
+.menu-foot a:hover { color: var(--orange); }
+
+/* ════════════════════════════════════════════
+   05 · HERO
+════════════════════════════════════════════ */
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 620px;
+  overflow: hidden;
+}
+/* faint vertical grid */
+.hero-grid { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.hero-grid i {
+  position: absolute; top: 0; bottom: 0; width: 1px;
+  background: var(--line-2);
+}
+.hero-grid i:nth-child(1) { left: 25%; }
+.hero-grid i:nth-child(2) { left: 50%; }
+.hero-grid i:nth-child(3) { left: 75%; }
+
+/* glow + ring behind photo */
+.hero-glow {
+  position: absolute; z-index: 0;
+  right: -4vw; bottom: -22vh;
+  width: 56vw; height: 56vw; max-width: 980px; max-height: 980px;
+  background: radial-gradient(circle, rgba(255,77,0,.16) 0%, rgba(255,77,0,.05) 38%, transparent 68%);
+  pointer-events: none;
+}
+.hero-ring {
+  position: absolute; z-index: 0;
+  right: 4vw; bottom: 16vh;
+  width: 34vw; height: 34vw; max-width: 620px; max-height: 620px;
+  border: 1px solid rgba(255,77,0,.22);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* intro block — top left */
+.hero-intro {
+  position: absolute; z-index: 5;
+  left: var(--pad); top: calc(var(--nav-h) + 6.5vh);
+  max-width: 380px;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 9px;
+  border: 1px solid var(--line); border-radius: 99px;
+  padding: 7px 15px; margin-bottom: 22px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--dim);
+}
+.hero-badge .dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+  box-shadow: 0 0 0 0 rgba(62,207,111,.5);
+  animation: pulse 2.4s ease-out infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(62,207,111,.45); }
+  70% { box-shadow: 0 0 0 8px rgba(62,207,111,0); }
+  100% { box-shadow: 0 0 0 0 rgba(62,207,111,0); }
+}
+.hero-roles {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 16px;
+}
+.hero-roles .sl { color: var(--ghost); padding: 0 6px; }
+.hero-copy {
+  font-size: 15px; line-height: 1.75; color: var(--dim);
+  margin-bottom: 30px; max-width: 350px;
+}
+.hero-copy strong { color: var(--ivory); font-weight: 500; }
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+  letter-spacing: .12em; text-transform: uppercase;
+  padding: 15px 26px; border-radius: 99px;
+  position: relative; overflow: hidden;
+  transition: color .3s cubic-bezier(.4,0,.2,1), border-color .3s, background-color .3s;
+}
+.btn .arr { transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+.btn:hover .arr { transform: translateY(3px); }
+.btn-fill { background: var(--orange); color: var(--bg); font-weight: 500; }
+.btn-fill:hover { background: var(--orange-2); }
+.btn-ghost { border: 1px solid var(--line); color: var(--dim); }
+.btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
+
+/* giant name */
+.hero-name {
+  position: absolute; z-index: 3;
+  left: calc(var(--pad) - .04em); bottom: 4.5vh;
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 900; text-transform: uppercase;
+  font-size: max(88px, min(17vw, 22.5vh));
+  line-height: .82; letter-spacing: -.025em;
+  color: var(--ivory);
+  text-shadow: 0 6px 90px rgba(10,8,5,.9), 0 2px 30px rgba(10,8,5,.65);
+  pointer-events: none;
+}
+.hero-name .lw { display: block; overflow: hidden; padding: .03em 0; }
+.hero-name .lw2 { margin-left: .35em; }
+.hero-name .li { display: block; }
+.hero-name .lw2 .li em { font-style: normal; color: var(--orange); }
+
+/* portrait */
+.hero-photo {
+  position: absolute; z-index: 2;
+  right: 6vw; bottom: 0;
+  height: 88vh; max-height: 920px;
+  pointer-events: none;
+}
+.hero-photo img {
+  height: 100%; width: auto;
+  filter: saturate(.9) contrast(1.06) brightness(.98);
+  -webkit-mask-image: linear-gradient(to top, transparent 0, #000 14%);
+          mask-image: linear-gradient(to top, transparent 0, #000 14%);
+}
+.hero-photo-fallback { display: none; }
+
+/* serif accent line */
+.hero-tag {
+  margin-top: 30px;
+  font-family: 'Instrument Serif', serif; font-style: italic;
+  font-size: clamp(19px, 1.6vw, 24px);
+  color: var(--orange-2);
+}
+.hero-tag::before { content: '— '; }
+
+/* edge furniture */
+.hero-scroll {
+  position: absolute; z-index: 5; left: var(--pad); bottom: 26px;
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--faint);
+}
+.hero-scroll .tick {
+  width: 1px; height: 34px; background: var(--ghost);
+  position: relative; overflow: hidden;
+}
+.hero-scroll .tick::after {
+  content: ''; position: absolute; left: 0; top: -50%;
+  width: 100%; height: 50%; background: var(--orange);
+  animation: scrolltick 1.8s cubic-bezier(.65,0,.35,1) infinite;
+}
+@keyframes scrolltick { 0% { top: -50% } 100% { top: 110% } }
+.hero-coords {
+  position: absolute; z-index: 5; right: var(--pad); bottom: 26px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .14em; color: var(--faint);
+}
+.hero-vert {
+  position: absolute; z-index: 5; right: 22px; top: 50%;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
   font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
-  color: var(--fg-3); background: var(--bg-s);
-  border: 1px solid var(--border); padding: 3px 8px; border-radius: 3px; letter-spacing: .04em;
+  letter-spacing: .3em; text-transform: uppercase; color: var(--ghost);
 }
 
-/* Datathon wide card */
-.proj-wide {
-  background: var(--bg-dark); padding: 32px;
-  border: 1px solid var(--border); border-top: none;
-  border-radius: 0 0 12px 12px;
-  display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center;
-  transition: background .15s; cursor: pointer;
+/* ════════════════════════════════════════════
+   06 · MARQUEE
+════════════════════════════════════════════ */
+.marquee {
+  position: relative; z-index: 10;
+  background: var(--orange);
+  transform: rotate(-1.4deg) scale(1.04);
+  margin: -22px 0 0;
+  overflow: hidden;
+  padding: 13px 0;
 }
-.proj-wide:hover { background: #201a13; }
-.proj-wide .pj-num { color: rgba(255,255,255,.25); }
-.proj-wide .pj-title { color: rgba(255,255,255,.9); font-size: 18px; margin: 6px 0 8px; }
-.proj-wide .pj-desc { color: rgba(255,255,255,.4); font-size: 13px; margin: 0; }
-.proj-wide .pj-tags .ptag { color: rgba(255,255,255,.3); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.08); }
-.award-badge {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  background: var(--accent); border-radius: 10px; padding: 18px 22px; min-width: 108px; text-align: center; flex-shrink: 0;
+.mq-inner { display: flex; width: max-content; animation: mq 30s linear infinite; }
+@keyframes mq { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+.mq-seg {
+  display: flex; align-items: center; white-space: nowrap;
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 800; font-size: 14px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--bg);
 }
-.award-badge .place { font-family: 'Bricolage Grotesque', sans-serif; font-size: 30px; font-weight: 800; color: #fff; letter-spacing: -.04em; line-height: 1; }
-.award-badge .plbl { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(255,255,255,.65); letter-spacing: .1em; text-transform: uppercase; margin-top: 5px; }
+.mq-seg span { padding: 0 22px; }
+.mq-seg .st { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 17px; }
 
-/* ── EXPERIENCE ─────────────────────── */
-.exp-list { max-width: var(--max); margin: 0 auto; display: flex; flex-direction: column; gap: 0; }
+/* ════════════════════════════════════════════
+   07 · STATS
+════════════════════════════════════════════ */
+.stats { padding: clamp(80px, 11vh, 130px) var(--pad) clamp(70px, 9vh, 110px); }
+.sec-label {
+  display: flex; align-items: center; gap: 18px;
+  margin-bottom: clamp(40px, 6vh, 64px);
+}
+.sec-label .tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--orange);
+  white-space: nowrap;
+}
+.sec-label .rule { flex: 1; height: 1px; background: var(--line); }
+.sec-label .aux {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ghost);
+  white-space: nowrap;
+}
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+.stat {
+  padding: 8px 32px 4px;
+  border-left: 1px solid var(--line);
+}
+.stat .num {
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 800; font-size: clamp(44px, 5.2vw, 76px);
+  line-height: 1; letter-spacing: -.03em; color: var(--ivory);
+  display: flex; align-items: baseline;
+}
+.stat .num em { font-style: normal; color: var(--orange); }
+.stat .lbl {
+  margin-top: 14px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--faint);
+  line-height: 1.7;
+}
+
+/* ════════════════════════════════════════════
+   08 · MANIFESTO
+════════════════════════════════════════════ */
+.manifesto {
+  padding: clamp(90px, 14vh, 170px) var(--pad);
+  border-top: 1px solid var(--line-2);
+}
+.manifesto-inner { max-width: 1150px; }
+.manifesto p {
+  font-size: clamp(26px, 3.5vw, 52px);
+  font-weight: 500; line-height: 1.3; letter-spacing: -.015em;
+  color: var(--ivory);
+}
+.manifesto p .hl { font-style: normal; color: var(--orange); }
+.manifesto p .si { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+.manifesto .w { display: inline-block; overflow: visible; }
+
+/* ════════════════════════════════════════════
+   09 · SECTIONS — SHARED SHELL
+════════════════════════════════════════════ */
+.sec { padding: clamp(80px, 12vh, 150px) var(--pad); border-top: 1px solid var(--line-2); position: relative; }
+.sec-head { margin-bottom: clamp(48px, 7vh, 80px); }
+.sec-head .idx {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  letter-spacing: .2em; color: var(--orange); display: block; margin-bottom: 14px;
+}
+.sec-head h2 {
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 900; text-transform: uppercase;
+  font-size: clamp(42px, 7vw, 100px);
+  line-height: .92; letter-spacing: -.025em;
+  color: var(--ivory);
+}
+.sec-head h2 .ghosted {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--ghost);
+}
+
+/* ════════════════════════════════════════════
+   10 · EXPERIENCE
+════════════════════════════════════════════ */
+.exp-list { border-top: 1px solid var(--line); }
 .exp-item {
-  display: grid; grid-template-columns: 200px 1fr;
-  gap: 40px; padding: 32px 0;
-  border-bottom: 1px solid var(--border); align-items: start;
+  display: grid; grid-template-columns: 215px 1fr 72px;
+  gap: 36px; padding: 44px 0;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  transition: background-color .3s;
 }
-.exp-item:first-child { padding-top: 0; }
-.exp-item:last-child { border-bottom: none; }
-.exp-meta {}
-.exp-date { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--fg-3); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6px; }
-.exp-org { font-size: 13px; color: var(--fg-2); line-height: 1.4; }
-.exp-current {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-family: 'JetBrains Mono', monospace; font-size: 9px;
-  color: var(--green); margin-top: 8px;
-  letter-spacing: .08em; text-transform: uppercase;
+.exp-item:hover { background: rgba(242,237,227,.018); }
+.exp-date {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--faint);
+  line-height: 1.8;
 }
-.exp-current .cdot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
-.exp-content {}
+.exp-now {
+  display: inline-flex; align-items: center; gap: 7px;
+  margin-top: 10px;
+  font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--green);
+}
+.exp-now i { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 2.2s ease-out infinite; }
 .exp-role {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: 19px; font-weight: 800; letter-spacing: -.03em;
-  color: var(--fg); margin-bottom: 12px; line-height: 1.1;
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 800; font-size: clamp(19px, 2vw, 26px);
+  letter-spacing: -.01em; line-height: 1.15; color: var(--ivory);
 }
-.exp-bullets { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.exp-org {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: .08em; color: var(--orange); margin: 8px 0 18px;
+}
+.exp-bullets { display: flex; flex-direction: column; gap: 9px; margin-bottom: 20px; }
 .exp-bullets li {
-  font-size: 13.5px; color: var(--fg-2); line-height: 1.65; padding-left: 16px; position: relative;
+  font-size: 14.5px; color: var(--dim); line-height: 1.7;
+  padding-left: 22px; position: relative;
 }
 .exp-bullets li::before {
-  content: ''; position: absolute; left: 0; top: 9px;
-  width: 4px; height: 4px; border-radius: 50%; background: var(--accent);
+  content: '—'; position: absolute; left: 0; color: var(--orange);
 }
-.exp-bullets li strong { color: var(--fg); font-weight: 500; }
-.exp-tags { display: flex; gap: 5px; flex-wrap: wrap; }
-
-/* ── SKILLS ─────────────────────────── */
-.skills-wrap { max-width: var(--max); margin: 0 auto; display: flex; flex-direction: column; gap: 32px; }
-.skill-group {}
-.sg-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 12px; }
-.sg-items { display: flex; flex-wrap: wrap; gap: 8px; }
-.skill-pill {
-  font-size: 13px; color: var(--fg);
-  background: var(--bg); border: 1px solid var(--border);
-  padding: 7px 14px; border-radius: 6px;
-  transition: border-color .15s, background .15s, color .15s;
-  cursor: pointer;
+.exp-bullets li strong { color: var(--ivory); font-weight: 500; }
+.tags { display: flex; gap: 7px; flex-wrap: wrap; }
+.tag-chip {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .06em; color: var(--faint);
+  border: 1px solid var(--line); border-radius: 99px;
+  padding: 5px 12px;
+  transition: color .25s, border-color .25s;
 }
-.skill-pill:hover { border-color: var(--accent); background: var(--a-soft); color: var(--accent); }
-.skill-pill.strong { font-weight: 500; background: var(--bg-s); }
+.exp-item:hover .tag-chip { border-color: var(--ghost); }
+.exp-no {
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 900; font-size: 44px; line-height: 1; text-align: right;
+  color: transparent; -webkit-text-stroke: 1px var(--ghost);
+  transition: -webkit-text-stroke-color .3s;
+}
+.exp-item:hover .exp-no { -webkit-text-stroke-color: var(--orange); }
 
-/* ── EDUCATION + CERTS ──────────────── */
-.edu-certs { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-.edu-block h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: -.03em; margin-bottom: 4px; }
-.edu-block .sch { font-size: 13px; color: var(--fg-2); margin-bottom: 16px; }
-.edu-detail { display: flex; flex-direction: column; gap: 6px; }
-.edu-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
-.edu-row:last-child { border-bottom: none; }
-.edu-row .el { font-size: 13px; color: var(--fg-2); }
-.edu-row .er { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: .06em; }
-
-.certs-block h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 16px; font-weight: 800; letter-spacing: -.03em; margin-bottom: 4px; }
-.certs-block .csub { font-size: 13px; color: var(--fg-2); margin-bottom: 16px; }
-.cert-list { display: flex; flex-direction: column; gap: 0; }
-.cert-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--border); gap: 16px; }
-.cert-item:last-child { border-bottom: none; }
-.cert-item .cn { font-size: 13px; color: var(--fg); line-height: 1.4; }
-.cert-item .ci { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--fg-3); letter-spacing: .06em; white-space: nowrap; flex-shrink: 0; }
-
-/* ── CONTACT ────────────────────────── */
-.contact-sec { background: var(--bg-dark); padding: 72px 48px; }
-.contact-inner { max-width: var(--max); margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: end; }
-.contact-head {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: clamp(36px, 5.5vw, 68px); font-weight: 800;
-  letter-spacing: -.05em; line-height: .9; color: #fff;
+/* ════════════════════════════════════════════
+   11 · EDUCATION
+════════════════════════════════════════════ */
+.edu-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(48px, 6vw, 110px); align-items: start; }
+.edu-school {
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 800; font-size: clamp(22px, 2.4vw, 31px);
+  letter-spacing: -.01em; line-height: 1.2; color: var(--ivory);
+  margin-bottom: 10px;
+}
+.edu-degree { font-size: 14.5px; color: var(--dim); margin-bottom: 34px; }
+.edu-rows { border-top: 1px solid var(--line); }
+.edu-row {
+  display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  padding: 15px 0; border-bottom: 1px solid var(--line);
+}
+.edu-row .k { font-size: 13.5px; color: var(--dim); }
+.edu-row .v {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px;
+  letter-spacing: .06em; color: var(--orange); text-align: right;
+}
+.certs-h {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--orange);
   margin-bottom: 24px;
 }
-.contact-head em { color: var(--accent); font-style: normal; }
-.contact-sub { font-size: 14px; color: rgba(255,255,255,.35); max-width: 400px; }
-.contact-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
-.clink {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-size: 13px; color: rgba(255,255,255,.55);
-  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
-  padding: 11px 18px; border-radius: 7px; min-width: 220px; justify-content: space-between;
-  transition: background .15s, color .15s, border-color .15s; cursor: pointer;
+.cert-rows { border-top: 1px solid var(--line); }
+.cert-row {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 24px;
+  padding: 15px 0; border-bottom: 1px solid var(--line);
 }
-.clink:hover { background: rgba(255,255,255,.09); color: #fff; border-color: rgba(255,255,255,.15); }
-.clink.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-.clink.primary:hover { background: #b04200; }
-.clink .cl { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,.25); letter-spacing: .06em; }
-
-/* ── FOOTER ─────────────────────────── */
-footer {
-  background: var(--bg-dark); border-top: 1px solid rgba(255,255,255,.05);
-  padding: 20px 48px; display: flex; justify-content: space-between; align-items: center;
-}
-footer .fl, footer .fr {
+.cert-row .n { font-size: 14px; color: var(--ivory); line-height: 1.5; }
+.cert-row .i {
   font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  color: rgba(255,255,255,.2); letter-spacing: .08em;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--faint);
+  white-space: nowrap; flex-shrink: 0;
 }
 
-/* ── RESPONSIVE — TABLET (≤ 900px) ─────── */
-@media (max-width: 900px) {
-  /* Nav: hide text links, keep logo + CTA */
-  nav { padding: 0 24px; }
-  .nav-links { display: none; }
+/* ════════════════════════════════════════════
+   12 · SKILLS
+════════════════════════════════════════════ */
+.skill-rows { border-top: 1px solid var(--line); }
+.skill-row {
+  display: grid; grid-template-columns: 250px 1fr;
+  gap: 32px; padding: 34px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.skill-row .gl {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--orange);
+  padding-top: 8px;
+}
+.pills { display: flex; flex-wrap: wrap; gap: 9px; }
+.pill {
+  font-size: 13.5px; color: var(--dim);
+  border: 1px solid var(--line); border-radius: 99px;
+  padding: 9px 18px;
+  transition: background-color .25s, color .25s, border-color .25s, transform .25s;
+  cursor: default;
+}
+.pill:hover {
+  background: var(--orange); border-color: var(--orange);
+  color: var(--bg); transform: translateY(-2px);
+}
+.pill.hot { color: var(--ivory); border-color: var(--ghost); font-weight: 500; }
+.pill.hot:hover { color: var(--bg); }
 
-  /* Hero: stack columns */
-  .hero {
-    grid-template-columns: 1fr;
-    min-height: auto;
+/* ════════════════════════════════════════════
+   13 · PROJECTS
+════════════════════════════════════════════ */
+.proj-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--line);
+  border: 1px solid var(--line);
+}
+.card {
+  background: var(--bg);
+  padding: clamp(30px, 3.4vw, 52px);
+  position: relative; overflow: hidden;
+}
+.card::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(255,77,0,.08), transparent 65%);
+  opacity: 0; transition: opacity .4s;
+}
+.card:hover::after { opacity: 1; }
+.card-no {
+  position: absolute; top: 26px; right: 30px;
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 900; font-size: 84px; line-height: 1;
+  color: transparent; -webkit-text-stroke: 1px var(--ghost);
+  transition: -webkit-text-stroke-color .35s;
+  pointer-events: none;
+}
+.card:hover .card-no { -webkit-text-stroke-color: rgba(255,77,0,.55); }
+.live {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--green);
+  border: 1px solid rgba(62,207,111,.25); border-radius: 99px;
+  padding: 6px 13px; margin-bottom: 26px;
+}
+.live i { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 2.2s ease-out infinite; }
+.card-kicker {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--faint);
+  display: block; margin-bottom: 12px;
+}
+.card h3 {
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 800; font-size: clamp(22px, 2.3vw, 30px);
+  letter-spacing: -.015em; line-height: 1.12; color: var(--ivory);
+  margin-bottom: 16px; max-width: 86%;
+}
+.card .desc { font-size: 14px; color: var(--dim); line-height: 1.75; margin-bottom: 30px; }
+.metrics {
+  display: flex; gap: clamp(22px, 2.6vw, 44px);
+  padding: 20px 0; margin-bottom: 24px;
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.metric .mv {
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 800; font-size: clamp(24px, 2.4vw, 34px);
+  letter-spacing: -.02em; line-height: 1; color: var(--orange);
+  display: flex; align-items: baseline;
+}
+.metric .ml {
+  margin-top: 7px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--faint);
+}
+
+.card-wide {
+  grid-column: 1 / -1;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: clamp(28px, 4vw, 70px); align-items: center;
+}
+.award {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 0 clamp(8px, 2vw, 36px);
+  text-align: center;
+}
+.award .place {
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 900; font-size: clamp(72px, 8vw, 120px); line-height: .9;
+  color: transparent; -webkit-text-stroke: 2px var(--orange);
+}
+.award .place sup { font-size: .4em; -webkit-text-stroke-width: 1.2px; }
+.award .alabel {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--faint);
+  line-height: 1.8;
+}
+
+/* ════════════════════════════════════════════
+   14 · CONTACT + FOOTER
+════════════════════════════════════════════ */
+.contact { padding: clamp(100px, 15vh, 180px) var(--pad) 0; border-top: 1px solid var(--line-2); }
+.contact-head {
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 900; text-transform: uppercase;
+  font-size: clamp(54px, 10.5vw, 168px);
+  line-height: .88; letter-spacing: -.025em; color: var(--ivory);
+  margin-bottom: clamp(40px, 7vh, 80px);
+}
+.contact-head .row { display: block; overflow: hidden; padding: .04em 0; }
+.contact-head .ri { display: block; }
+.contact-head .serif {
+  font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400;
+  text-transform: lowercase; letter-spacing: -.01em; color: var(--orange);
+}
+.contact-sub {
+  font-size: 15px; color: var(--dim); max-width: 460px; line-height: 1.8;
+  margin-bottom: clamp(48px, 8vh, 90px);
+}
+.email-wrap { margin-bottom: clamp(56px, 9vh, 100px); }
+.email-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--faint);
+  display: block; margin-bottom: 18px;
+}
+.email-link {
+  display: inline-block;
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 800; font-size: clamp(22px, 4.6vw, 64px);
+  letter-spacing: -.02em; line-height: 1.1; color: var(--ivory);
+  position: relative;
+  transition: color .3s;
+}
+.email-link::after {
+  content: ''; position: absolute; left: 0; bottom: -6px;
+  width: 100%; height: 3px; background: var(--orange);
+  transform: scaleX(0); transform-origin: 100% 0;
+  transition: transform .5s cubic-bezier(.65,0,.35,1);
+}
+.email-link:hover { color: var(--orange); }
+.email-link:hover::after { transform: scaleX(1); transform-origin: 0 0; }
+
+.contact-rows { border-top: 1px solid var(--line); }
+.crow {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 26px 4px;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  transition: padding-left .35s cubic-bezier(.4,0,.2,1), background-color .3s;
+}
+.crow:hover { padding-left: 22px; background: rgba(242,237,227,.018); }
+.crow .cn {
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 700; font-size: clamp(17px, 1.9vw, 24px);
+  letter-spacing: -.01em; color: var(--ivory);
+  transition: color .25s;
+}
+.crow:hover .cn { color: var(--orange); }
+.crow .cv {
+  display: flex; align-items: center; gap: 16px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: .1em; color: var(--faint); text-transform: uppercase;
+}
+.crow .arr2 {
+  font-size: 18px; color: var(--ghost);
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1), color .25s;
+}
+.crow:hover .arr2 { transform: translate(4px, -4px); color: var(--orange); }
+
+.footer {
+  margin-top: clamp(60px, 9vh, 110px);
+  padding: 26px 0 30px;
+  border-top: 1px solid var(--line-2);
+  display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.footer > * {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ghost);
+}
+.footer .ft-mid em { font-style: normal; color: var(--orange); }
+.to-top { transition: color .25s; }
+.to-top:hover { color: var(--orange); }
+
+/* ════════════════════════════════════════════
+   15 · REVEAL DEFAULTS (JS enhances)
+════════════════════════════════════════════ */
+/* content always visible without JS; GSAP sets initial states at runtime */
+
+/* ════════════════════════════════════════════
+   16 · RESPONSIVE
+════════════════════════════════════════════ */
+@media (max-width: 1080px) {
+  .nav-links, .nav-clock { display: none; }
+  .nav-burger { display: flex; }
+  .hero-vert { display: none; }
+  .exp-item { grid-template-columns: 1fr; gap: 14px; padding: 36px 0; }
+  .exp-no { display: none; }
+  .exp-date { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 16px; }
+  .exp-now { margin-top: 0; }
+  .skill-row { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
+  .skill-row .gl { padding-top: 0; }
+  .edu-grid { grid-template-columns: 1fr; gap: 56px; }
+}
+
+@media (max-width: 880px) {
+  .hero { min-height: 100svh; height: auto; padding-bottom: 0; }
+  .hero-intro { position: relative; left: auto; top: auto; max-width: 520px; padding: calc(var(--nav-h) + 4vh) var(--pad) 0; }
+  .hero-name {
+    position: relative; left: auto; bottom: auto;
+    padding: 7vh var(--pad) 0; font-size: clamp(64px, 17.5vw, 150px);
   }
-  .hero-left {
-    padding: 56px 24px 48px;
-    align-items: flex-start;
+  .hero-name .lw2 { margin-left: .3em; }
+  .hero-photo {
+    position: relative; right: auto; bottom: auto;
+    height: auto; max-height: none;
+    margin: -16vw 0 0 auto; width: min(76vw, 420px);
   }
-  .hero-left-inner { max-width: 100%; }
-  .hero-right {
-    height: 60vw;
-    align-self: auto;
-    border-left: none;
-    border-top: 1px solid var(--border);
-  }
-
-  /* Stats: 2×2 grid */
-  .stats-inner { grid-template-columns: repeat(2, 1fr); }
-  .stat:nth-child(2) { border-right: none; }
-  .stat:nth-child(3), .stat:nth-child(4) { border-top: 1px solid rgba(255,255,255,.06); }
-  .stat:nth-child(4) { border-right: none; }
-
-  /* All sections */
-  .sec-wrap { padding: 56px 24px; }
-  .sec-head { margin-bottom: 40px; }
-
-  /* Experience: collapse meta into inline row above bullets */
-  .exp-item { grid-template-columns: 1fr; gap: 10px; }
-  .exp-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; }
-  .exp-date { margin-bottom: 0; }
-
-  /* Projects: single column */
+  .hero-photo img { height: auto; width: 100%; }
+  .hero-glow { right: -20vw; bottom: 0; width: 90vw; height: 90vw; }
+  .hero-ring { right: 2vw; bottom: 10vw; width: 60vw; height: 60vw; }
+  .hero-scroll, .hero-coords { display: none; }
+  .marquee { margin-top: -8px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 40px 0; }
+  .stat { padding: 4px 22px 0; }
   .proj-grid { grid-template-columns: 1fr; }
-  .proj-wide { grid-template-columns: 1fr auto; }
-
-  /* Education: stack */
-  .edu-certs { grid-template-columns: 1fr; gap: 40px; }
-
-  /* Contact: stack */
-  .contact-sec { padding: 56px 24px; }
-  .contact-inner { grid-template-columns: 1fr; gap: 40px; }
-  .contact-links { align-items: stretch; }
-  .clink { min-width: auto; width: 100%; }
-
-  footer { padding: 20px 24px; }
+  .card h3 { max-width: 100%; }
+  .card-wide { grid-template-columns: 1fr; gap: 30px; }
+  .award { flex-direction: row; gap: 22px; padding: 0; text-align: left; }
+  .award .alabel br { display: none; }
 }
 
-/* ── RESPONSIVE — MOBILE (≤ 480px) ─────── */
-@media (max-width: 480px) {
-  nav { padding: 0 20px; }
-  .logo { font-size: 16px; }
-  .nav-cta { padding: 7px 14px; font-size: 12px; }
-
-  /* Hero */
-  .hero-left { padding: 40px 20px 36px; }
-  .hero h1 { font-size: clamp(38px, 11vw, 56px); margin-bottom: 18px; }
-  .hero-sub { font-size: 14.5px; margin-bottom: 28px; }
-  .hero-btns { flex-direction: column; align-items: stretch; }
-  .btn-solid, .btn-outline { justify-content: center; }
-  .hero-right { height: 76vw; }
-
-  /* Stats */
-  .sec-wrap { padding: 44px 20px; }
-  .stat { padding: 20px 16px; }
-  .stat .sn { font-size: 28px; }
-  .sec-title { font-size: 24px; }
-
-  /* Experience */
-  .exp-role { font-size: 17px; }
-  .exp-bullets li { font-size: 13px; }
-
-  /* Projects */
-  .proj-card { padding: 28px 20px; }
-  .pj-title { font-size: 18px; }
-  .pj-metrics { gap: 16px; }
-  .pj-m .val { font-size: 20px; }
-  .proj-wide { grid-template-columns: 1fr; gap: 20px; padding: 24px 20px; }
-  .award-badge { flex-direction: row; gap: 14px; padding: 14px 18px; min-width: auto; align-self: flex-start; text-align: left; }
-  .award-badge .place { font-size: 26px; }
-
-  /* Contact */
-  .contact-sec { padding: 44px 20px; }
-  .contact-head { font-size: clamp(28px, 10vw, 44px); }
-
-  footer { padding: 16px 20px; flex-direction: column; gap: 4px; align-items: flex-start; }
+@media (max-width: 540px) {
+  :root { --nav-h: 62px; }
+  .hero-copy { font-size: 14px; }
+  .hero-ctas .btn { padding: 13px 20px; font-size: 10.5px; }
+  .hero-name { font-size: clamp(56px, 18.5vw, 96px); padding-top: 5vh; }
+  .hero-photo { width: 86vw; margin-top: -20vw; }
+  .hero-tag { font-size: 17px; }
+  .mq-seg { font-size: 12px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 34px 0; }
+  .stat { padding: 2px 16px 0; }
+  .stat .lbl { font-size: 9px; }
+  .metrics { flex-wrap: wrap; gap: 18px 26px; }
+  .card-no { font-size: 60px; top: 20px; right: 20px; }
+  .crow .cv .lbl-txt { display: none; }
+  .footer { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
 
-/* ── REDUCED MOTION ─────────────────── */
+/* ════════════════════════════════════════════
+   17 · REDUCED MOTION
+════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
-  .ticker-track { animation: none; }
-  .hero-badge .bdot,
-  .exp-current .cdot,
-  .pj-live-dot { animation: none; }
   *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
   }
+  html { scroll-behavior: auto; }
+  .grain { display: none; }
+  .mq-inner { animation: none; }
+  .preloader { display: none !important; }
 }
-
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <div class="logo">Wasi<em>.</em></div>
-    <div class="nav-links">
-      <a href="#experience">Experience</a>
-      <a href="#education">Education</a>
-      <a href="#skills">Skills</a>
-      <a href="#work">Projects</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <a href="WasiMahin_Resume.pdf" class="nav-cta" download>Resume ↓</a>
-  </div>
-</nav>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<!-- HERO -->
-<div class="hero">
-  <!-- LEFT: text on cream -->
-  <div class="hero-left">
-    <div class="hero-left-inner">
-      <div class="hero-badge">
-        <div class="bdot"></div>
-        <span>Open to Roles · Long Beach, CA</span>
-      </div>
-      <h1>Data Analyst<br/>&amp; Business<br/><span class="it">Automation</span><br/>Engineer.</h1>
-      <p class="hero-sub">
-        MIS &amp; Accountancy student at CSULB with <strong>two production Python tools</strong>
-        running inside Microsoft Dynamics every day — built without an API, adopted team-wide,
-        and still live. Also VP of Finance. Also 3.87 GPA.
-      </p>
-      <div class="hero-btns">
-        <a href="#work" class="btn-solid">View Work ↓</a>
-        <a href="WasiMahin_Resume.pdf" class="btn-outline" download>Download Resume</a>
-      </div>
-    </div>
+<!-- preloader -->
+<div class="preloader" aria-hidden="true">
+  <div class="pl-inner">
+    <div class="pl-name">Wasi Mahin — Portfolio 2026</div>
   </div>
-  <!-- RIGHT: photo panel -->
-  <div class="hero-right">
-    <div class="photo-wrap">
-      <img src="photo.png" alt="Wasi Mahin" class="hero-portrait"
-           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'"/>
-      <div class="hero-portrait-fallback" style="display:none">
-        <div class="initials">WM</div>
-        <div class="note">photo.png</div>
-      </div>
+  <div class="pl-count"><span id="plnum">000</span><em>%</em></div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"></div>
+<div class="cur-dot" aria-hidden="true"></div>
+<div class="cur-ring" aria-hidden="true"></div>
+
+<!-- nav -->
+<header class="nav" id="nav">
+  <a class="nav-logo" href="#top" aria-label="Wasi Mahin — home">WM<em>©</em>26</a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#experience">Experience</a>
+    <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#work">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="nav-right">
+    <span class="nav-clock mono" aria-hidden="true">LB <em>·</em> <span id="clock">--:--:--</span></span>
+    <a class="nav-resume" href="WasiMahin_Resume.pdf" download data-magnet>Resume ↓</a>
+    <button class="nav-burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- fullscreen menu -->
+<div class="menu" id="menu" aria-hidden="true">
+  <nav class="menu-links" aria-label="Menu">
+    <a href="#experience"><span class="mi">01</span>Experience</a>
+    <a href="#education"><span class="mi">02</span>Education</a>
+    <a href="#skills"><span class="mi">03</span>Skills</a>
+    <a href="#work"><span class="mi">04</span>Projects</a>
+    <a href="#contact"><span class="mi">05</span>Contact</a>
+  </nav>
+  <div class="menu-foot">
+    <a href="mailto:wasimahin@gmail.com">wasimahin@gmail.com</a>
+    <span>Long Beach, CA</span>
+  </div>
+</div>
+
+<main id="main">
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="top" aria-label="Intro">
+  <div class="hero-grid" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-ring" aria-hidden="true"></div>
+
+  <div class="hero-intro">
+    <div class="hero-badge hi-st"><span class="dot"></span>Open to roles — Long Beach, CA</div>
+    <div class="hero-roles hi-st">Data Analyst <span class="sl">/</span> Automation Engineer <span class="sl">/</span> VP Finance</div>
+    <p class="hero-copy hi-st">
+      MIS &amp; Accountancy at CSULB. I build <strong>Python tools that run inside
+      Microsoft Dynamics every day</strong> — no API, adopted team-wide, still live.
+    </p>
+    <div class="hero-ctas hi-st">
+      <a class="btn btn-fill" href="#work" data-magnet>See the work <span class="arr">↓</span></a>
+      <a class="btn btn-ghost" href="WasiMahin_Resume.pdf" download data-magnet>Resume <span class="arr">↓</span></a>
+    </div>
+    <div class="hero-tag hi-st">turning hours into seconds, daily</div>
+  </div>
+
+  <div class="hero-photo">
+    <picture>
+      <source srcset="photo.webp" type="image/webp"/>
+      <img src="photo-fallback.png" alt="Portrait of Wasi Mahin" fetchpriority="high"/>
+    </picture>
+  </div>
+
+  <h1 class="hero-name">
+    <span class="lw lw1"><span class="li">Wasi</span></span>
+    <span class="lw lw2"><span class="li">Mahin<em>.</em></span></span>
+  </h1>
+
+  <div class="hero-scroll" aria-hidden="true"><span>Scroll</span><span class="tick"></span></div>
+  <div class="hero-coords mono" aria-hidden="true">33.7838°N — 118.1141°W</div>
+  <div class="hero-vert" aria-hidden="true">Portfolio — ©2026</div>
+</section>
+
+<!-- ═══════════ MARQUEE ═══════════ -->
+<div class="marquee" aria-hidden="true">
+  <div class="mq-inner">
+    <div class="mq-seg">
+      <span>Python</span><span class="st">✺</span><span>SQL</span><span class="st">✺</span><span>Power BI</span><span class="st">✺</span><span>DAX</span><span class="st">✺</span><span>Tableau</span><span class="st">✺</span><span>Microsoft Fabric</span><span class="st">✺</span><span>ETL Pipelines</span><span class="st">✺</span><span>Automation</span><span class="st">✺</span><span>Financial Analysis</span><span class="st">✺</span><span>Business Central</span><span class="st">✺</span>
+    </div>
+    <div class="mq-seg">
+      <span>Python</span><span class="st">✺</span><span>SQL</span><span class="st">✺</span><span>Power BI</span><span class="st">✺</span><span>DAX</span><span class="st">✺</span><span>Tableau</span><span class="st">✺</span><span>Microsoft Fabric</span><span class="st">✺</span><span>ETL Pipelines</span><span class="st">✺</span><span>Automation</span><span class="st">✺</span><span>Financial Analysis</span><span class="st">✺</span><span>Business Central</span><span class="st">✺</span>
     </div>
   </div>
 </div>
 
-<!-- STATS -->
-<div class="stats-strip">
-  <div class="stats-inner">
-    <div class="stat">
-      <div class="sn">~96<em>%</em></div>
-      <div class="sd">Invoice processing<br/>time reduction</div>
+<!-- ═══════════ STATS ═══════════ -->
+<section class="stats" aria-label="Key numbers">
+  <div class="sec-label">
+    <span class="tag">( The numbers )</span>
+    <span class="rule"></span>
+    <span class="aux">Measured, not estimated</span>
+  </div>
+  <div class="stats-grid">
+    <div class="stat" data-rv>
+      <div class="num"><span class="pre">~</span><span data-count="96">0</span><em>%</em></div>
+      <div class="lbl">Invoice processing<br/>time cut</div>
     </div>
-    <div class="stat">
-      <div class="sn">95<em>%</em></div>
-      <div class="sd">Journal entry<br/>time reduction</div>
+    <div class="stat" data-rv>
+      <div class="num"><span data-count="95">0</span><em>%</em></div>
+      <div class="lbl">Journal entry<br/>time cut</div>
     </div>
-    <div class="stat">
-      <div class="sn">500<em>+</em></div>
-      <div class="sd">Campus orgs<br/>served through ASI</div>
+    <div class="stat" data-rv>
+      <div class="num"><span data-count="500">0</span><em>+</em></div>
+      <div class="lbl">Campus orgs served<br/>through ASI</div>
     </div>
-    <div class="stat">
-      <div class="sn">3.87</div>
-      <div class="sd">GPA · President's<br/>Honor List every sem.</div>
+    <div class="stat" data-rv>
+      <div class="num"><span data-count="3.87">0.00</span></div>
+      <div class="lbl">GPA — President's<br/>Honor List, every sem.</div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- TICKER -->
-<div class="ticker-bar">
-  <div class="ticker-track">
-    <div class="t-item">Python <span class="sep">·</span> SQL <span class="sep">·</span> Power BI <span class="sep">·</span> Tableau <span class="sep">·</span> DAX <span class="sep">·</span> Microsoft Fabric <span class="sep">·</span> ETL Pipelines <span class="sep">·</span> pdfplumber <span class="sep">·</span> openpyxl <span class="sep">·</span> pyautogui <span class="sep">·</span> Microsoft Copilot <span class="sep">·</span> Prompt Engineering <span class="sep">·</span> Financial Analysis <span class="sep">·</span> Business Central <span class="sep">·</span> Excel <span class="sep">·</span> Data Visualization <span class="sep">·</span></div>
-    <div class="t-item">Python <span class="sep">·</span> SQL <span class="sep">·</span> Power BI <span class="sep">·</span> Tableau <span class="sep">·</span> DAX <span class="sep">·</span> Microsoft Fabric <span class="sep">·</span> ETL Pipelines <span class="sep">·</span> pdfplumber <span class="sep">·</span> openpyxl <span class="sep">·</span> pyautogui <span class="sep">·</span> Microsoft Copilot <span class="sep">·</span> Prompt Engineering <span class="sep">·</span> Financial Analysis <span class="sep">·</span> Business Central <span class="sep">·</span> Excel <span class="sep">·</span> Data Visualization <span class="sep">·</span></div>
+<!-- ═══════════ MANIFESTO ═══════════ -->
+<section class="manifesto" aria-label="Approach">
+  <div class="manifesto-inner">
+    <p id="manifesto-p">Most process problems don't need more people — they need <em class="hl">better tools.</em> I build them: two Python systems automating Microsoft Dynamics for 500+ organizations, <em class="si">every single day,</em> with zero APIs.</p>
   </div>
-</div>
+</section>
 
-<!-- EXPERIENCE -->
-<div class="sec-wrap alt" id="experience">
+<!-- ═══════════ 01 EXPERIENCE ═══════════ -->
+<section class="sec" id="experience" aria-label="Experience">
   <div class="sec-head">
-    <span class="sec-num">01</span>
-    <h2 class="sec-title">Experience</h2>
-    <div class="sec-rule"></div>
+    <span class="idx mono">( 01 )</span>
+    <h2 data-rv>Where I've<br/><span class="ghosted">worked</span></h2>
   </div>
+
   <div class="exp-list">
-
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-date">May 2026 – Present</div>
+    <article class="exp-item" data-rv>
+      <div class="exp-date">
+        May 2026 — Present
+        <span class="exp-now"><i></i>Current</span>
+      </div>
+      <div>
+        <h3 class="exp-role">Vice President of Finance</h3>
         <div class="exp-org">Association for Information Systems · CSULB</div>
-        <div class="exp-current"><span class="cdot"></span>Current role</div>
-      </div>
-      <div class="exp-content">
-        <div class="exp-role">Vice President of Finance</div>
         <ul class="exp-bullets">
-          <li>Elected VP overseeing <strong>$5,000+ operating budget</strong> and grant funding for a 100+ member organization — driving financial tracking, reporting, and strategic resource allocation across all programs.</li>
+          <li>Elected VP overseeing <strong>$5,000+ operating budget</strong> and grant funding for a 100+ member organization — financial tracking, reporting, and strategic resource allocation across all programs.</li>
         </ul>
-        <div class="exp-tags">
-          <span class="ptag">Budget Management</span><span class="ptag">Financial Reporting</span><span class="ptag">Leadership</span>
-        </div>
+        <div class="tags"><span class="tag-chip">Budget Management</span><span class="tag-chip">Financial Reporting</span><span class="tag-chip">Leadership</span></div>
       </div>
-    </div>
+      <div class="exp-no" aria-hidden="true">01</div>
+    </article>
 
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-date">Feb 2026 – Present</div>
-        <div class="exp-org">Associated Students Inc. · CSULB</div>
-        <div class="exp-current"><span class="cdot"></span>Current role</div>
+    <article class="exp-item" data-rv>
+      <div class="exp-date">
+        Feb 2026 — Present
+        <span class="exp-now"><i></i>Current</span>
       </div>
-      <div class="exp-content">
-        <div class="exp-role">Lead Business Office Representative</div>
+      <div>
+        <h3 class="exp-role">Lead Business Office Representative</h3>
+        <div class="exp-org">Associated Students Inc. · CSULB</div>
         <ul class="exp-bullets">
           <li>Engineered <strong>two production Python tools</strong> (zero API) — Snehin Check Request Helper (~96% time reduction) and BC Journal Entry Bot (95% reduction) — both live in Business Central.</li>
           <li>Oversee financial documentation for <strong>500+ campus organizations</strong> — accounts payable, purchase orders, bank reconciliations, and compliance verification.</li>
           <li>Automated financial reporting via <strong>Microsoft Copilot</strong> (70–80% time reduction); redesigned workflows achieving 50% efficiency gain adopted team-wide.</li>
         </ul>
-        <div class="exp-tags">
-          <span class="ptag">Python</span><span class="ptag">Business Central</span><span class="ptag">Microsoft Copilot</span><span class="ptag">SQL</span><span class="ptag">Financial Analysis</span>
-        </div>
+        <div class="tags"><span class="tag-chip">Python</span><span class="tag-chip">Business Central</span><span class="tag-chip">Microsoft Copilot</span><span class="tag-chip">SQL</span><span class="tag-chip">Financial Analysis</span></div>
       </div>
-    </div>
+      <div class="exp-no" aria-hidden="true">02</div>
+    </article>
 
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-date">Sep – Nov 2025</div>
+    <article class="exp-item" data-rv>
+      <div class="exp-date">Sep — Nov 2025</div>
+      <div>
+        <h3 class="exp-role">Business Analyst Intern — Project Microsoft</h3>
         <div class="exp-org">Association for Information Systems · CSULB</div>
-      </div>
-      <div class="exp-content">
-        <div class="exp-role">Business Analyst Intern <span style="font-weight:400;color:var(--fg-2);font-size:15px;">— Project Microsoft</span></div>
         <ul class="exp-bullets">
           <li>Engineered <strong>3+ Power BI dashboards</strong> using DAX and custom data models for Microsoft's cross-functional stakeholder team.</li>
-          <li>Built ETL pipelines in <strong>Microsoft Fabric</strong>; conducted correlation analysis and market research shaping final project strategy.</li>
+          <li>Built ETL pipelines in <strong>Microsoft Fabric</strong>; correlation analysis and market research shaped final project strategy.</li>
           <li>Co-authored and delivered business pitches to <strong>Microsoft representatives</strong>, securing stakeholder confidence.</li>
         </ul>
-        <div class="exp-tags">
-          <span class="ptag">Power BI</span><span class="ptag">DAX</span><span class="ptag">Microsoft Fabric</span><span class="ptag">ETL</span><span class="ptag">SWOT Analysis</span>
-        </div>
+        <div class="tags"><span class="tag-chip">Power BI</span><span class="tag-chip">DAX</span><span class="tag-chip">Microsoft Fabric</span><span class="tag-chip">ETL</span><span class="tag-chip">SWOT Analysis</span></div>
       </div>
-    </div>
+      <div class="exp-no" aria-hidden="true">03</div>
+    </article>
 
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-date">Oct 2024 – Feb 2026</div>
+    <article class="exp-item" data-rv>
+      <div class="exp-date">Oct 2024 — Feb 2026</div>
+      <div>
+        <h3 class="exp-role">Business Office Representative</h3>
         <div class="exp-org">Associated Students Inc. · CSULB</div>
-      </div>
-      <div class="exp-content">
-        <div class="exp-role">Business Office Representative</div>
         <ul class="exp-bullets">
           <li>Reduced check processing time <strong>80%</strong>; automated data pipelines via Microsoft Copilot (70% reduction); co-developed 2025–2026 ASI and USU operating budgets.</li>
         </ul>
-        <div class="exp-tags">
-          <span class="ptag">Accounts Payable</span><span class="ptag">Microsoft Copilot</span><span class="ptag">Budget Planning</span>
-        </div>
+        <div class="tags"><span class="tag-chip">Accounts Payable</span><span class="tag-chip">Microsoft Copilot</span><span class="tag-chip">Budget Planning</span></div>
       </div>
-    </div>
-
+      <div class="exp-no" aria-hidden="true">04</div>
+    </article>
   </div>
-</div>
+</section>
 
-<!-- EDUCATION + CERTS -->
-<div class="sec-wrap alt" id="education">
+<!-- ═══════════ 02 EDUCATION ═══════════ -->
+<section class="sec" id="education" aria-label="Education and certifications">
   <div class="sec-head">
-    <span class="sec-num">02</span>
-    <h2 class="sec-title">Education & Certifications</h2>
-    <div class="sec-rule"></div>
+    <span class="idx mono">( 02 )</span>
+    <h2 data-rv>Education<br/><span class="ghosted">&amp; proof</span></h2>
   </div>
-  <div class="edu-certs">
-    <div class="edu-block">
-      <h3>California State University, Long Beach</h3>
-      <div class="sch">B.S. Management Information Systems & Accountancy · Expected May 2027</div>
-      <div class="edu-detail">
-        <div class="edu-row"><span class="el">GPA</span><span class="er">3.87</span></div>
-        <div class="edu-row"><span class="el">Academic Standing</span><span class="er">President's Honor List</span></div>
-        <div class="edu-row"><span class="el">Every Semester Since</span><span class="er">Fall 2023</span></div>
-        <div class="edu-row"><span class="el">Dual Major</span><span class="er">MIS + Accountancy</span></div>
-      </div>
-    </div>
-    <div class="certs-block">
-      <h3>Certifications</h3>
-      <div class="csub">Professional credentials — Microsoft & DataCamp</div>
-      <div class="cert-list">
-        <div class="cert-item"><span class="cn">Career Essentials in Data Analysis</span><span class="ci">Microsoft · LinkedIn</span></div>
-        <div class="cert-item"><span class="cn">Data Manipulation in SQL</span><span class="ci">DataCamp</span></div>
-        <div class="cert-item"><span class="cn">Creating & Analyzing Dashboards in Tableau</span><span class="ci">DataCamp</span></div>
-        <div class="cert-item"><span class="cn">Analyzing Data in Tableau</span><span class="ci">DataCamp</span></div>
-        <div class="cert-item"><span class="cn">Introduction to Tableau</span><span class="ci">DataCamp</span></div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<!-- SKILLS -->
-<div class="sec-wrap" id="skills">
-  <div class="sec-head">
-    <span class="sec-num">03</span>
-    <h2 class="sec-title">Skills</h2>
-    <div class="sec-rule"></div>
-  </div>
-  <div class="skills-wrap">
-    <div class="skill-group">
-      <div class="sg-label">Languages & Querying</div>
-      <div class="sg-items">
-        <span class="skill-pill strong">Python</span>
-        <span class="skill-pill strong">SQL</span>
-        <span class="skill-pill strong">DAX</span>
-        <span class="skill-pill">Excel (Power Query, Pivot Tables, VLOOKUP)</span>
-        <span class="skill-pill">pdfplumber</span>
-        <span class="skill-pill">PyMuPDF</span>
-        <span class="skill-pill">openpyxl</span>
-        <span class="skill-pill">pyautogui</span>
+  <div class="edu-grid">
+    <div data-rv>
+      <h3 class="edu-school">California State University,<br/>Long Beach</h3>
+      <div class="edu-degree">B.S. Management Information Systems &amp; Accountancy — Expected May 2027</div>
+      <div class="edu-rows">
+        <div class="edu-row"><span class="k">GPA</span><span class="v">3.87 / 4.00</span></div>
+        <div class="edu-row"><span class="k">Academic standing</span><span class="v">President's Honor List</span></div>
+        <div class="edu-row"><span class="k">Every semester since</span><span class="v">Fall 2023</span></div>
+        <div class="edu-row"><span class="k">Dual major</span><span class="v">MIS + Accountancy</span></div>
       </div>
     </div>
-    <div class="skill-group">
-      <div class="sg-label">BI & Data Visualization</div>
-      <div class="sg-items">
-        <span class="skill-pill strong">Power BI</span>
-        <span class="skill-pill strong">Tableau</span>
-        <span class="skill-pill">Data Modeling</span>
-        <span class="skill-pill">KPI Dashboard Design</span>
-        <span class="skill-pill">Data Storytelling</span>
-        <span class="skill-pill">Custom Visuals</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="sg-label">Data Engineering & AI</div>
-      <div class="sg-items">
-        <span class="skill-pill strong">ETL Pipelines</span>
-        <span class="skill-pill strong">Microsoft Fabric</span>
-        <span class="skill-pill">Microsoft Copilot</span>
-        <span class="skill-pill">Prompt Engineering</span>
-        <span class="skill-pill">Workflow Automation</span>
-        <span class="skill-pill">Validation Pipelines</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="sg-label">Finance & Strategy</div>
-      <div class="sg-items">
-        <span class="skill-pill strong">Financial Analysis</span>
-        <span class="skill-pill">Financial Forecasting</span>
-        <span class="skill-pill">Budget Planning</span>
-        <span class="skill-pill">Accounts Payable</span>
-        <span class="skill-pill">Bank Reconciliation</span>
-        <span class="skill-pill">Variance Analysis</span>
-        <span class="skill-pill">SWOT Analysis</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="sg-label">Platforms</div>
-      <div class="sg-items">
-        <span class="skill-pill strong">Microsoft Dynamics 365 Business Central</span>
-        <span class="skill-pill">Microsoft 365</span>
-        <span class="skill-pill">GitHub</span>
+    <div data-rv>
+      <div class="certs-h">Certifications</div>
+      <div class="cert-rows">
+        <div class="cert-row"><span class="n">Career Essentials in Data Analysis</span><span class="i">Microsoft · LinkedIn</span></div>
+        <div class="cert-row"><span class="n">Data Manipulation in SQL</span><span class="i">DataCamp</span></div>
+        <div class="cert-row"><span class="n">Creating &amp; Analyzing Dashboards in Tableau</span><span class="i">DataCamp</span></div>
+        <div class="cert-row"><span class="n">Analyzing Data in Tableau</span><span class="i">DataCamp</span></div>
+        <div class="cert-row"><span class="n">Introduction to Tableau</span><span class="i">DataCamp</span></div>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- WORK -->
-<div class="sec-wrap" id="work">
+<!-- ═══════════ 03 SKILLS ═══════════ -->
+<section class="sec" id="skills" aria-label="Skills">
   <div class="sec-head">
-    <span class="sec-num">04</span>
-    <h2 class="sec-title">Projects</h2>
-    <div class="sec-rule"></div>
+    <span class="idx mono">( 03 )</span>
+    <h2 data-rv>What's in<br/><span class="ghosted">the kit</span></h2>
   </div>
-  <div class="projects">
-    <div class="proj-grid">
-      <div class="proj-card">
-        <div class="pj-top">
-          <span class="pj-num">Automation · Production</span>
-          <span class="pj-live"><span class="pj-live-dot"></span>Live daily</span>
-        </div>
-        <div class="pj-title">Snehin Check Request Helper</div>
-        <p class="pj-desc">Python desktop tool that extracts invoice data from PDFs and auto-fills Microsoft Dynamics Business Central — eliminating 3–5 minutes of manual re-entry per invoice with zero API dependency. Built to solve a real daily pain point at ASI.</p>
-        <div class="pj-metrics">
-          <div class="pj-m"><div class="val">~96%</div><div class="lbl">time saved</div></div>
-          <div class="pj-m"><div class="val">10s</div><div class="lbl">vs 3–5 min</div></div>
-          <div class="pj-m"><div class="val">0</div><div class="lbl">API needed</div></div>
-        </div>
-        <div class="pj-tags">
-          <span class="ptag">Python</span><span class="ptag">pdfplumber</span><span class="ptag">PyMuPDF</span><span class="ptag">pyautogui</span><span class="ptag">CustomTkinter</span><span class="ptag">Business Central</span>
-        </div>
-      </div>
-      <div class="proj-card">
-        <div class="pj-top">
-          <span class="pj-num">Automation · Production</span>
-          <span class="pj-live"><span class="pj-live-dot"></span>Live daily</span>
-        </div>
-        <div class="pj-title">BC Journal Entry Bot</div>
-        <p class="pj-desc">Python automation that reads Docusign PDFs and CashNet Excel files then enters structured journal data directly into Business Central. Replaced a multi-step manual process that was both time-consuming and error-prone.</p>
-        <div class="pj-metrics">
-          <div class="pj-m"><div class="val">95%</div><div class="lbl">time saved</div></div>
-          <div class="pj-m"><div class="val">0</div><div class="lbl">manual errors</div></div>
-        </div>
-        <div class="pj-tags">
-          <span class="ptag">Python</span><span class="ptag">pdfplumber</span><span class="ptag">openpyxl</span><span class="ptag">pyautogui</span><span class="ptag">Docusign</span><span class="ptag">Business Central</span>
-        </div>
+
+  <div class="skill-rows">
+    <div class="skill-row" data-rv>
+      <div class="gl">Languages &amp; querying</div>
+      <div class="pills">
+        <span class="pill hot">Python</span><span class="pill hot">SQL</span><span class="pill hot">DAX</span>
+        <span class="pill">Excel — Power Query · Pivot Tables · VLOOKUP</span>
+        <span class="pill">pdfplumber</span><span class="pill">PyMuPDF</span><span class="pill">openpyxl</span><span class="pill">pyautogui</span>
       </div>
     </div>
-    <div class="proj-wide">
+    <div class="skill-row" data-rv>
+      <div class="gl">BI &amp; visualization</div>
+      <div class="pills">
+        <span class="pill hot">Power BI</span><span class="pill hot">Tableau</span>
+        <span class="pill">Data Modeling</span><span class="pill">KPI Dashboard Design</span>
+        <span class="pill">Data Storytelling</span><span class="pill">Custom Visuals</span>
+      </div>
+    </div>
+    <div class="skill-row" data-rv>
+      <div class="gl">Data engineering &amp; AI</div>
+      <div class="pills">
+        <span class="pill hot">ETL Pipelines</span><span class="pill hot">Microsoft Fabric</span>
+        <span class="pill">Microsoft Copilot</span><span class="pill">Prompt Engineering</span>
+        <span class="pill">Workflow Automation</span><span class="pill">Validation Pipelines</span>
+      </div>
+    </div>
+    <div class="skill-row" data-rv>
+      <div class="gl">Finance &amp; strategy</div>
+      <div class="pills">
+        <span class="pill hot">Financial Analysis</span>
+        <span class="pill">Financial Forecasting</span><span class="pill">Budget Planning</span>
+        <span class="pill">Accounts Payable</span><span class="pill">Bank Reconciliation</span>
+        <span class="pill">Variance Analysis</span><span class="pill">SWOT Analysis</span>
+      </div>
+    </div>
+    <div class="skill-row" data-rv>
+      <div class="gl">Platforms</div>
+      <div class="pills">
+        <span class="pill hot">Microsoft Dynamics 365 Business Central</span>
+        <span class="pill">Microsoft 365</span><span class="pill">GitHub</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 04 PROJECTS ═══════════ -->
+<section class="sec" id="work" aria-label="Projects">
+  <div class="sec-head">
+    <span class="idx mono">( 04 )</span>
+    <h2 data-rv>Things I<br/><span class="ghosted">shipped</span></h2>
+  </div>
+
+  <div class="proj-grid">
+    <article class="card" data-rv>
+      <div class="card-no" aria-hidden="true">01</div>
+      <span class="live"><i></i>Live daily</span>
+      <span class="card-kicker">Automation · Production</span>
+      <h3>Snehin Check Request Helper</h3>
+      <p class="desc">Python desktop tool that extracts invoice data from PDFs and auto-fills Microsoft Dynamics Business Central — eliminating 3–5 minutes of manual re-entry per invoice with zero API dependency. Built to solve a real daily pain point at ASI.</p>
+      <div class="metrics">
+        <div class="metric"><div class="mv">~<span data-count="96">0</span>%</div><div class="ml">Time saved</div></div>
+        <div class="metric"><div class="mv"><span data-count="10">0</span>s</div><div class="ml">vs 3–5 min</div></div>
+        <div class="metric"><div class="mv">0</div><div class="ml">APIs needed</div></div>
+      </div>
+      <div class="tags"><span class="tag-chip">Python</span><span class="tag-chip">pdfplumber</span><span class="tag-chip">PyMuPDF</span><span class="tag-chip">pyautogui</span><span class="tag-chip">CustomTkinter</span><span class="tag-chip">Business Central</span></div>
+    </article>
+
+    <article class="card" data-rv>
+      <div class="card-no" aria-hidden="true">02</div>
+      <span class="live"><i></i>Live daily</span>
+      <span class="card-kicker">Automation · Production</span>
+      <h3>BC Journal Entry Bot</h3>
+      <p class="desc">Python automation that reads Docusign PDFs and CashNet Excel files, then enters structured journal data directly into Business Central. Replaced a multi-step manual process that was both time-consuming and error-prone.</p>
+      <div class="metrics">
+        <div class="metric"><div class="mv"><span data-count="95">0</span>%</div><div class="ml">Time saved</div></div>
+        <div class="metric"><div class="mv">0</div><div class="ml">Manual errors</div></div>
+      </div>
+      <div class="tags"><span class="tag-chip">Python</span><span class="tag-chip">pdfplumber</span><span class="tag-chip">openpyxl</span><span class="tag-chip">pyautogui</span><span class="tag-chip">Docusign</span><span class="tag-chip">Business Central</span></div>
+    </article>
+
+    <article class="card card-wide" data-rv>
       <div>
-        <div class="pj-num">Data Analysis · Datathon 2026</div>
-        <div class="pj-title">Is the American Dream Still Attainable?</div>
-        <p class="pj-desc">Economic analysis of real income growth, purchasing power decline, and regional inequality across the U.S. Built in Tableau with a focus on data storytelling. Placed 3rd at the AIS Annual Datathon 2026 competing against all CSULB teams.</p>
-        <div class="pj-tags" style="margin-top:12px"><span class="ptag">Tableau</span><span class="ptag">Data Visualization</span><span class="ptag">Economic Analysis</span><span class="ptag">Data Storytelling</span></div>
+        <span class="card-kicker">Data Analysis · Datathon 2026</span>
+        <h3>Is the American Dream Still Attainable?</h3>
+        <p class="desc" style="margin-bottom:24px">Economic analysis of real income growth, purchasing power decline, and regional inequality across the U.S. Built in Tableau with a focus on data storytelling — placed 3rd at the AIS Annual Datathon 2026 against all CSULB teams.</p>
+        <div class="tags"><span class="tag-chip">Tableau</span><span class="tag-chip">Data Visualization</span><span class="tag-chip">Economic Analysis</span><span class="tag-chip">Data Storytelling</span></div>
       </div>
-      <div class="award-badge">
-        <div class="place">3<sup style="font-size:.55em">rd</sup></div>
-        <div class="plbl">AIS Annual<br/>Datathon<br/>2026</div>
+      <div class="award">
+        <div class="place">3<sup>rd</sup></div>
+        <div class="alabel">AIS Annual<br/>Datathon 2026</div>
       </div>
-    </div>
+    </article>
   </div>
-</div>
+</section>
 
-<!-- CONTACT -->
-<div class="contact-sec" id="contact">
-  <div class="contact-inner">
-    <div>
-      <div class="contact-head">Let's talk<br/><em>work.</em></div>
-      <p class="contact-sub">Open to data analyst, business analyst, and automation engineering internships and roles.</p>
-    </div>
-    <div class="contact-links">
-      <a class="clink primary" href="#">wasimahin@gmail.com <span class="cl">EMAIL ↗</span></a>
-      <a class="clink" href="#">linkedin.com/in/wasi-mahin <span class="cl">LINKEDIN ↗</span></a>
-      <a class="clink" href="#">github.com/wasimahin <span class="cl">GITHUB ↗</span></a>
-      <a class="clink" href="#">WasiMahin_Resume.pdf <span class="cl">RESUME ↓</span></a>
-    </div>
+<!-- ═══════════ 05 CONTACT ═══════════ -->
+<section class="contact" id="contact" aria-label="Contact">
+  <div class="sec-label" style="margin-bottom: clamp(40px,6vh,70px)">
+    <span class="tag">( 05 — Contact )</span>
+    <span class="rule"></span>
+    <span class="aux">Replies fast</span>
   </div>
-</div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="fl">Wasi Mahin · © 2026</div>
-  <div class="fr">wasimahin.com</div>
-</footer>
+  <h2 class="contact-head">
+    <span class="row"><span class="ri">Let's talk</span></span>
+    <span class="row"><span class="ri serif">work.</span></span>
+  </h2>
+  <p class="contact-sub" data-rv>Open to data analyst, business analyst, and automation engineering internships and roles. If your team drowns in manual process, I'd genuinely enjoy fixing that.</p>
 
+  <div class="email-wrap" data-rv>
+    <span class="email-label">Email — the fastest way</span>
+    <a class="email-link" href="mailto:wasimahin@gmail.com" data-magnet>wasimahin@gmail.com</a>
+  </div>
+
+  <div class="contact-rows">
+    <a class="crow" href="https://www.linkedin.com/in/wasi-mahin" target="_blank" rel="noopener" data-rv>
+      <span class="cn">LinkedIn</span>
+      <span class="cv"><span class="lbl-txt">in/wasi-mahin</span><span class="arr2">↗</span></span>
+    </a>
+    <a class="crow" href="https://github.com/wasimahin" target="_blank" rel="noopener" data-rv>
+      <span class="cn">GitHub</span>
+      <span class="cv"><span class="lbl-txt">@wasimahin</span><span class="arr2">↗</span></span>
+    </a>
+    <a class="crow" href="WasiMahin_Resume.pdf" download data-rv>
+      <span class="cn">Resume</span>
+      <span class="cv"><span class="lbl-txt">PDF · One page</span><span class="arr2">↓</span></span>
+    </a>
+  </div>
+
+  <footer class="footer">
+    <span>© 2026 Wasi Mahin — Built from scratch, no templates</span>
+    <span class="ft-mid">Long Beach, CA <em>·</em> <span id="clock2">--:--:--</span> PT</span>
+    <a class="to-top" href="#top">Back to top ↑</a>
+  </footer>
+</section>
+
+</main>
+
+<script src="gsap.min.js"></script>
+<script src="ScrollTrigger.min.js"></script>
+<script src="lenis.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  var q  = function (s, c) { return (c || document).querySelector(s); };
+  var qa = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                  || /[?&]static=1/.test(location.search);
+  var finePointer  = window.matchMedia('(pointer: fine)').matches;
+  var hasGsap      = typeof gsap !== 'undefined';
+  var ALLOW        = hasGsap && !reduceMotion;   /* full motion experience */
+
+  /* ── clock (always runs) ─────────────────── */
+  var fmt = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Los_Angeles',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+  });
+  function tickClock() {
+    var t = fmt.format(new Date());
+    var a = q('#clock'), b = q('#clock2');
+    if (a) a.textContent = t;
+    if (b) b.textContent = t;
+  }
+  tickClock();
+  setInterval(tickClock, 1000);
+
+  /* ── preloader failsafe ──────────────────── */
+  var pre = q('.preloader');
+  function killPreloader() {
+    if (pre && pre.parentNode) { pre.style.display = 'none'; }
+  }
+  setTimeout(killPreloader, 4200);
+
+  /* ── static path: no motion, final state ─── */
+  if (!ALLOW) {
+    killPreloader();
+    qa('[data-count]').forEach(function (el) {
+      el.textContent = el.getAttribute('data-count');
+    });
+  }
+
+  if (ALLOW) gsap.registerPlugin(ScrollTrigger);
+
+  /* ── lenis smooth scroll ─────────────────── */
+  var lenis = null;
+  if (ALLOW && typeof Lenis !== 'undefined') {
+    document.documentElement.classList.add('lenis');
+    lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  function scrollToHash(hash) {
+    var el = q(hash);
+    if (!el) return;
+    if (lenis) lenis.scrollTo(el, { offset: hash === '#top' ? 0 : -20, duration: 1.2 });
+    else el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+  }
+  qa('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var h = a.getAttribute('href');
+      if (h.length > 1 && q(h)) {
+        e.preventDefault();
+        if (menuOpen) toggleMenu(false);
+        scrollToHash(h);
+      }
+    });
+  });
+
+  /* ── scroll progress bar ─────────────────── */
+  if (ALLOW) {
+    gsap.to('.progress', {
+      scaleX: 1, ease: 'none',
+      scrollTrigger: { trigger: document.body, start: 'top top', end: 'max', scrub: .3 }
+    });
+  }
+
+  /* ── nav hide/show + solid (native scroll) ─ */
+  var nav = q('#nav'), lastY = 0;
+  window.addEventListener('scroll', function () {
+    var y = window.scrollY;
+    nav.classList.toggle('is-solid', y > 40);
+    if (!menuOpen) nav.classList.toggle('is-hidden', y > 300 && y > lastY + 4);
+    lastY = y;
+  }, { passive: true });
+
+  /* ── fullscreen menu ─────────────────────── */
+  var menuOpen = false;
+  var burger = q('#burger'), menu = q('#menu');
+  var menuTl = null;
+  if (ALLOW) {
+    menuTl = gsap.timeline({ paused: true })
+      .set(menu, { visibility: 'visible' })
+      .to(menu, { clipPath: 'inset(0% 0 0% 0)', duration: .7, ease: 'power4.inOut' })
+      .from(qa('.menu-links a'), { yPercent: 60, autoAlpha: 0, stagger: .07, duration: .5, ease: 'power3.out' }, '-=.25')
+      .from('.menu-foot', { autoAlpha: 0, y: 14, duration: .4 }, '-=.3');
+  }
+  function toggleMenu(open) {
+    menuOpen = open;
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    menu.setAttribute('aria-hidden', !open);
+    nav.classList.remove('is-hidden');
+    if (menuTl) {
+      if (open) { menuTl.timeScale(1).play(); if (lenis) lenis.stop(); }
+      else { menuTl.timeScale(1.6).reverse(); if (lenis) lenis.start(); }
+    } else {
+      menu.classList.toggle('open', open);
+    }
+  }
+  burger.addEventListener('click', function () { toggleMenu(!menuOpen); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menuOpen) toggleMenu(false); });
+
+  /* ── active section in nav (IO, always) ──── */
+  (function () {
+    var map = {};
+    qa('.nav-links a').forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var link = map[en.target.id];
+        if (link) link.classList.toggle('on', en.isIntersecting);
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    ['experience', 'education', 'skills', 'work', 'contact'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+  })();
+
+  if (!ALLOW) return;
+
+  /* ════ everything below = motion only ════ */
+
+  /* ── preloader + hero intro ──────────────── */
+  var plnum = q('#plnum');
+  var heroIn = gsap.timeline({ paused: true })
+    .from('.hero-name .lw1 .li', { yPercent: 112, duration: 1.05, ease: 'power4.out' }, 0)
+    .from('.hero-name .lw2 .li', { yPercent: 112, duration: 1.05, ease: 'power4.out' }, .09)
+    .from('.hero-photo', { y: 90, autoAlpha: 0, duration: 1.2, ease: 'power3.out' }, .15)
+    .from(['.hero-glow', '.hero-ring'], { autoAlpha: 0, scale: .85, duration: 1.4, ease: 'power2.out' }, .2)
+    .from('.hi-st', { y: 26, autoAlpha: 0, stagger: .09, duration: .8, ease: 'power3.out' }, .45)
+    .from(['.hero-scroll', '.hero-coords', '.hero-vert'], { autoAlpha: 0, duration: .8 }, .95);
+
+  if (pre && pre.style.display !== 'none') {
+    var cnt = { v: 0 };
+    gsap.timeline()
+      .to(cnt, {
+        v: 100, duration: 1.15, ease: 'power2.inOut',
+        onUpdate: function () { plnum.textContent = String(Math.round(cnt.v)).padStart(3, '0'); }
+      })
+      .to('.pl-inner, .pl-count', { autoAlpha: 0, y: -24, duration: .35, ease: 'power2.in' }, '+=.1')
+      .to(pre, {
+        yPercent: -100, duration: .85, ease: 'power4.inOut',
+        onComplete: function () { pre.style.display = 'none'; }
+      }, '-=.05')
+      .add(function () { heroIn.play(); }, '-=.55');
+  } else {
+    heroIn.play();
+  }
+
+  /* ── hero parallax ───────────────────────── */
+  gsap.to('.hero-photo', {
+    yPercent: 9, ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+  });
+  gsap.to('.hero-name', {
+    yPercent: -14, ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+  });
+  gsap.to('.hero-intro', {
+    autoAlpha: 0, y: -40, ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: '12% top', end: '52% top', scrub: true }
+  });
+
+  /* ── counters ────────────────────────────── */
+  qa('[data-count]').forEach(function (el) {
+    var raw = el.getAttribute('data-count');
+    var end = parseFloat(raw);
+    var dec = (raw.split('.')[1] || '').length;
+    el.textContent = (0).toFixed(dec);
+    ScrollTrigger.create({
+      trigger: el, start: 'top 88%', once: true,
+      onEnter: function () {
+        var o = { v: 0 };
+        gsap.to(o, {
+          v: end, duration: 1.7, ease: 'power3.out',
+          onUpdate: function () { el.textContent = o.v.toFixed(dec); }
+        });
+      }
+    });
+  });
+
+  /* ── manifesto word reveal ───────────────── */
+  var mp = q('#manifesto-p');
+  if (mp) {
+    var frag = document.createDocumentFragment();
+    var nodes = Array.prototype.slice.call(mp.childNodes);
+    nodes.forEach(function (node) {
+      if (node.nodeType === 3) {
+        node.textContent.split(/\s+/).forEach(function (w) {
+          if (!w) return;
+          var s = document.createElement('span');
+          s.className = 'w'; s.textContent = w;
+          frag.appendChild(s); frag.appendChild(document.createTextNode(' '));
+        });
+      } else if (node.nodeType === 1) {
+        node.textContent.split(/\s+/).forEach(function (w) {
+          if (!w) return;
+          var s = document.createElement('span');
+          s.className = 'w ' + node.className; s.textContent = w;
+          frag.appendChild(s); frag.appendChild(document.createTextNode(' '));
+        });
+      }
+    });
+    mp.innerHTML = '';
+    mp.appendChild(frag);
+    gsap.fromTo(qa('.w', mp), { opacity: .13 }, {
+      opacity: 1, stagger: .05, ease: 'none',
+      scrollTrigger: { trigger: '.manifesto', start: 'top 78%', end: 'center 42%', scrub: true }
+    });
+  }
+
+  /* ── section h2 reveals ──────────────────── */
+  qa('.sec-head h2, .contact-head .ri').forEach(function (el) {
+    gsap.from(el, {
+      yPercent: 36, autoAlpha: 0, duration: 1, ease: 'power4.out',
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+    });
+  });
+
+  /* ── generic reveals ─────────────────────── */
+  ScrollTrigger.batch('[data-rv]', {
+    start: 'top 90%', once: true,
+    onEnter: function (batch) {
+      gsap.from(batch, { y: 34, autoAlpha: 0, duration: .9, ease: 'power3.out', stagger: .09 });
+    }
+  });
+
+  /* ── card spotlight ──────────────────────── */
+  if (finePointer) {
+    qa('.card').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+  }
+
+  /* ── magnetic elements ───────────────────── */
+  if (finePointer && !reduceMotion) {
+    qa('[data-magnet]').forEach(function (el) {
+      var st = .32;
+      el.addEventListener('mousemove', function (e) {
+        var r = el.getBoundingClientRect();
+        gsap.to(el, {
+          x: (e.clientX - r.left - r.width / 2) * st,
+          y: (e.clientY - r.top - r.height / 2) * st,
+          duration: .4, ease: 'power2.out'
+        });
+      });
+      el.addEventListener('mouseleave', function () {
+        gsap.to(el, { x: 0, y: 0, duration: .7, ease: 'elastic.out(1, .45)' });
+      });
+    });
+  }
+
+  /* ── custom cursor ───────────────────────── */
+  if (finePointer && !reduceMotion) {
+    var dot = q('.cur-dot'), ring = q('.cur-ring');
+    var mx = -100, my = -100, rx = -100, ry = -100, shown = false;
+    document.addEventListener('mousemove', function (e) {
+      mx = e.clientX; my = e.clientY;
+      if (!shown) { shown = true; gsap.to([dot, ring], { opacity: 1, duration: .3 }); }
+    });
+    document.addEventListener('mouseleave', function () {
+      shown = false; gsap.to([dot, ring], { opacity: 0, duration: .3 });
+    });
+    gsap.ticker.add(function () {
+      rx += (mx - rx) * .16; ry += (my - ry) * .16;
+      dot.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
+    });
+    document.addEventListener('mouseover', function (e) {
+      var hot = e.target.closest('a, button, .pill, .card');
+      ring.classList.toggle('is-hot', !!hot);
+    });
+  }
+
+  /* ── console easter egg ──────────────────── */
+  try {
+    console.log(
+      '%c WASI MAHIN %c Portfolio ©2026 — built from scratch. \n   Looking at the source? Let’s talk: wasimahin@gmail.com ',
+      'background:#ff4d00;color:#0d0b08;font-weight:bold;padding:4px 8px;border-radius:3px 0 0 3px',
+      'background:#1a1610;color:#f2ede3;padding:4px 8px;border-radius:0 3px 3px 0'
+    );
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
