@@ -1,2 +1,5 @@
-.claude/
+# Local-only / never deploy
+_docs/
+WEBSITE.md
 *.tmp
+.DS_Store
