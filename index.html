@@ -3,22 +3,28 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Wasi Mahin — Data Analyst & Business Automation Engineer</title>
-<meta name="description" content="Wasi Mahin — Data Analyst & Business Automation Engineer. MIS & Accountancy at CSULB, GPA 3.87. Two production Python tools live in Microsoft Business Central, 500+ organizations served."/>
+<title>Wasi Mahin — Data Analyst & Business Automation Engineer | Long Beach, CA</title>
+<meta name="description" content="Data Analyst & Business Automation Engineer in Long Beach, CA. MIS & Accountancy at CSULB, GPA 3.87. Two production Python tools live in Microsoft Dynamics 365 — Power BI, SQL, Tableau."/>
+<meta name="author" content="Wasi Mahin"/>
+<link rel="canonical" href="https://wasimahin.com/"/>
 <meta name="theme-color" content="#0d0b08"/>
 
 <!-- Open Graph -->
-<meta property="og:title" content="Wasi Mahin — Portfolio"/>
-<meta property="og:description" content="Data Analyst & Automation Engineer building production Python tools, Power BI dashboards, and financial systems."/>
+<meta property="og:title" content="Wasi Mahin — Data Analyst & Business Automation Engineer"/>
+<meta property="og:description" content="Data Analyst & Automation Engineer building production Python tools, Power BI dashboards, and financial systems. CSULB MIS & Accountancy, GPA 3.87."/>
 <meta property="og:type" content="website"/>
-<meta property="og:url" content="https://wasimahin.com"/>
+<meta property="og:site_name" content="Wasi Mahin — Portfolio"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://wasimahin.com/"/>
 <meta property="og:image" content="https://wasimahin.com/og-image.jpg"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Wasi Mahin — Data Analyst & Business Automation Engineer, portfolio preview"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="Wasi Mahin — Portfolio"/>
+<meta name="twitter:title" content="Wasi Mahin — Data Analyst & Business Automation Engineer"/>
 <meta name="twitter:description" content="Data Analyst & Automation Engineer. 2 tools live in production. CSULB MIS & Accountancy, GPA 3.87."/>
 <meta name="twitter:image" content="https://wasimahin.com/og-image.jpg"/>
+<meta name="twitter:image:alt" content="Wasi Mahin — Data Analyst & Business Automation Engineer, portfolio preview"/>
 
 <!-- Favicons -->
 <link rel="icon" type="image/x-icon" href="favicon.ico"/>
@@ -29,23 +35,38 @@
 <!-- Fonts — self-hosted (no third-party requests; see privacy.html) -->
 <link rel="preload" as="font" type="font/woff2" href="fonts/archivo-normal-500-900.woff2" crossorigin/>
 <link rel="preload" as="font" type="font/woff2" href="fonts/space-grotesk-normal-300-700.woff2" crossorigin/>
-<link rel="preload" as="image" href="photo.webp" type="image/webp" media="(min-width: 881px)"/>
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Wasi Mahin",
-  "url": "https://wasimahin.com",
-  "email": "mailto:wasimahin@gmail.com",
-  "jobTitle": "Data Analyst & Business Automation Engineer",
-  "alumniOf": { "@type": "CollegeOrUniversity", "name": "California State University, Long Beach" },
-  "address": { "@type": "PostalAddress", "addressLocality": "Long Beach", "addressRegion": "CA", "addressCountry": "US" },
-  "sameAs": [
-    "https://www.linkedin.com/in/wasi-mahin",
-    "https://github.com/wasimahin"
-  ],
-  "knowsAbout": ["Data Analysis", "Python", "SQL", "Power BI", "Tableau", "DAX", "Microsoft Fabric", "ETL Pipelines", "Financial Analysis", "Accounts Payable", "Internal Audit", "Financial Reporting", "Business Process Automation"]
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://wasimahin.com/#person",
+      "name": "Wasi Mahin",
+      "url": "https://wasimahin.com/",
+      "email": "mailto:wasimahin@gmail.com",
+      "image": "https://wasimahin.com/og-image.jpg",
+      "jobTitle": "Data Analyst & Business Automation Engineer",
+      "description": "Data analyst and business automation engineer with two production Python tools running daily inside Microsoft Dynamics 365 Business Central. MIS & Accountancy student at CSULB, GPA 3.87.",
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "California State University, Long Beach", "sameAs": "https://www.csulb.edu" },
+      "worksFor": { "@type": "Organization", "name": "Associated Students, Inc., CSULB" },
+      "address": { "@type": "PostalAddress", "addressLocality": "Long Beach", "addressRegion": "CA", "addressCountry": "US" },
+      "sameAs": [
+        "https://www.linkedin.com/in/wasi-mahin",
+        "https://github.com/wasimahin"
+      ],
+      "knowsAbout": ["Data Analysis", "Python", "SQL", "Power BI", "Tableau", "DAX", "Microsoft Fabric", "ETL Pipelines", "Financial Analysis", "Accounts Payable", "Internal Audit", "Financial Reporting", "Business Process Automation"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://wasimahin.com/#website",
+      "url": "https://wasimahin.com/",
+      "name": "Wasi Mahin — Portfolio",
+      "publisher": { "@id": "https://wasimahin.com/#person" },
+      "inLanguage": "en-US"
+    }
+  ]
 }
 </script>
 
@@ -414,18 +435,30 @@ button { font: inherit; background: none; border: none; color: inherit; cursor: 
 .hero-name .li { display: block; }
 .hero-name .lw2 .li em { font-style: normal; color: var(--orange); }
 
-/* portrait */
+/* portrait — rendered as a BACKGROUND image on purpose: Chrome's compositor
+   skips the first paint of this absolutely-positioned <img> on the reduced-
+   motion/static path (loaded + laid out + visible, never rasterized; only a
+   devtools-level invalidation repainted it — found 2026-07-02). Background
+   images take a different paint path and are immune. */
 .hero-photo {
   position: absolute; z-index: 2;
   right: 6vw; bottom: 0;
   height: 88vh; max-height: 920px;
+  aspect-ratio: 1134 / 1700;
   pointer-events: none;
-}
-.hero-photo img {
-  height: 100%; width: auto;
+  background-image: url('photo-fallback.png');
+  background-image: image-set(url('photo.webp') type('image/webp'), url('photo-fallback.png') type('image/png'));
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom center;
   filter: saturate(.9) contrast(1.06) brightness(.98);
-  -webkit-mask-image: linear-gradient(to top, transparent 0, #000 14%);
-          mask-image: linear-gradient(to top, transparent 0, #000 14%);
+}
+/* bottom fade into the page background (replaces the old img mask) */
+.hero-fade {
+  position: absolute; z-index: 2; left: 0; right: 0; bottom: -1px;
+  height: clamp(80px, 14vh, 140px);
+  background: linear-gradient(to top, var(--bg) 12%, rgba(13,11,8,0) 100%);
+  pointer-events: none;
 }
 .hero-photo-fallback { display: none; }
 
@@ -939,8 +972,9 @@ button { font: inherit; background: none; border: none; color: inherit; cursor: 
     position: relative; right: auto; bottom: auto;
     height: auto; max-height: none;
     margin: -16vw 0 0 auto; width: min(76vw, 420px);
+    background-image: url('photo-fallback.png');
+    background-image: image-set(url('photo-900.webp') type('image/webp'), url('photo-fallback.png') type('image/png'));
   }
-  .hero-photo img { height: auto; width: 100%; }
   .hero-glow { right: -20vw; bottom: 0; width: 90vw; height: 90vw; }
   .hero-ring { right: 2vw; bottom: 10vw; width: 60vw; height: 60vw; }
   .hero-scroll, .hero-coords { display: none; }
@@ -1060,13 +1094,9 @@ button { font: inherit; background: none; border: none; color: inherit; cursor: 
     <div class="hero-tag hi-st">analysis first, follow-through always</div>
   </div>
 
-  <div class="hero-photo">
-    <picture>
-      <source srcset="photo-900.webp" type="image/webp" media="(max-width: 880px)"/>
-      <source srcset="photo.webp" type="image/webp"/>
-      <img src="photo-fallback.png" alt="Portrait of Wasi Mahin" width="1134" height="1700" fetchpriority="high" decoding="async"/>
-    </picture>
-  </div>
+  <div class="hero-photo" role="img" aria-label="Portrait of Wasi Mahin"></div>
+
+  <div class="hero-fade" aria-hidden="true"></div>
 
   <h1 class="hero-name">
     <span class="lw lw1"><span class="li">Wasi</span></span>
