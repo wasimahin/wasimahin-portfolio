@@ -833,6 +833,40 @@ button { font: inherit; background: none; border: none; color: inherit; cursor: 
 }
 
 /* ════════════════════════════════════════════
+   13b · RECOMMENDATIONS
+════════════════════════════════════════════ */
+.rec-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--line);
+  border: 1px solid var(--line);
+}
+.rec-card {
+  background: var(--bg);
+  padding: clamp(30px, 3.4vw, 52px);
+  display: flex; flex-direction: column; gap: 26px;
+  position: relative; overflow: hidden;
+}
+.rec-card::before {
+  content: '\201C'; position: absolute; top: -8px; left: clamp(18px, 2.4vw, 36px);
+  font-family: 'Instrument Serif', serif; font-style: italic;
+  font-size: 140px; line-height: 1; color: var(--ghost); pointer-events: none;
+}
+.rec-card blockquote {
+  font-size: clamp(15px, 1.5vw, 18px); line-height: 1.75;
+  color: var(--ivory); position: relative; z-index: 1;
+}
+.rec-card figcaption { display: flex; flex-direction: column; gap: 5px; margin-top: auto; }
+.rec-name {
+  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
+  font-weight: 800; font-size: 16px; letter-spacing: -.01em; color: var(--ivory);
+}
+.rec-role {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--faint);
+}
+@media (max-width: 880px) { .rec-grid { grid-template-columns: 1fr; } }
+
+/* ════════════════════════════════════════════
    14 · CONTACT + FOOTER
 ════════════════════════════════════════════ */
 .contact { padding: clamp(100px, 15vh, 180px) var(--pad) 0; border-top: 1px solid var(--line-2); }
@@ -1378,6 +1412,31 @@ button { font: inherit; background: none; border: none; color: inherit; cursor: 
         <div class="alabel">AIS Annual<br/>Datathon 2026</div>
       </div>
     </article>
+  </div>
+</section>
+
+<!-- ═══════════ RECOMMENDATIONS ═══════════ -->
+<section class="sec" aria-label="Recommendations">
+  <div class="sec-label" style="margin-bottom: clamp(40px,6vh,64px)">
+    <span class="tag">( What people say )</span>
+    <span class="rule"></span>
+    <span class="aux">LinkedIn recommendations</span>
+  </div>
+  <div class="rec-grid">
+    <figure class="rec-card" data-rv>
+      <blockquote>I highly recommend Wasi for any audit or finance position. He consistently demonstrated strong data analytics skills while supporting auditing, budgeting, and finance operations. He is dependable, detail-oriented, and a quick learner who would be a valuable asset to any organization.</blockquote>
+      <figcaption>
+        <span class="rec-name">Kristy Nguyen</span>
+        <span class="rec-role">Managed Wasi directly</span>
+      </figcaption>
+    </figure>
+    <figure class="rec-card" data-rv>
+      <blockquote>Wasi is a very dedicated and detail-oriented employee — great at problem solving efficiently, not only for his own situations but for everyone in our office. A great team player, and a great part of our team at the Business Office.</blockquote>
+      <figcaption>
+        <span class="rec-name">Stewart Ohanesian</span>
+        <span class="rec-role">Senior Accountant · Associated Students, CSULB</span>
+      </figcaption>
+    </figure>
   </div>
 </section>
 
