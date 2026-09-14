@@ -207,16 +207,32 @@ a:hover{text-decoration-color:var(--amber);}
 
 /* portrait behind gate glass — CSS background on purpose: an absolutely-positioned
    <img> was never rasterized on Chrome's reduced-motion path (found 2026-07-02). */
-.gate{position:relative;aspect-ratio:3/4;border:1px solid var(--edge);
-  background-color:var(--steel-2);
+/* The portrait is a true alpha cutout, so it needs no frame. One catch found in
+   the asset itself: the bottom ~31% of the source is a FULLY OPAQUE, full-width
+   block (the torso runs edge-to-edge to the frame bottom). That block is what
+   read as "a box". So the element is cropped to the top 1200/1700 of the image
+   and the remaining hem is dissolved with a mask — the real alpha matte does the
+   silhouette, and the figure ends in air rather than on a cut edge.
+   Never restore a border, a background-color, or `background-size: cover` here. */
+.gate{
+  position:relative;
+  aspect-ratio:1134/1200;
+  align-self:end;
   background-image:url('photo-fallback.png');
-  background-image:image-set(url('photo.webp') type('image/webp'),url('photo-fallback.png') type('image/png'));
-  background-size:cover;background-position:50% 12%;filter:saturate(.82) contrast(1.04);}
-.gate::after{content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(190deg,rgba(216,163,26,.06) 0%,rgba(14,18,21,0) 34%,rgba(14,18,21,.58) 100%);}
+  background-image:
+    image-set(url('photo.webp') type('image/webp'), url('photo-fallback.png') type('image/png')),
+    radial-gradient(54% 44% at 50% 68%, rgba(216,163,26,.12), rgba(216,163,26,0) 70%);
+  background-size:100% auto, 132% 104%;
+  background-position:50% 0, 50% 58%;
+  background-repeat:no-repeat, no-repeat;
+  filter:saturate(.92) contrast(1.02);
+  -webkit-mask-image:linear-gradient(180deg,#000 0 64%,rgba(0,0,0,.5) 85%,transparent 100%);
+  mask-image:linear-gradient(180deg,#000 0 64%,rgba(0,0,0,.5) 85%,transparent 100%);
+}
 @media (max-width:860px){
   .dest-grid{grid-template-columns:1fr;align-items:start;}
-  .gate{width:min(74vw,320px);margin-top:8px;}
+  .gate{width:min(66vw,290px);margin:2px auto 0;}
+}
 }
 
 /* ═══ 05 · BOARD ROWS ═══ */
@@ -260,12 +276,12 @@ a:hover{text-decoration-color:var(--amber);}
 
 /* ═══ 07 · EVIDENCE (numbers as board readings) ═══ */
 .ev{border-top:1px solid var(--rule-2);border-bottom:1px solid var(--rule-2);}
-.ev-row{display:grid;grid-template-columns:clamp(136px,17vw,232px) minmax(0,1fr);
+.ev-row{display:grid;grid-template-columns:clamp(140px,20vw,250px) minmax(0,1fr);
   gap:clamp(14px,2.4vw,38px);align-items:baseline;padding-block:clamp(16px,2.3vh,26px);
   border-bottom:1px solid var(--rule);}
 .ev-row:last-child{border-bottom:0;}
 .ev-n{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 125;font-weight:900;
-  font-size:clamp(27px,4vw,56px);line-height:1;letter-spacing:-.04em;color:var(--flap);
+  font-size:clamp(26px,3.6vw,48px);line-height:1;letter-spacing:-.04em;color:var(--flap);
   font-variant-numeric:tabular-nums;white-space:nowrap;}
 .ev-t{color:var(--flap-2);font-size:clamp(13.5px,1.1vw,16px);line-height:1.55;}
 .ev-t b{color:var(--flap);font-weight:600;}
