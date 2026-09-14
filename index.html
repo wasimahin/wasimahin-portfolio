@@ -327,33 +327,24 @@ a:hover{text-decoration-color:var(--amber);}
   border-bottom:1px solid var(--rule);padding-bottom:6px;width:fit-content;transition:.2s;}
 .enq-alt a:hover{color:var(--amber);border-bottom-color:var(--amber);}
 
-form{display:flex;flex-direction:column;gap:2px;}
-.f-row{display:grid;grid-template-columns:clamp(98px,10.5vw,140px) minmax(0,1fr);
-  gap:clamp(10px,1.6vw,26px);align-items:baseline;
-  border-bottom:1px solid var(--rule);padding-block:14px;}
-.f-row label{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--dim);padding-top:5px;}
-input,textarea{width:100%;background:transparent;border:0;color:var(--flap);
-  font-family:'Space Grotesk',sans-serif;font-size:clamp(15px,1.15vw,17px);line-height:1.55;
-  padding:4px 0;resize:vertical;}
-input::placeholder,textarea::placeholder{color:#76828A;}
-input:focus,textarea:focus{outline:0;}
-.f-row:focus-within{border-bottom-color:var(--amber);}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
-.f-send{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:22px;}
-button{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.11em;
-  text-transform:uppercase;color:var(--amber-ink);background:var(--amber);border:1px solid var(--amber);
-  padding:14px 26px;cursor:pointer;transition:.22s var(--flip);}
-button:hover:not(:disabled){background:transparent;color:var(--amber);}
-button:disabled{opacity:.45;cursor:not-allowed;}
-.f-msg{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.07em;
-  text-transform:uppercase;}
-.f-msg.ok{color:var(--amber);}
-.f-msg.err{color:#E8806A;}
+.ch{display:grid;grid-template-columns:clamp(84px,9vw,124px) minmax(0,1fr) 28px;
+  gap:clamp(10px,1.6vw,26px);align-items:baseline;text-decoration:none;
+  padding-block:clamp(16px,2.2vh,24px);border-bottom:1px solid var(--rule);
+  transition:background .2s ease;}
+.ch:first-child{border-top:1px solid var(--rule);}
+.ch:hover{background:var(--steel-2);}
+.ch-k{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--dim);}
+.ch-v{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 125;font-weight:800;
+  font-size:clamp(16px,1.5vw,21px);letter-spacing:-.01em;color:var(--flap);word-break:break-word;}
+.ch-lead{font-size:clamp(18px,2.1vw,30px);}
+.ch-go{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--rule-2);
+  justify-self:end;transition:.22s var(--flip);}
+.ch:hover .ch-go{color:var(--amber);transform:translateX(4px);}
 @media (max-width:860px){
   .enq-grid{grid-template-columns:1fr;}
-  .f-row{grid-template-columns:1fr;gap:4px;}
-  .f-row label{padding-top:0;}
+  .ch{grid-template-columns:1fr 28px;gap:4px 10px;}
+  .ch-k{grid-column:1/-1;}
 }
 
 /* ═══ 12 · FOOT ═══ */
@@ -387,7 +378,7 @@ button:disabled{opacity:.45;cursor:not-allowed;}
     <span class="mono lit flap">Open to roles</span>
     <span class="mono sep hide-s">/</span>
     <span class="mono flap hide-s">US &middot; Gulf &middot; Europe</span>
-    <a class="strip-cta" href="#contact">Send a message</a>
+    <a class="strip-cta" href="#contact">Get in touch</a>
   </div>
 </div>
 
@@ -618,43 +609,33 @@ button:disabled{opacity:.45;cursor:not-allowed;}
 <section class="wrap enq" id="contact">
   <div class="enq-grid">
     <div>
-      <h2>Send a<br>message</h2>
+      <h2>Let's<br>talk</h2>
       <p class="enq-note">If you're hiring in finance analytics, or you want to talk about
-        automating a close, write here and it comes straight to me.</p>
-      <div class="enq-alt">
-        <a href="mailto:wasimahin@gmail.com">wasimahin@gmail.com</a>
-        <a href="https://www.linkedin.com/in/wasi-mahin" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/wasimahin" target="_blank" rel="noopener">GitHub</a>
-        <a href="WasiMahin_Resume.pdf">Download résumé (PDF)</a>
-      </div>
+        automating a close, email is the fastest way to reach me. I reply to everything.</p>
     </div>
 
-    <form id="enq" method="post" action="/api/contact" novalidate>
-      <div class="f-row">
-        <label for="fn">First name</label>
-        <input id="fn" name="firstName" type="text" required autocomplete="given-name" placeholder="First name"/>
-      </div>
-      <div class="f-row">
-        <label for="ln">Last name</label>
-        <input id="ln" name="lastName" type="text" required autocomplete="family-name" placeholder="Last name"/>
-      </div>
-      <div class="f-row">
-        <label for="e">Email</label>
-        <input id="e" name="email" type="email" required autocomplete="email" placeholder="you@company.com"/>
-      </div>
-      <div class="f-row">
-        <label for="m">Message</label>
-        <textarea id="m" name="message" rows="5" required placeholder="What are you working on?"></textarea>
-      </div>
-      <div class="hp" aria-hidden="true">
-        <label for="c">Company</label>
-        <input id="c" name="company" type="text" tabindex="-1" autocomplete="off"/>
-      </div>
-      <div class="f-send">
-        <button type="submit" id="sb">Send message</button>
-        <span class="f-msg" id="fm" role="status" aria-live="polite"></span>
-      </div>
-    </form>
+    <div class="board">
+      <a class="ch" href="mailto:wasimahin@gmail.com">
+        <span class="ch-k">Email</span>
+        <span class="ch-v ch-lead">wasimahin@gmail.com</span>
+        <span class="ch-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="ch" href="https://www.linkedin.com/in/wasi-mahin" target="_blank" rel="noopener">
+        <span class="ch-k">LinkedIn</span>
+        <span class="ch-v">/in/wasi-mahin</span>
+        <span class="ch-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="ch" href="https://github.com/wasimahin" target="_blank" rel="noopener">
+        <span class="ch-k">GitHub</span>
+        <span class="ch-v">/wasimahin</span>
+        <span class="ch-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="ch" href="WasiMahin_Resume.pdf">
+        <span class="ch-k">Résumé</span>
+        <span class="ch-v">Download PDF</span>
+        <span class="ch-go" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -672,32 +653,6 @@ button:disabled{opacity:.45;cursor:not-allowed;}
     var f = document.querySelectorAll('.flap');
     for(var i=0;i<f.length;i++){ f[i].style.animationDelay = (i*70)+'ms'; }
   }
-  var form = document.getElementById('enq'),
-      btn  = document.getElementById('sb'),
-      msg  = document.getElementById('fm');
-  if(!form) return;
-  form.addEventListener('submit', function(ev){
-    ev.preventDefault();
-    msg.className='f-msg'; msg.textContent='';
-    var fd = new FormData(form);
-    var req = ['firstName','lastName','email','message'];
-    for(var i=0;i<req.length;i++){
-      if((fd.get(req[i])||'').trim()===''){
-        msg.className='f-msg err'; msg.textContent='Please fill in every field.'; return;
-      }
-    }
-    btn.disabled=true; msg.textContent='Sending…';
-    fetch(form.action,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({firstName:fd.get('firstName'),lastName:fd.get('lastName'),
-        email:fd.get('email'),message:fd.get('message'),company:fd.get('company')})})
-    .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
-    .then(function(res){
-      if(res.ok){ form.reset(); msg.className='f-msg ok'; msg.textContent='Sent. I’ll reply from wasimahin@gmail.com.'; }
-      else { msg.className='f-msg err'; msg.textContent=(res.j && res.j.error) || 'Could not send — please email me directly.'; }
-    })
-    .catch(function(){ msg.className='f-msg err'; msg.textContent='Could not send — please email me directly.'; })
-    .finally(function(){ btn.disabled=false; });
-  });
 })();
 </script>
 </body>
