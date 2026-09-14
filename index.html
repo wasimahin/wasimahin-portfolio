@@ -328,7 +328,7 @@ a:hover{text-decoration-color:var(--amber);}
 .enq-alt a:hover{color:var(--amber);border-bottom-color:var(--amber);}
 
 form{display:flex;flex-direction:column;gap:2px;}
-.f-row{display:grid;grid-template-columns:clamp(74px,8vw,124px) minmax(0,1fr);
+.f-row{display:grid;grid-template-columns:clamp(98px,10.5vw,140px) minmax(0,1fr);
   gap:clamp(10px,1.6vw,26px);align-items:baseline;
   border-bottom:1px solid var(--rule);padding-block:14px;}
 .f-row label{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.12em;
@@ -631,8 +631,12 @@ button:disabled{opacity:.45;cursor:not-allowed;}
 
     <form id="enq" method="post" action="/api/contact" novalidate>
       <div class="f-row">
-        <label for="n">Name</label>
-        <input id="n" name="name" type="text" required autocomplete="name" placeholder="Your name"/>
+        <label for="fn">First name</label>
+        <input id="fn" name="firstName" type="text" required autocomplete="given-name" placeholder="First name"/>
+      </div>
+      <div class="f-row">
+        <label for="ln">Last name</label>
+        <input id="ln" name="lastName" type="text" required autocomplete="family-name" placeholder="Last name"/>
       </div>
       <div class="f-row">
         <label for="e">Email</label>
@@ -676,12 +680,16 @@ button:disabled{opacity:.45;cursor:not-allowed;}
     ev.preventDefault();
     msg.className='f-msg'; msg.textContent='';
     var fd = new FormData(form);
-    if((fd.get('name')||'').trim()==='' || (fd.get('email')||'').trim()==='' || (fd.get('message')||'').trim()===''){
-      msg.className='f-msg err'; msg.textContent='Please fill in every field.'; return;
+    var req = ['firstName','lastName','email','message'];
+    for(var i=0;i<req.length;i++){
+      if((fd.get(req[i])||'').trim()===''){
+        msg.className='f-msg err'; msg.textContent='Please fill in every field.'; return;
+      }
     }
     btn.disabled=true; msg.textContent='Sending…';
     fetch(form.action,{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({name:fd.get('name'),email:fd.get('email'),message:fd.get('message'),company:fd.get('company')})})
+      body:JSON.stringify({firstName:fd.get('firstName'),lastName:fd.get('lastName'),
+        email:fd.get('email'),message:fd.get('message'),company:fd.get('company')})})
     .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
     .then(function(res){
       if(res.ok){ form.reset(); msg.className='f-msg ok'; msg.textContent='Sent. I’ll reply from wasimahin@gmail.com.'; }

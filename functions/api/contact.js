@@ -1,6 +1,9 @@
 /**
  * Cloudflare Pages Function — POST /api/contact
  *
+ * Body: { firstName, lastName, email, message, company }
+ * `company` is the honeypot — a real visitor never sees it.
+ *
  * Chosen deliberately over a third-party form service (Formspree and friends):
  * the visitor's browser only ever talks to wasimahin.com, so privacy.html's
  * "no third-party requests" promise stays literally true and the CSP needs only
@@ -18,7 +21,7 @@
  * visitor to email directly — it never fails silently.
  */
 
-const MAX = { name: 120, email: 200, message: 5000 };
+const MAX = { name: 80, email: 200, message: 5000 };
 
 const json = (status, body) =>
   new Response(JSON.stringify(body), {
@@ -42,11 +45,15 @@ async function handlePost(request, env) {
   // Return 200 so the bot believes it succeeded and does not retry.
   if (clean(body.company, 100) !== "") return json(200, { ok: true });
 
-  const name = clean(body.name, MAX.name);
+  const firstName = clean(body.firstName, MAX.name);
+  const lastName = clean(body.lastName, MAX.name);
   const email = clean(body.email, MAX.email);
   const message = clean(body.message, MAX.message);
+  const name = `${firstName} ${lastName}`.trim();
 
-  if (!name || !email || !message) return json(400, { error: "Please fill in every field." });
+  if (!firstName || !lastName || !email || !message) {
+    return json(400, { error: "Please fill in every field." });
+  }
   if (!looksLikeEmail(email)) return json(400, { error: "That email address doesn't look right." });
   if (message.length < 10) return json(400, { error: "Please add a little more detail." });
 
@@ -58,7 +65,7 @@ async function handlePost(request, env) {
   const to = env.CONTACT_TO || "wasimahin@gmail.com";
   const from = env.CONTACT_FROM || "wasimahin.com <onboarding@resend.dev>";
   const meta = [
-    `From: ${name} <${email}>`,
+    `From: ${firstName} ${lastName} <${email}>`,
     `Country: ${request.headers.get("cf-ipcountry") || "unknown"}`,
     `Received: ${new Date().toISOString()}`,
   ].join("\n");
