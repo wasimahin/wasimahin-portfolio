@@ -172,8 +172,6 @@ a:hover{text-decoration-color:var(--amber);}
 .strip-in{display:flex;align-items:center;gap:clamp(14px,2.4vw,34px);
   height:clamp(42px,5.2vh,52px);overflow:hidden;white-space:nowrap;}
 .strip .mono{font-size:clamp(11px,.9vw,12px);color:var(--dim);}
-.strip .lit{color:var(--amber);}
-.strip .sep{color:var(--rule-2);}
 .strip-mark{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 125;
   font-weight:900;font-size:clamp(12px,1.1vw,14px);letter-spacing:.02em;color:var(--flap);
   margin-right:auto;text-transform:uppercase;}
@@ -380,7 +378,7 @@ a:hover{text-decoration-color:var(--amber);}
 /* the strip sheds detail rather than clipping */
 @media (max-width:560px){ .strip-in{gap:10px;} }
 @media (max-width:440px){ .strip-in{gap:7px;} .strip-cta{padding:7px 10px;} }
-@media (max-width:359px){ .strip .hide-xs{display:none;} .strip-in{gap:8px;} }
+@media (max-width:359px){ .strip-in{gap:8px;} }
 
 @media (max-width:760px){
   .cols-4,.cols-3,.svc-row{grid-template-columns:1fr;gap:9px;}
@@ -399,8 +397,6 @@ a:hover{text-decoration-color:var(--amber);}
 <div class="strip">
   <div class="wrap strip-in">
     <span class="strip-mark flap">Wasi Mahin</span>
-    <span class="mono lit flap hide-xs">Open to roles<span class="hide-s"> worldwide</span></span>
-    <span class="mono sep hide-s">/</span>
     <span class="mono flap hide-s">Graduating May 2027</span>
     <a class="strip-cta" href="#contact">Get in touch</a>
   </div>
@@ -634,8 +630,8 @@ a:hover{text-decoration-color:var(--amber);}
   <div class="enq-grid">
     <div>
       <h2>Let's<br>talk</h2>
-      <p class="enq-note">If you're hiring in finance analytics, or you want to talk about
-        automating a close, email is the fastest way to reach me. I reply to everything.</p>
+      <p class="enq-note">If you want to talk about finance analytics or automating a close,
+        email is the fastest way to reach me. I reply to everything.</p>
     </div>
 
     <div class="board">

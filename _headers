@@ -4,7 +4,7 @@
 # across index.html, privacy.html, 404.html.
 
 /*
-  Content-Security-Policy: default-src 'none'; script-src 'self' https://static.cloudflareinsights.com 'sha256-aLA31liA4gE8s63oS1j9uDuoEjuJQYqYuTmfzfzFMTQ=' 'sha256-dNdlBplWR5bDZDI+YCKolkPPL27/gS/a7SNuPT2Lg0A=' 'sha256-sJ0P5rbyLDz8iHx1VN1loRC/Vb1jVPoecfE5CHgPVhc='; style-src 'sha256-MngSV3l98RXqam3aWiuA7n73ctren8RwHBrHhTbL1nc=' 'sha256-ErWumDfwg1yrXp1zEECdz9Vn6mkUBx9Y6PGTbd/gNtQ=' 'sha256-P/XHIVIDvV9H2Dhd9D+BQ7AK+nHrk1izashcaOIZdbw='; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; media-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'none'; script-src 'self' https://static.cloudflareinsights.com 'sha256-aLA31liA4gE8s63oS1j9uDuoEjuJQYqYuTmfzfzFMTQ=' 'sha256-dNdlBplWR5bDZDI+YCKolkPPL27/gS/a7SNuPT2Lg0A=' 'sha256-sJ0P5rbyLDz8iHx1VN1loRC/Vb1jVPoecfE5CHgPVhc='; style-src 'sha256-2RCIf03GwAsScet3vPRE5hnaH298JvjNNWrIGD2bMug=' 'sha256-ErWumDfwg1yrXp1zEECdz9Vn6mkUBx9Y6PGTbd/gNtQ=' 'sha256-P/XHIVIDvV9H2Dhd9D+BQ7AK+nHrk1izashcaOIZdbw='; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; media-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
