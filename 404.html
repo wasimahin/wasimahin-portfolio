@@ -3,61 +3,205 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>404 — Wasi Mahin</title>
+<title>Not found — Wasi Mahin</title>
 <meta name="robots" content="noindex"/>
-<meta name="theme-color" content="#0d0b08"/>
+<meta name="theme-color" content="#0E1215"/>
 <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+<link rel="preload" href="/fonts/archivo-normal-500-900.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="/fonts/jetbrains-mono-normal-400.woff2" as="font" type="font/woff2" crossorigin/>
 <style>
-@font-face {
-  font-family: 'Archivo';
-  font-style: normal;
-  font-weight: 500 900;
-  font-stretch: 125%;
-  font-display: swap;
-  src: url('/fonts/archivo-normal-500-900.woff2') format('woff2');
+/* ═══ 00 · FONTS (self-hosted, latin) ═══ */
+@font-face{font-family:'Archivo';font-style:normal;font-weight:500 900;font-stretch:125%;font-display:swap;
+  src:url('/fonts/archivo-normal-500-900.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;
+  src:url('/fonts/jetbrains-mono-normal-400.woff2') format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;
+  src:url('/fonts/jetbrains-mono-normal-500.woff2') format('woff2');}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:300 700;font-display:swap;
+  src:url('/fonts/space-grotesk-normal-300-700.woff2') format('woff2');}
+
+/* ═══ 01 · BOARD TOKENS — shared with index.html; keep in sync ═══ */
+:root{
+  --steel:#0E1215;--steel-2:#141A1F;--flap:#F2F0EA;--flap-2:#DAD6CC;--dim:#8A969E;
+  --rule:#232C33;--rule-2:#333F47;--edge:#5E6A71;--amber:#D8A31A;--amber-ink:#0E1215;
+  --pad:clamp(20px,5vw,72px);--flip:cubic-bezier(.16,1,.3,1);
 }
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/jetbrains-mono-normal-400.woff2') format('woff2');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  background:var(--steel);color:var(--flap);
+  font-family:'Space Grotesk',system-ui,sans-serif;font-weight:400;
+  font-size:clamp(15px,1.05vw,16.5px);line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  font-variant-numeric:tabular-nums;font-feature-settings:'tnum' 1;
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root { --bg:#0d0b08; --ivory:#f2ede3; --dim:rgba(242,237,227,.58); --line:rgba(242,237,227,.1); --orange:#ff4d00; }
-html, body { height: 100%; }
-body {
-  background: var(--bg); color: var(--ivory);
-  font-family: 'JetBrains Mono', monospace;
-  display: flex; align-items: center; justify-content: center;
-  text-align: center; padding: 24px;
+
+/* ═══ 02 · BROWSER SURFACES ═══ */
+::selection{background:var(--amber);color:var(--amber-ink);}
+::-moz-selection{background:var(--amber);color:var(--amber-ink);}
+:root{scrollbar-color:var(--rule-2) var(--steel);scrollbar-width:thin;caret-color:var(--amber);}
+::-webkit-scrollbar{width:11px;height:11px;}
+::-webkit-scrollbar-track{background:var(--steel);}
+::-webkit-scrollbar-thumb{background:var(--rule-2);border:3px solid var(--steel);border-radius:0;}
+::-webkit-scrollbar-thumb:hover{background:var(--dim);}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
+a{color:inherit;text-decoration-color:var(--rule-2);text-underline-offset:.22em;text-decoration-thickness:1px;}
+a:hover{text-decoration-color:var(--amber);}
+.skip{position:absolute;left:-9999px;top:0;background:var(--amber);color:var(--amber-ink);
+  padding:12px 18px;font-family:'JetBrains Mono',monospace;font-size:12px;z-index:99;}
+.skip:focus{left:0;}
+
+/* ═══ 03 · BOARD PRIMITIVES ═══ */
+.wrap{max-width:1560px;margin:0 auto;padding-inline:var(--pad);}
+.strip{position:sticky;top:0;z-index:40;background:var(--steel-2);border-bottom:1px solid var(--rule);}
+.strip-in{display:flex;align-items:center;gap:clamp(14px,2.4vw,34px);
+  height:clamp(42px,5.2vh,52px);overflow:hidden;white-space:nowrap;}
+.strip-mark{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 125;
+  font-weight:900;font-size:clamp(12px,1.1vw,14px);letter-spacing:.02em;color:var(--flap);
+  margin-right:auto;text-transform:uppercase;text-decoration:none;}
+.strip-cta{font-family:'JetBrains Mono',monospace;font-size:clamp(11px,.9vw,12px);
+  letter-spacing:.08em;text-transform:uppercase;color:var(--amber);
+  border:1px solid var(--edge);padding:7px 13px;text-decoration:none;transition:.22s var(--flip);}
+.strip-cta:hover{background:var(--amber);color:var(--amber-ink);border-color:var(--amber);}
+.flap{display:inline-block;animation:flapin .5s var(--flip) both;}
+@keyframes flapin{
+  0%{transform:translateY(-38%) rotateX(-82deg);opacity:0;filter:blur(3px);}
+  100%{transform:none;opacity:1;filter:blur(0);}
 }
-.code {
-  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
-  font-weight: 900; font-size: clamp(110px, 24vw, 260px); line-height: .9;
-  letter-spacing: -.03em;
-  color: transparent; -webkit-text-stroke: 2px rgba(242,237,227,.25);
+@media (prefers-reduced-motion:reduce){.flap{animation:none;}}
+
+.board{border-top:1px solid var(--rule-2);}
+.board-head{display:grid;gap:clamp(10px,1.6vw,26px);align-items:center;
+  padding-block:13px;border-bottom:1px solid var(--rule);}
+.board-head span{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--dim);}
+.row{display:grid;gap:clamp(10px,1.6vw,26px);align-items:baseline;
+  padding-block:clamp(15px,2vh,21px);border-bottom:1px solid var(--rule);transition:background .2s ease;}
+.row:hover{background:var(--steel-2);}
+.t-main{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 125;font-weight:800;
+  font-size:clamp(16px,1.62vw,23px);letter-spacing:-.012em;color:var(--flap);line-height:1.3;}
+.flag{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.11em;
+  text-transform:uppercase;padding:5px 9px;border:1px solid currentColor;
+  display:inline-block;white-space:nowrap;line-height:1;}
+.flag.live{color:var(--amber);}
+.flag.done{color:var(--dim);}
+
+.ch{display:grid;grid-template-columns:clamp(84px,9vw,124px) minmax(0,1fr) 28px;
+  gap:clamp(10px,1.6vw,26px);align-items:baseline;text-decoration:none;
+  padding-block:clamp(16px,2.2vh,24px);border-bottom:1px solid var(--rule);transition:background .2s ease;}
+.ch:hover{background:var(--steel-2);}
+.ch-k{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--dim);}
+.ch-v{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 125;font-weight:800;
+  font-size:clamp(16px,1.5vw,21px);letter-spacing:-.01em;color:var(--flap);word-break:break-word;}
+.ch-go{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--rule-2);
+  justify-self:end;transition:.22s var(--flip);}
+.ch:hover .ch-go{color:var(--amber);transform:translateX(4px);}
+
+.foot{border-top:1px solid var(--rule);padding-block:clamp(26px,4vh,42px) clamp(34px,5vh,56px);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center;}
+.foot-mono{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--dim);
+  letter-spacing:.09em;text-transform:uppercase;}
+.foot-note{font-size:13px;color:var(--dim);}
+.foot a{color:var(--dim);text-decoration:none;display:inline-block;padding-block:8px;}
+.foot a:hover{color:var(--amber);}
+
+@media (max-width:560px){ .strip-in{gap:10px;} }
+@media (max-width:440px){ .strip-in{gap:7px;} .strip-cta{padding:7px 10px;} }
+@media (max-width:760px){
+  .board-head{display:none;}
+  .row{padding-block:20px;}
+  .ch{grid-template-columns:1fr 28px;gap:4px 10px;}
+  .ch-k{grid-column:1/-1;}
 }
-.code em { font-style: normal; color: var(--orange); -webkit-text-stroke: 0; }
-.msg { margin: 26px 0 8px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
-.sub { font-size: 11px; letter-spacing: .08em; color: rgba(242,237,227,.34); margin-bottom: 38px; }
-.home {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--bg); background: var(--orange); text-decoration: none;
-  padding: 15px 26px; border-radius: 99px; transition: background-color .25s;
+
+/* ═══ 404 — a route that is not on the board ═══ */
+.nf{padding-block:clamp(44px,9vh,120px) clamp(56px,9vh,116px);}
+.nf h1{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 125;font-weight:900;
+  font-size:clamp(88px,15vw,196px);line-height:.84;letter-spacing:-.04em;color:var(--flap);}
+.nf-lede{margin-top:clamp(18px,2.8vh,30px);max-width:44ch;color:var(--flap-2);
+  font-size:clamp(16px,1.35vw,20px);line-height:1.6;}
+.nf .board{margin-top:clamp(30px,5vh,56px);}
+/* first column matches .ch below so the two stacked boards share one left edge */
+.nf-cols{grid-template-columns:clamp(84px,9vw,124px) minmax(0,1fr) clamp(108px,9.6vw,136px);}
+.nf-cols > :last-child{justify-self:start;}
+.nf-k{font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1vw,13px);color:var(--dim);
+  letter-spacing:.06em;text-transform:uppercase;}
+.nf-path{font-family:'JetBrains Mono',monospace;font-size:clamp(14px,1.3vw,18px);color:var(--flap);
+  word-break:break-all;}
+.nf-go{margin-top:clamp(40px,6vh,72px);}
+.nf-go .board-head{grid-template-columns:1fr;}
+@media (max-width:760px){
+  .nf-cols{grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;}
+  .nf-cols > .nf-k{grid-column:1/-1;}
 }
-.home:hover { background: #ff6a26; }
 </style>
 </head>
 <body>
-<main>
-  <div class="code">4<em>0</em>4</div>
-  <p class="msg">This page doesn't exist</p>
-  <p class="sub">The data says you meant to go home.</p>
-  <a class="home" href="/">Back to wasimahin.com →</a>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="strip">
+  <div class="wrap strip-in">
+    <a class="strip-mark flap" href="/">Wasi Mahin</a>
+    <a class="strip-cta" href="/">Back to the site</a>
+  </div>
+</div>
+
+<main id="main" class="wrap nf">
+  <h1 class="flap">404</h1>
+  <p class="nf-lede">This address isn't on the board. Everything on the site lives on one page.</p>
+
+  <div class="board">
+    <div class="row nf-cols">
+      <div class="nf-k">Requested</div>
+      <div class="nf-path" id="nf-path">This address</div>
+      <div><span class="flag live">Not found</span></div>
+    </div>
+  </div>
+
+  <nav class="nf-go" aria-label="Where to go instead">
+    <div class="board">
+      <div class="board-head"><span>Go to</span></div>
+      <a class="ch" href="/">
+        <span class="ch-k">Home</span>
+        <span class="ch-v">wasimahin.com</span>
+        <span class="ch-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="ch" href="/#experience">
+        <span class="ch-k">Section</span>
+        <span class="ch-v">Experience</span>
+        <span class="ch-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="ch" href="/#work">
+        <span class="ch-k">Section</span>
+        <span class="ch-v">What I've shipped</span>
+        <span class="ch-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="ch" href="/#contact">
+        <span class="ch-k">Section</span>
+        <span class="ch-v">Contact</span>
+        <span class="ch-go" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </nav>
 </main>
+
+<footer class="wrap foot">
+  <span class="foot-mono">Wasi Mahin — Long Beach, CA</span>
+  <span class="foot-note"><a href="/privacy">Privacy</a></span>
+</footer>
+
+<script>
+(function(){
+  var el=document.getElementById('nf-path');
+  if(!el) return;
+  var p=location.pathname;
+  try{ p=decodeURIComponent(p); }catch(e){}
+  el.textContent=p;
+})();
+</script>
 </body>
 </html>

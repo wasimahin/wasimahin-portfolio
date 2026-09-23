@@ -82,7 +82,7 @@
       "@type": "SoftwareSourceCode",
       "@id": "https://wasimahin.com/#bc-journal-entry-bot",
       "name": "BC Journal Entry Bot",
-      "description": "Journal-entry automation running in daily production inside Microsoft Dynamics 365 Business Central. Reduced manual entry by 95% with no API integration.",
+      "description": "Journal-entry automation running in daily production inside Microsoft Dynamics 365 Business Central. Reduced manual entry by up to 95% with no API integration.",
       "codeRepository": "https://github.com/wasimahin/bc-journal-entry-bot",
       "programmingLanguage": "Python",
       "runtimePlatform": "Microsoft Dynamics 365 Business Central",
@@ -231,7 +231,6 @@ a:hover{text-decoration-color:var(--amber);}
   .dest-grid{grid-template-columns:1fr;align-items:start;}
   .gate{width:min(66vw,290px);margin:2px auto 0;}
 }
-}
 
 /* ═══ 05 · BOARD ROWS ═══ */
 .board{border-top:1px solid var(--rule-2);}
@@ -281,6 +280,9 @@ a:hover{text-decoration-color:var(--amber);}
 .ev-n{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 125;font-weight:900;
   font-size:clamp(26px,3.6vw,48px);line-height:1;letter-spacing:-.04em;color:var(--flap);
   font-variant-numeric:tabular-nums;white-space:nowrap;}
+.ev-q{font-family:'JetBrains Mono',monospace;font-variation-settings:normal;font-weight:500;
+  font-size:clamp(10.5px,.8vw,12px);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--dim);margin-right:.2em;}
 .ev-t{color:var(--flap-2);font-size:clamp(13.5px,1.1vw,16px);line-height:1.55;}
 .ev-t b{color:var(--flap);font-weight:600;}
 
@@ -350,7 +352,6 @@ a:hover{text-decoration-color:var(--amber);}
   gap:clamp(10px,1.6vw,26px);align-items:baseline;text-decoration:none;
   padding-block:clamp(16px,2.2vh,24px);border-bottom:1px solid var(--rule);
   transition:background .2s ease;}
-.ch:first-child{border-top:1px solid var(--rule);}
 .ch:hover{background:var(--steel-2);}
 .ch-k{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.12em;
   text-transform:uppercase;color:var(--dim);}
@@ -423,7 +424,7 @@ a:hover{text-decoration-color:var(--amber);}
     <div class="ev-row"><div class="ev-n">~96%</div>
       <p class="ev-t">less time per vendor invoice. <b>Three to five minutes down to under 10 seconds</b>,
         running in daily production with no API integration.</p></div>
-    <div class="ev-row"><div class="ev-n">95%</div>
+    <div class="ev-row"><div class="ev-n"><span class="ev-q">Up to </span>95%</div>
       <p class="ev-t">less manual journal entry, extracted from DocuSign PDFs and CashNet Excel
         files with <b>debit/credit structuring</b> and object-code normalisation.</p></div>
     <div class="ev-row"><div class="ev-n">100%</div>
@@ -550,7 +551,7 @@ a:hover{text-decoration-color:var(--amber);}
           <div><span>01</span><p>Extracts entries from two unrelated source formats.</p></div>
           <div><span>02</span><p>Structures debits and credits and normalises object codes.</p></div>
           <div><span>03</span><p>Validates that the entry balances before it posts.
-            <b>95% less manual entry.</b></p></div>
+            <b>Up to 95% less manual entry.</b></p></div>
         </div>
         <a class="svc-link" href="https://github.com/wasimahin/bc-journal-entry-bot"
            target="_blank" rel="noopener">View the code on GitHub</a>
@@ -635,11 +636,13 @@ a:hover{text-decoration-color:var(--amber);}
     </div>
 
     <div class="board">
+      <!--email_off-->
       <a class="ch" href="mailto:wasimahin@gmail.com">
         <span class="ch-k">Email</span>
         <span class="ch-v ch-lead">wasimahin@gmail.com</span>
         <span class="ch-go" aria-hidden="true">&rarr;</span>
       </a>
+      <!--/email_off-->
       <a class="ch" href="https://www.linkedin.com/in/wasi-mahin" target="_blank" rel="noopener">
         <span class="ch-k">LinkedIn</span>
         <span class="ch-v">/in/wasi-mahin</span>

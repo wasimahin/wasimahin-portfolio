@@ -6,174 +6,256 @@
 <title>Privacy — Wasi Mahin</title>
 <meta name="description" content="Privacy notice for wasimahin.com — no cookies, no tracking, nothing stored in your browser. Cookieless analytics only."/>
 <meta name="robots" content="noindex"/>
-<meta name="theme-color" content="#0d0b08"/>
+<meta name="theme-color" content="#0E1215"/>
 <link rel="icon" type="image/x-icon" href="favicon.ico"/>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
-
+<link rel="preload" href="fonts/archivo-normal-500-900.woff2" as="font" type="font/woff2" crossorigin/>
+<link rel="preload" href="fonts/jetbrains-mono-normal-400.woff2" as="font" type="font/woff2" crossorigin/>
 <style>
-@font-face {
-  font-family: 'Archivo';
-  font-style: normal;
-  font-weight: 500 900;
-  font-stretch: 125%;
-  font-display: swap;
-  src: url('fonts/archivo-normal-500-900.woff2') format('woff2');
+/* ═══ 00 · FONTS (self-hosted, latin) ═══ */
+@font-face{font-family:'Archivo';font-style:normal;font-weight:500 900;font-stretch:125%;font-display:swap;
+  src:url('fonts/archivo-normal-500-900.woff2') format('woff2');
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;
+  src:url('fonts/jetbrains-mono-normal-400.woff2') format('woff2');}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;
+  src:url('fonts/jetbrains-mono-normal-500.woff2') format('woff2');}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:300 700;font-display:swap;
+  src:url('fonts/space-grotesk-normal-300-700.woff2') format('woff2');}
+
+/* ═══ 01 · BOARD TOKENS — shared with index.html; keep in sync ═══ */
+:root{
+  --steel:#0E1215;--steel-2:#141A1F;--flap:#F2F0EA;--flap-2:#DAD6CC;--dim:#8A969E;
+  --rule:#232C33;--rule-2:#333F47;--edge:#5E6A71;--amber:#D8A31A;--amber-ink:#0E1215;
+  --pad:clamp(20px,5vw,72px);--flip:cubic-bezier(.16,1,.3,1);
 }
-@font-face {
-  font-family: 'JetBrains Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('fonts/jetbrains-mono-normal-400.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 300 700;
-  font-display: swap;
-  src: url('fonts/space-grotesk-normal-300-700.woff2') format('woff2');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  background:var(--steel);color:var(--flap);
+  font-family:'Space Grotesk',system-ui,sans-serif;font-weight:400;
+  font-size:clamp(15px,1.05vw,16.5px);line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  font-variant-numeric:tabular-nums;font-feature-settings:'tnum' 1;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg: #0d0b08; --ivory: #f2ede3;
-  --dim: rgba(242,237,227,.58); --faint: rgba(242,237,227,.34);
-  --line: rgba(242,237,227,.1); --orange: #ff4d00;
-  --pad: clamp(20px, 4vw, 64px);
-}
-html { background: var(--bg); }
-body {
-  background: var(--bg); color: var(--ivory);
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px; line-height: 1.75;
-  -webkit-font-smoothing: antialiased;
-  min-height: 100svh; display: flex; flex-direction: column;
-}
-::selection { background: var(--orange); color: var(--bg); }
-a { color: inherit; }
-:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+/* ═══ 02 · BROWSER SURFACES ═══ */
+::selection{background:var(--amber);color:var(--amber-ink);}
+::-moz-selection{background:var(--amber);color:var(--amber-ink);}
+:root{scrollbar-color:var(--rule-2) var(--steel);scrollbar-width:thin;caret-color:var(--amber);}
+::-webkit-scrollbar{width:11px;height:11px;}
+::-webkit-scrollbar-track{background:var(--steel);}
+::-webkit-scrollbar-thumb{background:var(--rule-2);border:3px solid var(--steel);border-radius:0;}
+::-webkit-scrollbar-thumb:hover{background:var(--dim);}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
+a{color:inherit;text-decoration-color:var(--rule-2);text-underline-offset:.22em;text-decoration-thickness:1px;}
+a:hover{text-decoration-color:var(--amber);}
+.skip{position:absolute;left:-9999px;top:0;background:var(--amber);color:var(--amber-ink);
+  padding:12px 18px;font-family:'JetBrains Mono',monospace;font-size:12px;z-index:99;}
+.skip:focus{left:0;}
 
-.nav {
-  height: 72px; display: flex; align-items: center; justify-content: space-between;
-  padding: 0 var(--pad); border-bottom: 1px solid var(--line);
+/* ═══ 03 · BOARD PRIMITIVES ═══ */
+.wrap{max-width:1560px;margin:0 auto;padding-inline:var(--pad);}
+.strip{position:sticky;top:0;z-index:40;background:var(--steel-2);border-bottom:1px solid var(--rule);}
+.strip-in{display:flex;align-items:center;gap:clamp(14px,2.4vw,34px);
+  height:clamp(42px,5.2vh,52px);overflow:hidden;white-space:nowrap;}
+.strip-mark{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 125;
+  font-weight:900;font-size:clamp(12px,1.1vw,14px);letter-spacing:.02em;color:var(--flap);
+  margin-right:auto;text-transform:uppercase;text-decoration:none;}
+.strip-cta{font-family:'JetBrains Mono',monospace;font-size:clamp(11px,.9vw,12px);
+  letter-spacing:.08em;text-transform:uppercase;color:var(--amber);
+  border:1px solid var(--edge);padding:7px 13px;text-decoration:none;transition:.22s var(--flip);}
+.strip-cta:hover{background:var(--amber);color:var(--amber-ink);border-color:var(--amber);}
+.flap{display:inline-block;animation:flapin .5s var(--flip) both;}
+@keyframes flapin{
+  0%{transform:translateY(-38%) rotateX(-82deg);opacity:0;filter:blur(3px);}
+  100%{transform:none;opacity:1;filter:blur(0);}
 }
-.nav-logo {
-  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
-  font-weight: 900; font-size: 17px; text-decoration: none;
-}
-.nav-logo em { font-style: normal; color: var(--orange); }
-.back {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: .14em; text-transform: uppercase;
-  color: var(--faint); text-decoration: none; transition: color .2s;
-}
-.back:hover { color: var(--orange); }
+@media (prefers-reduced-motion:reduce){.flap{animation:none;}}
 
-main { flex: 1; max-width: 760px; padding: clamp(48px, 8vh, 90px) var(--pad) 80px; }
-.kicker {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: .2em; text-transform: uppercase; color: var(--orange);
-  display: block; margin-bottom: 14px;
+.board{border-top:1px solid var(--rule-2);}
+.board-head{display:grid;gap:clamp(10px,1.6vw,26px);align-items:center;
+  padding-block:13px;border-bottom:1px solid var(--rule);}
+.board-head span{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--dim);}
+.row{display:grid;gap:clamp(10px,1.6vw,26px);align-items:baseline;
+  padding-block:clamp(15px,2vh,21px);border-bottom:1px solid var(--rule);transition:background .2s ease;}
+.row:hover{background:var(--steel-2);}
+.t-main{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 125;font-weight:800;
+  font-size:clamp(16px,1.62vw,23px);letter-spacing:-.012em;color:var(--flap);line-height:1.3;}
+.flag{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.11em;
+  text-transform:uppercase;padding:5px 9px;border:1px solid currentColor;
+  display:inline-block;white-space:nowrap;line-height:1;}
+.flag.live{color:var(--amber);}
+.flag.done{color:var(--dim);}
+
+.ch{display:grid;grid-template-columns:clamp(84px,9vw,124px) minmax(0,1fr) 28px;
+  gap:clamp(10px,1.6vw,26px);align-items:baseline;text-decoration:none;
+  padding-block:clamp(16px,2.2vh,24px);border-bottom:1px solid var(--rule);transition:background .2s ease;}
+.ch:hover{background:var(--steel-2);}
+.ch-k{font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--dim);}
+.ch-v{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 125;font-weight:800;
+  font-size:clamp(16px,1.5vw,21px);letter-spacing:-.01em;color:var(--flap);word-break:break-word;}
+.ch-go{font-family:'JetBrains Mono',monospace;font-size:15px;color:var(--rule-2);
+  justify-self:end;transition:.22s var(--flip);}
+.ch:hover .ch-go{color:var(--amber);transform:translateX(4px);}
+
+.foot{border-top:1px solid var(--rule);padding-block:clamp(26px,4vh,42px) clamp(34px,5vh,56px);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center;}
+.foot-mono{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--dim);
+  letter-spacing:.09em;text-transform:uppercase;}
+.foot-note{font-size:13px;color:var(--dim);}
+.foot a{color:var(--dim);text-decoration:none;display:inline-block;padding-block:8px;}
+.foot a:hover{color:var(--amber);}
+
+@media (max-width:560px){ .strip-in{gap:10px;} }
+@media (max-width:440px){ .strip-in{gap:7px;} .strip-cta{padding:7px 10px;} }
+@media (max-width:760px){
+  .board-head{display:none;}
+  .row{padding-block:20px;}
+  .ch{grid-template-columns:1fr 28px;gap:4px 10px;}
+  .ch-k{grid-column:1/-1;}
 }
-h1 {
-  font-family: 'Archivo', sans-serif; font-variation-settings: 'wdth' 125;
-  font-weight: 900; text-transform: uppercase;
-  font-size: clamp(34px, 6vw, 64px); line-height: .95; letter-spacing: -.02em;
-  margin-bottom: 18px;
-}
-.updated {
-  font-family: 'JetBrains Mono', monospace; font-size: 11px;
-  letter-spacing: .1em; color: var(--faint); display: block; margin-bottom: 40px;
-}
-h2 {
-  font-family: 'JetBrains Mono', monospace; font-size: 12px;
-  letter-spacing: .18em; text-transform: uppercase; color: var(--orange);
-  margin: 36px 0 10px; padding-top: 24px; border-top: 1px solid var(--line);
-}
-p { color: var(--dim); margin-bottom: 12px; }
-p strong { color: var(--ivory); font-weight: 500; }
-p a { color: var(--ivory); text-underline-offset: 3px; }
-p a:hover { color: var(--orange); }
-code {
-  font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
-  color: var(--ivory); background: rgba(242,237,227,.06);
-  padding: 1px 6px; border-radius: 4px;
-}
-footer {
-  border-top: 1px solid var(--line);
-  padding: 22px var(--pad);
-  font-family: 'JetBrains Mono', monospace; font-size: 10px;
-  letter-spacing: .14em; text-transform: uppercase; color: var(--faint);
+
+/* ═══ PRIVACY — the notice as a board: one row per data practice ═══ */
+.pv{padding-block:clamp(44px,8vh,104px) clamp(56px,9vh,116px);}
+.pv h1{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 125;font-weight:900;
+  text-transform:uppercase;font-size:clamp(40px,7.4vw,104px);line-height:.88;
+  letter-spacing:-.035em;color:var(--flap);}
+.pv-stamp{margin-top:clamp(16px,2.4vh,24px);font-family:'JetBrains Mono',monospace;
+  font-size:clamp(11px,1vw,13px);letter-spacing:.06em;color:var(--dim);text-transform:uppercase;}
+.pv-lede{margin-top:clamp(22px,3.4vh,36px);max-width:62ch;color:var(--flap-2);
+  font-size:clamp(16px,1.35vw,20px);line-height:1.62;}
+.pv-lede b{color:var(--flap);font-weight:600;}
+.pv-legend{margin-top:18px;max-width:62ch;color:var(--dim);font-size:clamp(13.5px,1.08vw,15.5px);line-height:1.65;}
+.pv-legend .flag{margin-inline:2px;vertical-align:.08em;}
+.pv .board{margin-top:clamp(34px,5.4vh,60px);}
+.pv-cols{grid-template-columns:clamp(132px,14vw,200px) minmax(0,1fr) clamp(108px,9.6vw,136px);}
+.pv-cols > :last-child{justify-self:start;}
+.pv-d{color:var(--flap-2);font-size:clamp(13.5px,1.08vw,15.5px);line-height:1.66;max-width:68ch;}
+.pv-d p + p{margin-top:10px;}
+.pv-d b{color:var(--flap);font-weight:600;}
+.pv-d code{font-family:'JetBrains Mono',monospace;font-size:.88em;color:var(--flap);}
+.pv-q{margin-top:clamp(40px,6vh,72px);display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+  gap:clamp(24px,5vw,80px);align-items:start;}
+.pv-q h2{font-family:'Archivo',sans-serif;font-variation-settings:'wdth' 125;font-weight:900;
+  text-transform:uppercase;font-size:clamp(26px,3.6vw,48px);line-height:.92;letter-spacing:-.03em;}
+.pv-q p{margin-top:12px;color:var(--dim);font-size:clamp(13.5px,1.08vw,15.5px);max-width:42ch;}
+@media (max-width:760px){
+  .pv-cols{grid-template-columns:minmax(0,1fr) auto;gap:10px 14px;}
+  .pv-cols > .pv-d{grid-column:1/-1;order:3;}
+  .pv-q{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<header class="nav">
-  <a class="nav-logo" href="./">WM<em>©</em>26</a>
-  <a class="back" href="./">← Back to site</a>
-</header>
+<div class="strip">
+  <div class="wrap strip-in">
+    <a class="strip-mark flap" href="./">Wasi Mahin</a>
+    <a class="strip-cta" href="./">Back to the site</a>
+  </div>
+</div>
 
-<main>
-  <span class="kicker">( Privacy )</span>
-  <h1>Privacy<br/>Notice</h1>
-  <span class="updated">Last updated: September 22, 2026</span>
+<main id="main" class="wrap pv">
+  <h1 class="flap">Privacy</h1>
+  <p class="pv-stamp">Last updated 23 Sep 2026</p>
 
-  <p>This is the personal portfolio of Wasi Mahin. The short version: <strong>no cookies, no
-  accounts, no ads, and nothing that follows you around the web.</strong> One thing does collect
-  data — cookieless visitor analytics — and it is described below, in full. There is no contact
-  form; reaching me means emailing me.</p>
+  <p class="pv-lede">This is the personal portfolio of Wasi Mahin. The short version: <b>no cookies, no
+    accounts, no ads, and nothing that follows you around the web.</b> One thing does collect
+    data — cookieless visitor analytics — and it is described below, in full. There is no contact
+    form; reaching me means emailing me.</p>
+  <p class="pv-legend">Rows flagged <span class="flag live">Active</span> are the only places data
+    about a visit is processed. All three run at Cloudflare, which hosts the site.</p>
 
-  <h2>Browser storage</h2>
-  <p>The site stores nothing in your browser — no cookies, no <code>localStorage</code>,
-  no <code>sessionStorage</code>.</p>
+  <div class="board">
+    <div class="board-head pv-cols"><span>Item</span><span>What happens</span><span>Status</span></div>
+    <div class="row pv-cols">
+      <div class="t-main">Cookies</div>
+      <div class="pv-d"><p>None are set. No accounts, no ads, and nothing that follows you around the web.</p></div>
+      <div><span class="flag done">None</span></div>
+    </div>
+    <div class="row pv-cols">
+      <div class="t-main">Browser storage</div>
+      <div class="pv-d"><p>The site stores nothing in your browser — no cookies, no <code>localStorage</code>, no <code>sessionStorage</code>.</p></div>
+      <div><span class="flag done">None</span></div>
+    </div>
+    <div class="row pv-cols">
+      <div class="t-main">Analytics</div>
+      <div class="pv-d"><p>This site uses <b>Cloudflare Web Analytics</b>. It is switched on deliberately,
+        so I can see whether the work here reaches anyone.</p>
+        <p>It is <b>cookieless</b>. It does not fingerprint your device, does not build a
+        profile of you, and cannot follow you to other websites. What it records is aggregate: page
+        views, referring site, country, browser and device type. I can see that a page was viewed
+        from a country. I cannot see who you are.</p>
+        <p>The data is processed by Cloudflare under the
+        <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare
+        Privacy Policy</a>. Blocking it changes nothing — a content blocker will stop the beacon
+        loading and the page behaves identically.</p></div>
+      <div><span class="flag live">Active</span></div>
+    </div>
+    <div class="row pv-cols">
+      <div class="t-main">Hosting</div>
+      <div class="pv-d"><p>The site is served by <b>Cloudflare Pages</b>. Like most hosts, Cloudflare may
+        log visitor IP addresses and basic request data for security and operational purposes. That
+        logging is governed by the
+        <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare
+        Privacy Policy</a>; I never see or store that data.</p></div>
+      <div><span class="flag live">Active</span></div>
+    </div>
+    <div class="row pv-cols">
+      <div class="t-main">Security</div>
+      <div class="pv-d"><p>Cloudflare runs automated bot and abuse detection in front of this site. That is standard
+        for any site on their network and is how it stays online. It is a security measure, not
+        analytics, and it is not used to build a profile of you.</p></div>
+      <div><span class="flag live">Active</span></div>
+    </div>
+    <div class="row pv-cols">
+      <div class="t-main">Fonts &amp; assets</div>
+      <div class="pv-d"><p>Every font, image and script that makes up this page is <b>self-hosted</b>.
+        There is no font CDN, no social widget, no advertising network and no tag manager. The only
+        request that leaves this origin is the analytics beacon described above, and it is served by
+        the same company that already hosts the site.</p></div>
+      <div><span class="flag done">Self-hosted</span></div>
+    </div>
+    <div class="row pv-cols">
+      <div class="t-main">External links</div>
+      <div class="pv-d"><p>Links to LinkedIn, GitHub, and email open services with their own privacy policies.
+        Once you leave this site, their rules apply, not mine.</p></div>
+      <div><span class="flag done">Off-site</span></div>
+    </div>
+    <div class="row pv-cols">
+      <div class="t-main">Email</div>
+      <div class="pv-d"><p>If you email me, I use your message and address only to reply. Nothing is added to
+        mailing lists or shared with anyone.</p></div>
+      <div><span class="flag done">Reply only</span></div>
+    </div>
+  </div>
 
-  <h2>Hosting</h2>
-  <p>The site is served by <strong>Cloudflare Pages</strong>. Like most hosts, Cloudflare may
-  log visitor IP addresses and basic request data for security and operational purposes. That
-  logging is governed by the
-  <a href="https://www.cloudflare.com/privacypolicy/"
-     target="_blank" rel="noopener">Cloudflare Privacy Policy</a>; I never see or
-  store that data.</p>
-
-  <h2>Fonts &amp; assets</h2>
-  <p>Every font, image and script that makes up this page is <strong>self-hosted</strong>.
-  There is no font CDN, no social widget, no advertising network and no tag manager. The only
-  request that leaves this origin is the analytics beacon described above, and it is served by
-  the same company that already hosts the site.</p>
-
-  <h2>Analytics</h2>
-  <p>This site uses <strong>Cloudflare Web Analytics</strong>. It is switched on deliberately,
-  so I can see whether the work here reaches anyone.</p>
-  <p>It is <strong>cookieless</strong>. It does not fingerprint your device, does not build a
-  profile of you, and cannot follow you to other websites. What it records is aggregate: page
-  views, referring site, country, browser and device type. I can see that a page was viewed
-  from a country. I cannot see who you are.</p>
-  <p>The data is processed by Cloudflare under the
-  <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare
-  Privacy Policy</a>. Blocking it changes nothing — a content blocker will stop the beacon
-  loading and the page behaves identically.</p>
-
-  <h2>Security</h2>
-  <p>Cloudflare runs automated bot and abuse detection in front of this site. That is standard
-  for any site on their network and is how it stays online. It is a security measure, not
-  analytics, and it is not used to build a profile of you.</p>
-
-  <h2>External links</h2>
-  <p>Links to LinkedIn, GitHub, and email open services with their own privacy policies.
-  Once you leave this site, their rules apply, not mine.</p>
-
-  <h2>Email</h2>
-  <p>If you email me at <a href="mailto:wasimahin@gmail.com">wasimahin@gmail.com</a>,
-  I use your message and address only to reply. Nothing is added to mailing lists or
-  shared with anyone.</p>
-
-  <h2>Questions</h2>
-  <p>Anything unclear, or want something corrected? Email me — I reply fast.</p>
+  <section class="pv-q" aria-labelledby="pv-q-h">
+    <div>
+      <h2 id="pv-q-h">Questions</h2>
+      <p>Anything unclear, or want something corrected? Email me — I reply fast.</p>
+    </div>
+    <div class="board">
+      <!--email_off-->
+      <a class="ch" href="mailto:wasimahin@gmail.com">
+        <span class="ch-k">Email</span>
+        <span class="ch-v">wasimahin@gmail.com</span>
+        <span class="ch-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <!--/email_off-->
+    </div>
+  </section>
 </main>
 
-<footer>© 2026 Wasi Mahin</footer>
+<footer class="wrap foot">
+  <span class="foot-mono">Wasi Mahin — Long Beach, CA</span>
+  <span class="foot-note"><a href="./">wasimahin.com</a> &nbsp;·&nbsp; Built from scratch. Cookieless analytics, nothing that follows you.</span>
+</footer>
 
 </body>
 </html>
