@@ -131,6 +131,7 @@ a:hover{text-decoration-color:var(--amber);}
 .nf-path{font-family:'JetBrains Mono',monospace;font-size:clamp(14px,1.3vw,18px);color:var(--flap);
   word-break:break-all;}
 .nf-path .flap{display:inline-block;white-space:pre;}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;}
 @media (max-width:760px){
   .nf-cols{grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;}
   .nf-cols > .ch-k{grid-column:1/-1;}
@@ -194,20 +195,30 @@ a:hover{text-decoration-color:var(--amber);}
   var p=location.pathname;
   try{ p=decodeURIComponent(p); }catch(e){}
   var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var f=document.querySelectorAll('.strip-mark.flap, h1.flap');
-  if(reduce || p.length>48){ el.textContent=p; return; }
-  for(var i=0;i<f.length;i++){ f[i].style.animationDelay=(i*70)+'ms'; }
-  el.textContent='';
-  for(var j=0;j<p.length;j++){
-    var s=document.createElement('span');
-    s.className='flap';
-    s.textContent=p.charAt(j);
-    s.style.animationDelay=(180+j*26)+'ms';
-    el.appendChild(s);
-  }
-  el.setAttribute('aria-label', p);
+  var animate=!reduce && p.length<=48;
+  var i, j, f=document.querySelectorAll('.strip-mark.flap, h1.flap');
+  /* timing first, so every path length keeps the order: strip, numeral, path, NOT FOUND last */
+  if(!reduce){ for(i=0;i<f.length;i++){ f[i].style.animationDelay=(i*70)+'ms'; } }
   var flag=document.getElementById('nf-flag');
-  if(flag){ flag.style.animationDelay=(260+p.length*26)+'ms'; }
+  if(flag && !reduce){ flag.style.animationDelay=(animate ? 260+p.length*26 : 260)+'ms'; }
+  /* screen readers get one clean string; the per-character flaps are hidden from them */
+  var vis=document.createElement('span');
+  vis.setAttribute('aria-hidden','true');
+  if(animate){
+    for(j=0;j<p.length;j++){
+      var s=document.createElement('span');
+      s.className='flap';
+      s.textContent=p.charAt(j);
+      s.style.animationDelay=(180+j*26)+'ms';
+      vis.appendChild(s);
+    }
+  } else { vis.textContent=p; }
+  var sr=document.createElement('span');
+  sr.className='vh';
+  sr.textContent=p;
+  el.textContent='';
+  el.appendChild(vis);
+  el.appendChild(sr);
 })();
 </script>
 </body>
