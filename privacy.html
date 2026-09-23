@@ -131,7 +131,7 @@ a:hover{text-decoration-color:var(--amber);}
 .pv-lede b{color:var(--flap);font-weight:600;}
 .pv-legend{margin-top:18px;max-width:62ch;color:var(--dim);font-size:clamp(13.5px,1.08vw,15.5px);line-height:1.65;}
 .pv-legend .flag{margin-inline:2px;vertical-align:.08em;}
-.pv .board{margin-top:clamp(34px,5.4vh,60px);}
+.pv > .board{margin-top:clamp(34px,5.4vh,60px);}
 .pv-cols{grid-template-columns:clamp(132px,14vw,200px) minmax(0,1fr) clamp(108px,9.6vw,136px);}
 .pv-cols > :last-child{justify-self:start;}
 .pv-d{color:var(--flap-2);font-size:clamp(13.5px,1.08vw,15.5px);line-height:1.66;max-width:68ch;}
@@ -195,7 +195,7 @@ a:hover{text-decoration-color:var(--amber);}
         <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare
         Privacy Policy</a>. Blocking it changes nothing — a content blocker will stop the beacon
         loading and the page behaves identically.</p></div>
-      <div><span class="flag live">Active</span></div>
+      <div><span class="flag live flap">Active</span></div>
     </div>
     <div class="row pv-cols">
       <div class="t-main">Hosting</div>
@@ -204,22 +204,23 @@ a:hover{text-decoration-color:var(--amber);}
         logging is governed by the
         <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare
         Privacy Policy</a>; I never see or store that data.</p></div>
-      <div><span class="flag live">Active</span></div>
+      <div><span class="flag live flap">Active</span></div>
     </div>
     <div class="row pv-cols">
       <div class="t-main">Security</div>
       <div class="pv-d"><p>Cloudflare runs automated bot and abuse detection in front of this site. That is standard
         for any site on their network and is how it stays online. It is a security measure, not
         analytics, and it is not used to build a profile of you.</p></div>
-      <div><span class="flag live">Active</span></div>
+      <div><span class="flag live flap">Active</span></div>
     </div>
     <div class="row pv-cols">
       <div class="t-main">Fonts &amp; assets</div>
-      <div class="pv-d"><p>Every font, image and script that makes up this page is <b>self-hosted</b>.
-        There is no font CDN, no social widget, no advertising network and no tag manager. The only
-        request that leaves this origin is the analytics beacon described above, and it is served by
-        the same company that already hosts the site.</p></div>
-      <div><span class="flag done">Self-hosted</span></div>
+      <div class="pv-d"><p>Every font and image, and every script I wrote, is <b>self-hosted</b>.
+        There is no font CDN, no social widget, no advertising network and no tag manager.</p>
+        <p>One script is the exception: the analytics beacon described above loads from
+        <code>static.cloudflareinsights.com</code>, run by the same company that already hosts the
+        site. What it sends comes back to this site's own address, not to a third party.</p></div>
+      <div><span class="flag done">1 exception</span></div>
     </div>
     <div class="row pv-cols">
       <div class="t-main">External links</div>
@@ -257,5 +258,15 @@ a:hover{text-decoration-color:var(--amber);}
   <span class="foot-note"><a href="./">wasimahin.com</a> &nbsp;·&nbsp; Built from scratch. Cookieless analytics, nothing that follows you.</span>
 </footer>
 
+<script>
+(function(){
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var f=document.querySelectorAll('.flap'), k=0;
+  for(var i=0;i<f.length;i++){
+    if(f[i].classList.contains('flag')){ f[i].style.animationDelay=(420+k*140)+'ms'; k++; }
+    else { f[i].style.animationDelay=(i*70)+'ms'; }
+  }
+})();
+</script>
 </body>
 </html>

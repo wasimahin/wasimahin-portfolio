@@ -128,15 +128,12 @@ a:hover{text-decoration-color:var(--amber);}
 /* first column matches .ch below so the two stacked boards share one left edge */
 .nf-cols{grid-template-columns:clamp(84px,9vw,124px) minmax(0,1fr) clamp(108px,9.6vw,136px);}
 .nf-cols > :last-child{justify-self:start;}
-.nf-k{font-family:'JetBrains Mono',monospace;font-size:clamp(11px,1vw,13px);color:var(--dim);
-  letter-spacing:.06em;text-transform:uppercase;}
 .nf-path{font-family:'JetBrains Mono',monospace;font-size:clamp(14px,1.3vw,18px);color:var(--flap);
   word-break:break-all;}
-.nf-go{margin-top:clamp(40px,6vh,72px);}
-.nf-go .board-head{grid-template-columns:1fr;}
+.nf-path .flap{display:inline-block;white-space:pre;}
 @media (max-width:760px){
   .nf-cols{grid-template-columns:minmax(0,1fr) auto;gap:8px 14px;}
-  .nf-cols > .nf-k{grid-column:1/-1;}
+  .nf-cols > .ch-k{grid-column:1/-1;}
 }
 </style>
 </head>
@@ -156,15 +153,11 @@ a:hover{text-decoration-color:var(--amber);}
 
   <div class="board">
     <div class="row nf-cols">
-      <div class="nf-k">Requested</div>
+      <div class="ch-k">Requested</div>
       <div class="nf-path" id="nf-path">This address</div>
-      <div><span class="flag live">Not found</span></div>
+      <div><span class="flag live flap" id="nf-flag">Not found</span></div>
     </div>
-  </div>
-
-  <nav class="nf-go" aria-label="Where to go instead">
-    <div class="board">
-      <div class="board-head"><span>Go to</span></div>
+    <nav aria-label="Where to go instead">
       <a class="ch" href="/">
         <span class="ch-k">Home</span>
         <span class="ch-v">wasimahin.com</span>
@@ -185,13 +178,13 @@ a:hover{text-decoration-color:var(--amber);}
         <span class="ch-v">Contact</span>
         <span class="ch-go" aria-hidden="true">&rarr;</span>
       </a>
-    </div>
-  </nav>
+    </nav>
+  </div>
 </main>
 
 <footer class="wrap foot">
   <span class="foot-mono">Wasi Mahin — Long Beach, CA</span>
-  <span class="foot-note"><a href="/privacy">Privacy</a></span>
+  <span class="foot-note"><a href="/privacy">Privacy</a> &nbsp;·&nbsp; Built from scratch. Cookieless analytics, nothing that follows you.</span>
 </footer>
 
 <script>
@@ -200,7 +193,21 @@ a:hover{text-decoration-color:var(--amber);}
   if(!el) return;
   var p=location.pathname;
   try{ p=decodeURIComponent(p); }catch(e){}
-  el.textContent=p;
+  var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var f=document.querySelectorAll('.strip-mark.flap, h1.flap');
+  if(reduce || p.length>48){ el.textContent=p; return; }
+  for(var i=0;i<f.length;i++){ f[i].style.animationDelay=(i*70)+'ms'; }
+  el.textContent='';
+  for(var j=0;j<p.length;j++){
+    var s=document.createElement('span');
+    s.className='flap';
+    s.textContent=p.charAt(j);
+    s.style.animationDelay=(180+j*26)+'ms';
+    el.appendChild(s);
+  }
+  el.setAttribute('aria-label', p);
+  var flag=document.getElementById('nf-flag');
+  if(flag){ flag.style.animationDelay=(260+p.length*26)+'ms'; }
 })();
 </script>
 </body>
