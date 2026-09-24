@@ -6,3 +6,5 @@ WEBSITE.md
 PRODUCT.md
 DESIGN.md
 .impeccable/
+# provenance sidecars (impeccable embed-prompt) — local record, not for publishing
+*.webp.json
