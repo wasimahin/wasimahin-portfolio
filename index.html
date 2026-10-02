@@ -179,6 +179,9 @@ a:hover{text-decoration-color:var(--amber);}
   letter-spacing:.08em;text-transform:uppercase;color:var(--amber);
   border:1px solid var(--edge);padding:7px 13px;text-decoration:none;transition:.22s var(--flip);}
 .strip-cta:hover{background:var(--amber);color:var(--amber-ink);border-color:var(--amber);}
+/* résumé download — secondary to the amber CTA: flap ink, flap fill on hover */
+.strip-cv{color:var(--flap);}
+.strip-cv:hover{background:var(--flap);color:var(--steel);border-color:var(--flap);}
 
 /* the flap — one authored motion moment */
 .flap{display:inline-block;animation:flapin .5s var(--flip) both;}
@@ -378,7 +381,8 @@ a:hover{text-decoration-color:var(--amber);}
 /* ═══ 13 · NARROW BOARD ═══ */
 /* the strip sheds detail rather than clipping */
 @media (max-width:560px){ .strip-in{gap:10px;} }
-@media (max-width:440px){ .strip-in{gap:7px;} .strip-cta{padding:7px 10px;} }
+@media (max-width:440px){ .strip-in{gap:7px;} .strip-cta{padding:7px 10px;} .strip-dl{display:none;} }
+@media (max-width:374px){ .strip-cta{padding:7px 8px;letter-spacing:.05em;} }
 @media (max-width:359px){ .strip-in{gap:8px;} }
 
 @media (max-width:760px){
@@ -399,6 +403,7 @@ a:hover{text-decoration-color:var(--amber);}
   <div class="wrap strip-in">
     <span class="strip-mark flap">Wasi Mahin</span>
     <span class="mono flap hide-s">Financial Systems Assistant · CSULB</span>
+    <a class="strip-cta strip-cv" href="WasiMahin_Resume.pdf?v=20261002" download="WasiMahin_Resume.pdf" aria-label="Download résumé (PDF)">Résumé<span class="strip-dl" aria-hidden="true"> &darr;</span></a>
     <a class="strip-cta" href="#contact">Get in touch</a>
   </div>
 </div>
@@ -652,7 +657,7 @@ a:hover{text-decoration-color:var(--amber);}
         <span class="ch-v">/wasimahin</span>
         <span class="ch-go" aria-hidden="true">&rarr;</span>
       </a>
-      <a class="ch" href="WasiMahin_Resume.pdf">
+      <a class="ch" href="WasiMahin_Resume.pdf?v=20261002" download="WasiMahin_Resume.pdf">
         <span class="ch-k">Résumé</span>
         <span class="ch-v">Download PDF</span>
         <span class="ch-go" aria-hidden="true">&rarr;</span>
