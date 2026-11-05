@@ -2,7 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://wasimahin.com/</loc>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimahin.com/business-central-invoice-automation</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimahin.com/business-central-journal-entry-automation</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimahin.com/tahur</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimahin.com/american-dream-datathon</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimahin.com/WasiMahin_Resume.pdf</loc>
+    <lastmod>2026-10-22</lastmod>
   </url>
 </urlset>
